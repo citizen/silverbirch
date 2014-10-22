@@ -8,6 +8,13 @@ Creating a tool to measure cycletime.
 * Version 0.0
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
+### What tools are we using? ###
+
+* hello.js
+* deployd
+* firebase
+* node
+
 ### How do I get set up? ###
 
 * Summary of set up
