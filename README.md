@@ -1,11 +1,11 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Creating a tool to measure cycletime.
 
 ### What is this repository for? ###
 
 * Quick summary
-* Version
+* Version 0.0
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###
