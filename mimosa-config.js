@@ -1,5 +1,5 @@
 exports.config = {
-  "modules": [
+  modules: [
     "copy",
     "server",
     "jshint",
@@ -13,9 +13,14 @@ exports.config = {
     "react",
     "server-template-compile"
   ],
-  "server": {
-    "defaultServer": {
-      "enabled": true
+  server: {
+    defaultServer: {
+      enabled: true
+    }
+  },
+  bower: {
+    bowerDir: {
+      clean: false
     }
   }
 };

@@ -1,10 +1,8 @@
 /** @jsx React.DOM */
+/* jshint scripturl:true */
 
-// Simple pure-React button
-var BootstrapButton = React.createClass({
+var BaseButton = React.createClass({
   render: function() {
-    // transferPropsTo() is smart enough to merge classes provided
-    // to this component.
     return this.transferPropsTo(
       <a href="javascript:;" role="button" className="btn">
 	{this.props.children}
@@ -13,41 +11,55 @@ var BootstrapButton = React.createClass({
   }
 });
 
-var BootstrapModal = React.createClass({
-  // The following two methods are the only places we need to
-  // integrate with Bootstrap or jQuery!
-  componentDidMount: function() {
-    // When the component is added, turn it into a modal
+var TaskList = React.createClass({
+  render: function() {
+    var createItem = function(item, index) {
+      return [
+	<dt key={ index }>{ item.title }</dt>,
+	<dd>{ item.description }</dd>
+      ];
+    };
+    return <dl className="dl-horizontal">{ this.props.tasks.map(createItem) }</dl>;
+  }
+});
+
+var BaseModal = React.createClass({
+  componentDidMount: function () {
     $(this.getDOMNode())
       .modal({backdrop: 'static', keyboard: false, show: false});
   },
+
   componentWillUnmount: function() {
     $(this.getDOMNode()).off('hidden', this.handleHidden);
   },
+
   close: function() {
     $(this.getDOMNode()).modal('hide');
   },
+
   open: function() {
     $(this.getDOMNode()).modal('show');
   },
-  render: function() {
+
+  render: function () {
     var confirmButton = null;
     var cancelButton = null;
 
     if (this.props.confirm) {
       confirmButton = (
-	<BootstrapButton
+	  <BaseButton
 	  onClick={this.handleConfirm}
 	  className="btn-primary">
 	  {this.props.confirm}
-	</BootstrapButton>
+	</BaseButton>
       );
     }
+
     if (this.props.cancel) {
       cancelButton = (
-	<BootstrapButton onClick={this.handleCancel} className="btn-default">
+	<BaseButton onClick={this.handleCancel} className="btn-default">
 	  {this.props.cancel}
-	</BootstrapButton>
+	</BaseButton>
       );
     }
 
@@ -60,7 +72,7 @@ var BootstrapModal = React.createClass({
 		type="button"
 		className="close"
 		onClick={this.handleCancel}>
-		&times;
+		x
 	      </button>
 	      <h3>{this.props.title}</h3>
 	    </div>
@@ -76,11 +88,13 @@ var BootstrapModal = React.createClass({
       </div>
     );
   },
+
   handleCancel: function() {
     if (this.props.onCancel) {
       this.props.onCancel();
     }
   },
+
   handleConfirm: function() {
     if (this.props.onConfirm) {
       this.props.onConfirm();
@@ -88,44 +102,96 @@ var BootstrapModal = React.createClass({
   }
 });
 
-var Example = React.createClass({
+/**
+ * Global app component
+ */
+var TaskApp = React.createClass({
+  mixins: [ReactFireMixin],
+
+  getInitialState: function() {
+    return {
+      tasks: [],
+      data: {
+	title: "",
+	description: ""
+      }
+    };
+  },
+
+  componentWillMount: function() {
+    var db = new Firebase("https://jkilla.firebaseio.com/tasks/");
+    this.bindAsArray(db, "tasks");
+  },
+
+  updateTitle: function(e) {
+    this.setState({title: e.target.value});
+  },
+
+  updateDescription: function(e) {
+    this.setState({description: e.target.value});
+  },
+
+  handleSubmit: function(e) {
+    // TODO: fix e.preventDefault() for <a> click
+    if (this.state.title && this.state.title.trim().length !== 0) {
+      this.firebaseRefs.tasks.push({
+	title: this.state.title,
+	description: this.state.description
+      });
+
+      this.setState({
+	title: "",
+	description: ""
+      });
+
+      this.closeModal();
+    }
+  },
+
+  openModal: function(e) {
+    event.preventDefault();
+    this.refs.modal.open();
+  },
+
+  closeModal: function() {
+    this.refs.modal.close();
+  },
+
   render: function() {
     var modal = null;
     modal = (
-      <BootstrapModal
+      <BaseModal
 	ref="modal"
 	confirm="Do it!"
 	cancel="Cancel"
 	onCancel={this.closeModal}
-	onConfirm={this.closeModal}
+	onConfirm={this.handleSubmit}
 	title="Create a new task">
-	  <form role="form">
-	    <div class="form-group">
-	      <label for="title">Title</label>
-	      <input type="email" class="form-control" id="title" placeholder=""/>
+	  <form onSubmit={ this.handleSubmit } role="form">
+	    <div className="form-group">
+	      <label htmlFor="title">Title</label>
+	      <input type="text" id="title" className="form-control" onChange={ this.updateTitle } value={ this.state.title } />
 	    </div>
-	    <div class="form-group">
-	      <label for="description">Description</label>
-	      <textarea type="password" class="form-control" id="description" placeholder=""></textarea>
+	    <div className="form-group">
+	      <label htmlFor="description">Description</label>
+	      <input type="text" id="description" className="form-control" onChange={ this.updateDescription } value={ this.state.description } />
 	    </div>
+	    {/* TODO: handle submitting the form with enter key */}
 	  </form>
-      </BootstrapModal>
+      </BaseModal>
     );
+
     return (
-      <div className="example">
+      <div>
 	{modal}
-	<BootstrapButton onClick={this.openModal} className="btn-default">
+	<BaseButton onClick={this.openModal} className="btn-default">
 	  New task
-	</BootstrapButton>
+	</BaseButton>
+
+	<TaskList tasks={ this.state.tasks } />
       </div>
     );
-  },
-  openModal: function() {
-    this.refs.modal.open();
-  },
-  closeModal: function() {
-    this.refs.modal.close();
   }
 });
 
-React.renderComponent(<Example />, document.getElementById('app'));
+React.renderComponent(<TaskApp />, document.getElementById("app"));
