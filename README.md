@@ -17,16 +17,16 @@
 #### Summary
 
 1. Install node.js
-  * either [download the installer](http://nodejs.org/download/)
-  * or `brew install node`
+    * either [download the installer](http://nodejs.org/download/)
+    * or `brew install node`
 1. Clone this repo
-  * `git clone git@bitbucket.org:jkillas/jkilla.git && cd jkilla`
+    * `git clone git@bitbucket.org:jkillas/jkilla.git && cd jkilla`
 1. Grab the dependancies
-  * `npm install`
+    * `npm install`
 1. Run the build tool
-  * `mimosa watch -s`
+    * `mimosa watch -s`
 1. Check it out
-  * http://localhost:3000
+    * http://localhost:3000
 
 #### Configuration
 
@@ -41,9 +41,9 @@ Coming soon
 If you're happy with the way it looks locally...
 
 1. Setup the firebase command line tool
-  * `npm install -g firebase-tools`
+    * `npm install -g firebase-tools`
 2. Deploy to Firebase
-  * firebase deploy
+    * firebase deploy
 3. Profit!
 
 ### Contribution guidelines ###
