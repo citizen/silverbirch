@@ -21,8 +21,8 @@
     * or `brew install node`
 1. Clone this repo
     * `git clone git@bitbucket.org:jkillas/jkilla.git && cd jkilla`
-1. Grab the dependancies
-    * `npm install`
+1. Install the build tool
+    * `npm install -g mimosa`
 1. Run the build tool
     * `mimosa watch -s`
 1. Check it out
