@@ -1,16 +1,17 @@
 exports.config = {
   modules: [
+    "sass",
     "copy",
+    "bower",
+    "react",
     "server",
     "jshint",
     "csslint",
-    // "require",
+    "defeature",
     "minify-js",
     "minify-css",
+    "browserify",
     "live-reload",
-    "bower",
-    "sass",
-    "react",
     "server-template-compile"
   ],
   server: {
@@ -21,6 +22,23 @@ exports.config = {
   bower: {
     bowerDir: {
       clean: false
+    },
+    copy: {
+      mainOverrides: {
+        reactfire: [
+          "dist/reactfire.js"
+        ]
+      }
+    }
+  },
+  browserify: {
+    bundles:[{
+      entries: ['javascripts/main.js'],
+      outputFile: 'main.js'
+    }],
+    firebase: {
+      path: 'javascripts/vendor/firebase/firebase',
+      exports: 'Firebase'
     }
   }
 };
