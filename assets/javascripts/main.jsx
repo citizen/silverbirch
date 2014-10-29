@@ -1,6 +1,7 @@
 require('./vendor/firebase/firebase');
 
-var React           = require('./vendor/react/react'),
+var config          = require('./config'),
+    React           = require('./vendor/react/react'),
     ReactFireMixin  = require('./vendor/reactfire/reactfire'),
     BaseButton      = require('./components/base-button'),
     BaseModal       = require('./components/base-modal'),
@@ -20,7 +21,7 @@ var TaskApp = React.createClass({
   },
 
   componentWillMount: function() {
-    var db = new Firebase("https://jkilla.firebaseio.com/tasks/");
+    var db = new Firebase(config.db + "/tasks");
     this.bindAsArray(db, "tasks");
   },
 
