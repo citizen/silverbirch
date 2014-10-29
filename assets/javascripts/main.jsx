@@ -15,7 +15,8 @@ var TaskApp = React.createClass({
       tasks: [],
       data: {
       	title: "",
-      	description: ""
+      	description: "",
+        created: 0
       }
     };
   },
@@ -38,12 +39,14 @@ var TaskApp = React.createClass({
     if (this.state.title && this.state.title.trim().length !== 0) {
       this.firebaseRefs.tasks.push({
       	title: this.state.title,
-      	description: this.state.description
+      	description: this.state.description,
+        created: Date.now()
       });
 
       this.setState({
       	title: "",
-      	description: ""
+      	description: "",
+        created: 0
       });
 
       this.closeModal();
