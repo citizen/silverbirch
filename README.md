@@ -23,10 +23,14 @@
     * `git clone git@bitbucket.org:jkillas/jkilla.git && cd jkilla`
 1. Install the build tool
     * `npm install -g mimosa`
-1. Run the build tool
-    * `mimosa watch -s`
+1. Run the build tool (currently having to clear the previous run)
+    * `mimosa watch -cs`
 1. Check it out
     * http://localhost:3000
+
+Unfortunately, if you make a chanege whilst `mimosa watch` is running you'll have to stop and start the process:  
+* `Ctrl + C` to kill the process
+* `mimosa clear -cs`
 
 #### Configuration
 
@@ -40,11 +44,12 @@ Coming soon
 
 If you're happy with the way it looks locally...
 
-1. Setup the firebase command line tool
+1. Install the firebase command line tools
     * `npm install -g firebase-tools`
-2. Deploy to Firebase
+2. Build the project
+    * `mimosa build -P prod`
+3. Deploy to Firebase
     * firebase deploy
-3. Profit!
 
 ### Contribution guidelines ###
 

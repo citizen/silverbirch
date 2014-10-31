@@ -3,6 +3,6 @@
   "version": "0.0.1",
   "description": "A Mimosa starter skeleton",
   "devDependencies": {
-    "mimosa-sass": "*"
+    "node-sass": "^1.1.4"
   }
 }
