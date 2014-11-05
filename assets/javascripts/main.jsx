@@ -23,12 +23,16 @@ var TaskApp = React.createClass({
   },
 
   componentWillMount: function() {
-    var db = new Firebase(config.db + "/tasks");
+    var db = new Firebase(config.db + "/tasks"),
+        self = this;
 
     db.onAuth(function(authData) {
       if (authData) {
         // user authenticated with Firebase
         console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
+        self.setState({
+          auth: true
+        });
       } else {
         // user is logged out
         console.log('logged out');
@@ -40,23 +44,29 @@ var TaskApp = React.createClass({
 
   auth: function() {
     // TODO: avoid having to rescope 'this'
-    var self = this;
+    var self = this,
+        db = this.firebaseRefs.tasks,
+        isAuth = db.getAuth();
 
-    this.firebaseRefs.tasks.authWithOAuthPopup("github", function(err, authData) {
-      if (err) {
-        console.log(err, 'error');
-      } else if (authData) {
-        // logged in!
-        self.setState({
-          auth: true
-        });
-      } else {
-        // logged out
-        self.setState({
-          auth: false
-        });
-      }
-    });
+    if ( isAuth ) {
+      // logged out
+      this.setState({
+        auth: false
+      });
+      db.unauth();
+    }
+    else {
+      db.authWithOAuthPopup("github", function(err, authData) {
+        if (err) {
+          console.log(err, 'error');
+        } else if (authData) {
+          // logged in!
+          self.setState({
+            auth: true
+          });
+        }
+      });
+    }
   },
 
   updateTitle: function(e) {
