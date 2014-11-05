@@ -19,6 +19,9 @@ exports.config = {
       enabled: true
     }
   },
+  sass: {
+    lib: require('node-sass')
+  },
   bower: {
     bowerDir: {
       clean: false
@@ -34,7 +37,7 @@ exports.config = {
   browserify: {
     bundles:[{
       entries: ['javascripts/main.js'],
-      outputFile: 'main.bundled.js'
+      outputFile: 'main-bundled.js'
     }],
     firebase: {
       path: 'javascripts/vendor/firebase/firebase',
