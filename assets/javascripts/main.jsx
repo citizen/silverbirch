@@ -12,6 +12,7 @@ var TaskApp = React.createClass({
 
   getInitialState: function() {
     return {
+      auth: false,
       tasks: [],
       data: {
       	title: "",
@@ -23,7 +24,39 @@ var TaskApp = React.createClass({
 
   componentWillMount: function() {
     var db = new Firebase(config.db + "/tasks");
+
+    db.onAuth(function(authData) {
+      if (authData) {
+        // user authenticated with Firebase
+        console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
+      } else {
+        // user is logged out
+        console.log('logged out');
+      }
+    });
+
     this.bindAsArray(db, "tasks");
+  },
+
+  auth: function() {
+    // TODO: avoid having to rescope 'this'
+    var self = this;
+
+    this.firebaseRefs.tasks.authWithOAuthPopup("github", function(err, authData) {
+      if (err) {
+        console.log(err, 'error');
+      } else if (authData) {
+        // logged in!
+        self.setState({
+          auth: true
+        });
+      } else {
+        // logged out
+        self.setState({
+          auth: false
+        });
+      }
+    });
   },
 
   updateTitle: function(e) {
@@ -63,36 +96,56 @@ var TaskApp = React.createClass({
   },
 
   render: function() {
+    if ( this.state.auth ) {
+      authButton = (
+        <div id="actions">
+          <BaseButton onClick={this.auth} className="btn-primary">
+            Log out
+          </BaseButton>
+          <BaseButton onClick={this.openModal} className="btn-default">
+            New task
+          </BaseButton>
+        </div>
+      );
+    }
+    else {
+      authButton = (
+        <div id="actions">
+          <BaseButton onClick={this.auth} className="btn-primary">
+            Log in
+          </BaseButton>
+        </div>
+      );
+    }
+
     var modal = null;
     modal = (
       <BaseModal
-      	ref="modal"
-      	confirm="Do it!"
-      	cancel="Cancel"
-      	onCancel={this.closeModal}
-      	onConfirm={this.handleSubmit}
-      	title="Create a new task">
-    	  <form onSubmit={ this.handleSubmit } role="form">
-    	    <div className="form-group">
-    	      <label htmlFor="title">Title</label>
-    	      <input type="text" id="title" className="form-control" onChange={ this.updateTitle } value={ this.state.title } />
-    	    </div>
-    	    <div className="form-group">
-    	      <label htmlFor="description">Description</label>
-    	      <input type="text" id="description" className="form-control" onChange={ this.updateDescription } value={ this.state.description } />
-    	    </div>
-    	    {/* TODO: handle submitting the form with enter key */}
-    	  </form>
+        ref="modal"
+        confirm="Do it!"
+        cancel="Cancel"
+        onCancel={this.closeModal}
+        onConfirm={this.handleSubmit}
+        title="Create a new task">
+        <form onSubmit={ this.handleSubmit } role="form">
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input type="text" id="title" className="form-control" onChange={ this.updateTitle } value={ this.state.title } />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <input type="text" id="description" className="form-control" onChange={ this.updateDescription } value={ this.state.description } />
+          </div>
+          {/* TODO: handle submitting the form with enter key */}
+        </form>
       </BaseModal>
     );
 
     return (
       <div>
-      	{modal}
-      	<BaseButton onClick={this.openModal} className="btn-default">
-      	  New task
-      	</BaseButton>
-      	<TaskList tasks={ this.state.tasks } />
+        {authButton}
+        {modal}
+        <TaskList tasks={ this.state.tasks } />
       </div>
     );
   }
