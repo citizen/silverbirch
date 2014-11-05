@@ -106,29 +106,9 @@ var TaskApp = React.createClass({
   },
 
   render: function() {
-    if ( this.state.auth ) {
-      authButton = (
-        <div id="actions">
-          <BaseButton onClick={this.auth} className="btn-primary">
-            Log out
-          </BaseButton>
-          <BaseButton onClick={this.openModal} className="btn-default">
-            New task
-          </BaseButton>
-        </div>
-      );
-    }
-    else {
-      authButton = (
-        <div id="actions">
-          <BaseButton onClick={this.auth} className="btn-primary">
-            Log in
-          </BaseButton>
-        </div>
-      );
-    }
+    var modal = null,
+        authbutton = null;
 
-    var modal = null;
     modal = (
       <BaseModal
         ref="modal"
@@ -151,13 +131,35 @@ var TaskApp = React.createClass({
       </BaseModal>
     );
 
-    return (
-      <div>
-        {authButton}
-        {modal}
-        <TaskList tasks={ this.state.tasks } />
-      </div>
-    );
+    if ( this.state.auth ) {
+      authButton = (
+        <div>
+          <div id="actions">
+            <BaseButton onClick={this.auth} className="btn-primary">
+              Log out
+            </BaseButton>
+            <BaseButton onClick={this.openModal} className="btn-default">
+              New task
+            </BaseButton>
+          </div>
+            {modal}
+            <TaskList tasks={ this.state.tasks } />
+        </div>
+      );
+    }
+    else {
+      authButton = (
+        <div>
+          <div id="actions">
+            <BaseButton onClick={this.auth} className="btn-primary">
+              Log in
+            </BaseButton>
+          </div>
+        </div>
+      );
+    }
+
+    return authButton;
   }
 });
 
