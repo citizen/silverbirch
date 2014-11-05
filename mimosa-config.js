@@ -34,7 +34,7 @@ exports.config = {
   browserify: {
     bundles:[{
       entries: ['javascripts/main.js'],
-      outputFile: 'main.js'
+      outputFile: 'main.bundled.js'
     }],
     firebase: {
       path: 'javascripts/vendor/firebase/firebase',
