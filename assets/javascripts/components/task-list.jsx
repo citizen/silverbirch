@@ -3,16 +3,18 @@ var React = require('../vendor/react/react');
 var TaskList = React.createClass({
   render: function() {
     var createItem = function(item, index) {
-      return [
-        <dt key={ index }>{ item.title }</dt>,
-        <dd>{ item.description }</dd>
-      ];
+      return (
+        <a className="task" key={ index }>
+          <h3>{ item.title }</h3>
+          <span>{ item.description }</span>
+        </a>
+      );
     };
 
     return (
-      <dl className="dl-horizontal">
+      <div className="task-list">
         { this.props.tasks.map(createItem) }
-      </dl>
+      </div>
     );
   }
 });
