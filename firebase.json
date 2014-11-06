@@ -1,5 +1,5 @@
 {
-  "firebase": "jkilla",
+  "firebase": "jkilla-dev",
   "public": "public",
   "ignore": [
     "firebase.json",
