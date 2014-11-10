@@ -3,7 +3,7 @@ var $           = require('../vendor/jquery/jquery'),
     BaseButton  = require('../components/base-button');
 
 // TODO: remove bootstrap
-require('../vendor/bootstrap/bootstrap');
+require('../vendor/bootstrap-sass/bootstrap');
 
 var BaseModal = React.createClass({
   componentDidMount: function () {
