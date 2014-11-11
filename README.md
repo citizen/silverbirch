@@ -2,7 +2,7 @@
 
 ### What is this repository for? ###
 
-* A tool to measure task cycletime.
+* A project management tool to measure task cycletime.
 * Version 0.0.1
 
 ### What tools are we using? ###
@@ -23,14 +23,21 @@
     * `git clone git@bitbucket.org:jkillas/jkilla.git && cd jkilla`
 1. Install the build tool
     * `npm install -g mimosa`
-1. Run the build tool (currently having to clear the previous run)
-    * `mimosa watch -cs`
+1. Run the build tool
+    * `mimosa watch -s`
 1. Check it out
-    * http://localhost:3000
+    * <http://localhost:3000>
 
-Unfortunately, if you make a chanege whilst `mimosa watch` is running you'll have to stop and start the process:  
-* `Ctrl + C` to kill the process
-* `mimosa clear -cs`
+#### Clearing the project
+
+If you make changes to config files and the changes aren't being picked up, run the following to nuke everything...
+
+1. `mimosa clean -C`
+2. `mimosa bower:clean --cache`
+3. `rm -rf assets/{javascripts,stylesheets}/vendor`
+4. `mimosa watch -cs`
+
+Then you should be back up and running.
 
 #### Configuration
 
@@ -42,14 +49,17 @@ Coming soon
 
 #### Deployment instructions
 
-If you're happy with the way it looks locally...
+If you're happy with your changes...
 
 1. Install the firebase command line tools
     * `npm install -g firebase-tools`
 2. Build the project
-    * `mimosa build -P prod`
+	1. Dev
+		* `mimosa build`
+	2. Prod
+		* `mimosa build -P prod`
 3. Deploy to Firebase
-    * firebase deploy
+    * `firebase deploy`
 
 ### Contribution guidelines ###
 
