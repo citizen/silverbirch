@@ -29,7 +29,8 @@ var TaskApp = React.createClass({
     db.onAuth(function(authData) {
       if (authData) {
         // user authenticated with Firebase
-        console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
+        // console.log("User: ", authData);
+
         self.setState({
           auth: true
         });
@@ -61,11 +62,38 @@ var TaskApp = React.createClass({
           console.log(err, 'error');
         } else if (authData) {
           // logged in!
+          self.createUser(authData.uid, authData);
+
           self.setState({
             auth: true
           });
         }
       });
+    }
+  },
+
+  createUser: function (userId, userData) {
+    var self = this,
+        usersRef = new Firebase(config.db + "/users");
+
+    usersRef.child(userId).transaction(function(currentUserData) {
+      if (currentUserData === null) {
+        delete userData.auth;
+        delete userData.token;
+        delete userData.expires;
+        delete userData[userData.provider].accessToken;
+        return userData;
+      }
+    }, function(error, committed) {
+      self.userCreated(userId, committed);
+    });
+  },
+
+  userCreated: function (userId, success) {
+    if (!success) {
+      console.log('user ' + userId + ' already exists!');
+    } else {
+      console.log('Successfully created ' + userId);
     }
   },
 
@@ -114,17 +142,29 @@ var TaskApp = React.createClass({
         ref="modal"
         confirm="Do it!"
         cancel="Cancel"
-        onCancel={this.closeModal}
-        onConfirm={this.handleSubmit}
+        onCancel={ this.closeModal }
+        onConfirm={ this.handleSubmit }
         title="Create a new task">
         <form onSubmit={ this.handleSubmit } role="form">
           <div className="form-group">
             <label htmlFor="title">Title</label>
-            <input type="text" id="title" className="form-control" onChange={ this.updateTitle } value={ this.state.title } />
+            <input
+              id="title"
+              type="text"
+              className="form-control"
+              onChange={ this.updateTitle }
+              value={ this.state.title }
+            />
           </div>
           <div className="form-group">
             <label htmlFor="description">Description</label>
-            <input type="text" id="description" className="form-control" onChange={ this.updateDescription } value={ this.state.description } />
+            <input
+              type="text"
+              id="description"
+              className="form-control"
+              onChange={ this.updateDescription }
+              value={ this.state.description }
+            />
           </div>
           {/* TODO: handle submitting the form with enter key */}
         </form>
