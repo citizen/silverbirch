@@ -1,44 +1,53 @@
-  {
-    "users": {
-      "github:123": {
-        "uid": "github:123",
-        "provider": "github",
-        "github": {
-          "id": "123",
-          "username": "rpowis",
-          "displayName": "Rory Powis",
-          "cachedUserProfile": {}
-        },
-        "tasks": {
-          "-Ja0R8A0QCmbT71l_MeZ": true
-        }
-      }
+{
+  "tasks": {
+    "-JaVfnSToeWIIu-OCSmo": {
+      "children": {
+        "-JaVfqlCSNdanZbOg3H7": true
+      },
+      "created": 1415740078551,
+      "description": "",
+      "title": "Parent task",
+      "uid": "-JaVfnSToeWIIu-OCSmo"
     },
-    "tasks": {
-      "-Ja0R8A0QCmbT71l_MeZ": {
-        "created": 1415215879301,
-        "description": "hi there",
-        "title": "test",
-        "users": {
-          "github:123": {
-            "read": true,
-            "write": false
-          }
-        }
-      }
+    "-JaVfqlCSNdanZbOg3H7": {
+      "created": 1415740092103,
+      "description": "",
+      "parent": "-JaVfnSToeWIIu-OCSmo",
+      "title": "Child task",
+      "uid": "-JaVfqlCSNdanZbOg3H7"
     },
-    "taskEvents": {
-      "-Ja0R8A0QCmbT71l_MeZ": { // task key
-        "-Ja563487A0QCmbT71l_MeZ": { // event key
-          "type": "assigned",
-          "userId": "github:123",
-          "processed": false
-        },
-        "-Ja5kjhdf7A0QCmbT71l_MeZ": { // event key
-          "type": "assigned",
-          "userId": "github:123",
-          "processed": false
-        }
+    "-JaVjQsuKNaZ-Gg7iDgI": {
+      "created": 1415741030650,
+      "description": "",
+      "title": "Orphan task",
+      "uid": "-JaVjQsuKNaZ-Gg7iDgI"
+    }
+  },
+  "taskEvents": {
+    "-JaVfnSToeWIIu-OCSmo": {
+      "0": {
+        "type": "assigned",
+        "userThatDidIt": "github:123",
+        "internallyProcessed": false
+      },
+      "1": {
+        "type": "closed",
+        "userThatDidIt": "github:123",
+        "internallyProcessed": false
       }
     }
+  },
+  "users": {
+    "github:1752124": {
+      "github": {
+        "cachedUserProfile": {},
+        "displayName": "Rory Powis",
+        "email": "rory@hikkendry.com",
+        "id": "1752124",
+        "username": "rpowis"
+      },
+      "provider": "github",
+      "uid": "github:1752124"
+    }
   }
+}
