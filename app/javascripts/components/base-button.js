@@ -1,5 +1,5 @@
 /* jshint scripturl:true */
-var React = require('../vendor/react/react');
+var React = require('react');
 
 var BaseButton = React.createClass({
   render: function() {

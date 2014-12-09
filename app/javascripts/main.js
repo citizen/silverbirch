@@ -1,8 +1,8 @@
-require('./vendor/firebase/firebase');
+require('firebase');
 
 var config          = require('./config'),
-    React           = require('./vendor/react/react'),
-    ReactFireMixin  = require('./vendor/reactfire/reactfire'),
+    React           = require('react'),
+    ReactFireMixin  = require('reactfire'),
     BaseButton      = require('./components/base-button'),
     BaseModal       = require('./components/base-modal'),
     TaskList        = require('./components/task-list');

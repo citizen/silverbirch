@@ -1,9 +1,6 @@
-var $           = require('../vendor/jquery/jquery'),
-    React       = require('../vendor/react/react'),
-    BaseButton  = require('../components/base-button');
-
-// TODO: remove bootstrap
-require('../vendor/bootstrap-sass/bootstrap');
+var $           = require('jquery'),
+    React       = require('react'),
+    BaseButton  = require('./base-button');
 
 var BaseModal = React.createClass({
   componentDidMount: function () {

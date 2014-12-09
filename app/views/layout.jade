@@ -7,13 +7,9 @@ html(class='no-js')
     title jKilla
 
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
-    link(rel='stylesheet', href='/stylesheets/style.css' + cachebust)
-
-    if reload
-      script(src='/socket.io/socket.io.js')
-      script(src='/javascripts/reload-client.js')
+    link(rel='stylesheet', href='/stylesheets/style.css')
 
   body
     block content
 
-    script(src='/javascripts/main-bundled.js')
+    script(src='/javascripts/main.js')

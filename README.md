@@ -9,7 +9,7 @@
 
 * [Firebase](http://www.firebase.com/)
 * [node.js](http://nodejs.org/)
-* [Mimosa](http://mimosa.io/)
+* [Gulp](http://gulpjs.com/)
 * [React.js](http://facebook.github.io/react/)
 
 ### How do I get set up? ###
@@ -22,33 +22,29 @@
 1. Clone this repo
     * `git clone git@bitbucket.org:jkillas/jkilla.git && cd jkilla`
 1. Install the build tool
-    * `npm install -g mimosa`
+    * `npm install -g gulp`
+1. Install the dependancies
+    * `npm install`
 1. Run the build tool
-    * `mimosa watch -s`
-1. Check it out
-    * <http://localhost:3000>
+    * `gulp watch`
 
-#### Clearing the project
-
-If you make changes to config files and the changes aren't being picked up, run the following to nuke everything...
-
-1. `mimosa clean -C`
-2. `mimosa bower:clean --cache`
-3. `rm -rf assets/{javascripts,stylesheets}/vendor`
-4. `mimosa watch -cs`
-
-Then you should be back up and running.
+The app will automatically open in your default browser and refresh every time 
+you save a file. Smart huh? :)
 
 #### Configuration
 
-N/A
+Coming soon...
 
 #### How to run tests
 
-Coming soon
+Tests are run automatically as part of the `gulp watch` task.
+However, if you want to run the tests on their own, just run `gulp test`.
 
 #### Deployment instructions
 
+Coming soon...
+
+<!--
 If you're happy with your changes...
 
 1. Install the firebase command line tools
@@ -60,20 +56,19 @@ If you're happy with your changes...
 		* `mimosa build -P prod`
 3. Deploy to Firebase
     * `firebase deploy`
+ -->
 
 ### Contribution guidelines ###
 
 Coming soon :
 
+* Writing components
 * Writing tests
+* Styles structure
 * Code review
 * Other guidelines
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
+* The repo owner or admin
 * Other community or team contact (see [CONTRIBUTORS](src/master/contributors.txt))
-
-### Names ###
-
-[Names](https://bitbucket.org/jkillas/jkilla/src/master/names.md)
