@@ -24,7 +24,6 @@ var Tasks = React.createClass({
         tops = [],
         tasksChildren = [],
         dbRef = new Firebase("https://jkilla.firebaseio.com"),
-        tasksRef = dbRef.child("tasks"),
         tasksEdgesRef = dbRef.child("tasksEdges"),
         usersTasks = dbRef.child("usersTasks"),
         uid = usersTasks.getAuth().uid;
@@ -41,7 +40,7 @@ var Tasks = React.createClass({
             tasksChildren = _.union(tasksChildren, childKeys);
             tops = _.difference(tasks, tasksChildren);
           }
-          self.updateState(len--, tops, tasksRef);
+          self.updateState(len--, tops, dbRef);
         });
       });
     });
@@ -54,7 +53,10 @@ var Tasks = React.createClass({
     }.bind(this));
   },
 
-  updateState: function (n, tasks, tasksRef) {
+  updateState: function (n, tasks, dbRef) {
+    var tasksRef = dbRef.child("tasks"),
+        tasksEdgesRef = dbRef.child("tasksEdges");
+
     if (--n < 1) {
       var self = this,
           taskData = {};
@@ -62,6 +64,11 @@ var Tasks = React.createClass({
       _.each(tasks, function (id) {
         tasksRef.child(id).on('value', function(taskSnapshot) {
           taskData[id] = taskSnapshot.val();
+
+          tasksEdgesRef.child(taskSnapshot.key()).child('child').once('value', function(children) {
+            taskData[id].childCount = Object.keys(children.val()).length;
+          });
+
           self.setState({
             tasks: taskData
           });
@@ -75,7 +82,10 @@ var Tasks = React.createClass({
       item = this.state.tasks[item];
       return (
         <a className="task" key={ index }>
-          <h3>{ item.title }</h3>
+          <h3>
+            { item.title }
+            <span className="badge">{item.childCount}</span>
+          </h3>
           <span>{ item.description }</span>
         </a>
       );
