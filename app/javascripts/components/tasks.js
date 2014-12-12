@@ -20,9 +20,8 @@ var Tasks = React.createClass({
   },
 
   componentWillMount: function () {
-    var tops = [],
-        tasks = {},
-        tasksTasks = [],
+    var self = this,
+        tops = [],
         tasksChildren = [],
         dbRef = new Firebase("https://jkilla.firebaseio.com"),
         tasksRef = dbRef.child("tasks"),
@@ -30,18 +29,20 @@ var Tasks = React.createClass({
         usersTasks = dbRef.child("usersTasks"),
         uid = usersTasks.getAuth().uid;
 
-    usersTasks.child(uid).on('child_added', function(userTaskSnapshot) {
-      var taskId = userTaskSnapshot.key();
-      tasksTasks.push(taskId);
+    usersTasks.child(uid).on('value', function(userTaskSnapshot) {
+      var tasks = Object.keys(userTaskSnapshot.val()),
+          len = tasks.length;
 
-      tasksEdgesRef.child(taskId).child('child').on('value', function(edgeSnapshot) {
-        var children = edgeSnapshot.val();
-        if ( children !== null ) {
-          var childKeys = Object.keys(children);
-          tasksChildren = _.union(tasksChildren, childKeys);
-          tops = _.difference(tasksTasks, tasksChildren);
-          console.log('tops ' , tops);
-        }
+      _.each(tasks, function(id) {
+        tasksEdgesRef.child(id).child('child').on('value', function(edgeSnapshot) {
+          var children = edgeSnapshot.val();
+          if ( children ) {
+            var childKeys = Object.keys(children);
+            tasksChildren = _.union(tasksChildren, childKeys);
+            tops = _.difference(tasks, tasksChildren);
+          }
+          self.updateState(len--, tops, tasksRef);
+        });
       });
     });
 
@@ -53,12 +54,23 @@ var Tasks = React.createClass({
     }.bind(this));
   },
 
-  updateState: function (tops) {
-    console.log('update tops ' , tops);
+  updateState: function (n, tasks, tasksRef) {
+    if (--n < 1) {
+      var self = this,
+          taskData = {};
+
+      _.each(tasks, function (id) {
+        tasksRef.child(id).on('value', function(taskSnapshot) {
+          taskData[id] = taskSnapshot.val();
+          self.setState({
+            tasks: taskData
+          });
+        });
+      });
+    }
   },
 
   render: function() {
-    // console.log('this.state.tasks ' , this.state.tasks);
     var createItem = function(item, index) {
       item = this.state.tasks[item];
       return (

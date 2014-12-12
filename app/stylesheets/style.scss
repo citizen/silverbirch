@@ -19,8 +19,14 @@ body {
     -ms-transform: rotate(-30deg);
     -o-transform: rotate(-30deg);
     transform: rotate(-30deg);
-
     margin-top: 100px;
     position: absolute;
+  }
+
+  .task {
+    border: 1px solid red;
+    display: block;
+    margin: 5px 0;
+    padding: 5px;
   }
 }
