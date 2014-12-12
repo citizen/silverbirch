@@ -79,11 +79,11 @@ gulp.task('serve', function() {
 // Watch
 gulp.task('watch', ['bower', 'jade', 'styles', 'scripts', 'images', 'serve'], function() {
   // Watch .scss files
-  gulp.watch('app/styles/**/*.scss', ['styles']);
+  gulp.watch('app/stylesheets/**/*.scss', ['styles']);
   // Watch .jade files
   gulp.watch('app/views/**/*.jade', ['jade', browserSync.reload]);
   // Watch .js files
-  gulp.watch('app/scripts/**/*.js', ['scripts', browserSync.reload]);
+  gulp.watch('app/javascripts/**/*.js', ['scripts', browserSync.reload]);
   // Watch image files
   gulp.watch('app/images/**/*', ['images']);
 });
