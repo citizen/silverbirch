@@ -4,11 +4,14 @@ require('firebase');
 
 var _ = require('lodash'),
     React = require('react'),
+    Router = require('react-router'),
+    { Route, Link } = Router,
     ReactFireMixin  = require('reactfire'),
     Authentication = require('./auth').Authentication;
 
 var Tasks = React.createClass({
   mixins: [
+    Router.State,
     Authentication,
     ReactFireMixin
   ],
@@ -64,6 +67,7 @@ var Tasks = React.createClass({
       _.each(tasks, function (id) {
         tasksRef.child(id).on('value', function(taskSnapshot) {
           taskData[id] = taskSnapshot.val();
+          taskData[id].uid = taskSnapshot.key();
 
           tasksEdgesRef.child(taskSnapshot.key()).child('child').once('value', function(children) {
             taskData[id].childCount = Object.keys(children.val()).length;
@@ -81,13 +85,13 @@ var Tasks = React.createClass({
     var createItem = function(item, index) {
       item = this.state.tasks[item];
       return (
-        <a className="task" key={ index }>
+        <Link to="task" params={{taskId: item.uid}} className="task" key={ index }>
           <h3>
             { item.title }
             <span className="badge">{item.childCount}</span>
           </h3>
           <span>{ item.description }</span>
-        </a>
+        </Link>
       );
     }.bind(this);
 

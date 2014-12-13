@@ -6,6 +6,7 @@ var React = require('react'),
     Router = require('react-router'),
     { Route, RouteHandler, Link } = Router,
     ReactFireMixin  = require('reactfire'),
+    Task = require('./components/task'),
     Tasks = require('./components/tasks'),
     Login = require('./components/login'),
     Logout = require('./components/logout'),
@@ -53,6 +54,7 @@ var routes = (
     <Route name="login" handler={Login}/>
     <Route name="logout" handler={Logout}/>
     <Route name="tasks" handler={Tasks}/>
+    <Route name="task" path="tasks/:taskId" handler={Task}/>
   </Route>
 );
 
