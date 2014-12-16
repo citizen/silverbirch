@@ -2,13 +2,11 @@
 
 var React = require('react'),
     Router = require('react-router'),
-    ReactFireMixin  = require('reactfire'),
     auth = require('./auth').auth,
     Authentication = require('./auth').Authentication;
 
 var Login = React.createClass({
   mixins: [
-    ReactFireMixin,
     Router.Navigation
   ],
 

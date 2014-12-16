@@ -1,24 +1,21 @@
 'use strict';
 
-require('firebase');
-
 var _ = require('lodash'),
     React = require('react'),
     Router = require('react-router'),
     { Route, Link } = Router,
-    ReactFireMixin  = require('reactfire'),
     Authentication = require('./auth').Authentication;
 
 var Tasks = React.createClass({
   mixins: [
     Router.State,
-    Authentication,
-    ReactFireMixin
+    Authentication
   ],
 
   getInitialState: function () {
     return {
-      tasks: {}
+      tasks: {},
+      fbRef: this.props.fbRef
     };
   },
 
@@ -26,7 +23,7 @@ var Tasks = React.createClass({
     var self = this,
         tops = [],
         tasksChildren = [],
-        dbRef = new Firebase("https://jkilla.firebaseio.com"),
+        dbRef = this.state.fbRef,
         tasksEdgesRef = dbRef.child("tasksEdges"),
         usersTasks = dbRef.child("usersTasks"),
         uid = usersTasks.getAuth().uid;

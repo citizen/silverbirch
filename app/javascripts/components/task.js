@@ -3,7 +3,6 @@
 var React = require('react'),
     Router = require('react-router'),
     { Route, RouteHandler, Link } = Router,
-    ReactFireMixin  = require('reactfire'),
     auth = require('./auth').auth,
     Authentication = require('./auth').Authentication;
 
@@ -15,13 +14,14 @@ var Task = React.createClass({
 
   getInitialState: function () {
     return {
-      task: {}
+      task: {},
+      fbRef: this.props.fbRef
     };
   },
 
   componentWillMount: function () {
     var {taskId} = this.getParams(),
-        dbRef = new Firebase("https://jkilla.firebaseio.com"),
+        dbRef = this.state.fbRef,
         tasksRef = dbRef.child("tasks");
 
     tasksRef.child(taskId).on('value', function(taskSnapshot) {

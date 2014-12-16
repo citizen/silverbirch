@@ -2,7 +2,7 @@
   "name": "jkilla",
   "version": "0.0.1",
   "dependencies": {
-    "reactfire": "^0.4.0"
+    "firebase": "^2.0.6"
   },
   "devDependencies": {
     "browser-sync": "^1.7.0",

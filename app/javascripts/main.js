@@ -1,11 +1,10 @@
 'use strict';
 
-require('firebase');
+var fb = require('firebase');
 
 var React = require('react'),
     Router = require('react-router'),
     { Route, RouteHandler, Link } = Router,
-    ReactFireMixin  = require('reactfire'),
     Task = require('./components/task'),
     Tasks = require('./components/tasks'),
     Login = require('./components/login'),
@@ -14,27 +13,27 @@ var React = require('react'),
     Authentication = require('./components/auth').Authentication;
 
 var App = React.createClass({
-  mixins: [ReactFireMixin],
+  mixins: [
+    Router.State,
+  ],
 
   getInitialState: function () {
     return {
-      loggedIn: auth.loggedIn()
+      loggedIn: false,
+      fbRef: this.props.fbRef
     };
   },
 
-  setStateOnAuth: function (loggedIn) {
-    this.setState({
-      loggedIn: loggedIn
-    });
-  },
-
   componentWillMount: function () {
-    auth.onChange = this.setStateOnAuth;
-    auth.login();
+    this.state.fbRef.onAuth(function(auth) {
+      this.setState({
+        loggedIn: auth != null
+      });
+    }, this);
   },
 
   render: function () {
-    var loginOrOut = auth.loggedIn() ?
+    var loginOrOut = this.state.loggedIn ?
       <Link to="logout">Sign out</Link> :
       <Link to="login">Sign in</Link>;
     return (
@@ -43,7 +42,7 @@ var App = React.createClass({
           <li>{loginOrOut}</li>
           <li><Link to="tasks">Tasks</Link></li>
         </ul>
-        <RouteHandler/>
+        <RouteHandler {...this.props}/>
       </div>
     );
   }
@@ -59,5 +58,6 @@ var routes = (
 );
 
 Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.getElementById('app'));
+  var fbRef = new fb("https://jkilla.firebaseio.com/");
+  React.render(<Handler fbRef={fbRef} />, document.getElementById('app'));
 });
