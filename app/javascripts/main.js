@@ -26,15 +26,17 @@ var App = React.createClass({
 
   componentWillMount: function () {
     this.state.fbRef.onAuth(function(auth) {
+      var loggedIn = auth != null;
       this.setState({
-        loggedIn: auth != null
+        loggedIn: loggedIn,
+        loggedInAs: loggedIn ? auth.github.displayName : null
       });
     }, this);
   },
 
   render: function () {
     var loginOrOut = this.state.loggedIn ?
-      <Link to="logout">Sign out</Link> :
+      <Link to="logout">Logged in as {this.state.loggedInAs} (Sign out)</Link> :
       <Link to="login">Sign in</Link>;
     return (
       <div>
