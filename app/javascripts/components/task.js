@@ -60,6 +60,20 @@ var Task = React.createClass({
     }, this);
   },
 
+  removeUser: function (userId) {
+    var taskId = this.state.task.id,
+        userRef = this.state.fbRef.child("usersTasks/"+userId+"/"+taskId),
+        taskRef = this.state.fbRef.child("tasks/"+taskId+"/users/"+userId);
+
+    function logResult(err) {
+      var msg = (err) ? err : userId + " removed from task " + taskId;
+      console.info(msg);
+    }
+
+    userRef.remove(logResult);
+    taskRef.remove(logResult);
+  },
+
   render: function () {
     var task = this.state.task,
         users = Object.keys(task.users);
@@ -68,7 +82,7 @@ var Task = React.createClass({
       <div className="task">
         <h3>{ task.title }</h3>
         <span>{ task.description }</span>
-        <UserList users={users} fbRef={this.props.fbRef} />
+        <UserList users={users} fbRef={this.props.fbRef} removeUser={this.removeUser} />
         <TaskList tasks={task.children} />
         <TaskForm parentId={task.id} fbRef={this.props.fbRef} />
       </div>

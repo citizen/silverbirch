@@ -29,7 +29,7 @@ var User = React.createClass({
 
   render: function() {
     return (
-      <li>{this.state.userName}</li>
+      <span>{this.state.userName}</span>
     );
   }
 });

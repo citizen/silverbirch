@@ -69,7 +69,7 @@ var Tasks = React.createClass({
           taskData[id].uid = taskSnapshot.key();
 
           tasksEdgesRef.child(taskSnapshot.key()).child('child').once('value', function(children) {
-            taskData[id].childCount = Object.keys(children.val()).length;
+            taskData[id].childCount = (children.val()) ? Object.keys(children.val()).length: "";
           });
 
           self.setState({
