@@ -1,13 +1,15 @@
+"use strict";
+
 var React = require('react'),
     Router = require('react-router'),
     { Route, RouteHandler, Link } = Router;
 
 var TaskList = React.createClass({
   render: function() {
-    var taskNodes = this.props.tasks.map(function(task) {
+    var taskNodes = this.props.tasks.map(function(task, index) {
       return (
         <li>
-          <Link to="task" params={{taskId: task.id}} key={task.key}>{task.title}</Link>
+          <Link to="task" params={{taskId: task.id}} key={index}>{task.title}</Link>
         </li>
       );
     });

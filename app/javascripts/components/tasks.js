@@ -4,6 +4,7 @@ var _ = require('lodash'),
     React = require('react'),
     Router = require('react-router'),
     { Route, Link } = Router,
+    TaskForm = require('./task-form'),
     Authentication = require('./auth').Authentication;
 
 var Tasks = React.createClass({
@@ -15,6 +16,7 @@ var Tasks = React.createClass({
   getInitialState: function () {
     return {
       tasks: {},
+      parentId: null,
       fbRef: this.props.fbRef
     };
   },
@@ -95,6 +97,7 @@ var Tasks = React.createClass({
     return (
       <div className="task-list">
         { Object.keys(this.state.tasks).map(createItem) }
+        <TaskForm parentId={this.state.parentId} fbRef={this.props.fbRef} />
       </div>
     );
   }
