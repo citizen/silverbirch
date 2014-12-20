@@ -35,7 +35,7 @@ var TaskForm = React.createClass({
     edge[newTask.key()] = true;
 
     if( this.props.parentId ) {
-      edgesRef.child(this.props.parentId+'/child').update(edge);
+      edgesRef.child(this.props.parentId+"/child").update(edge);
     }
 
     usersTasksRef.child(userId).update(edge);
@@ -48,6 +48,8 @@ var TaskForm = React.createClass({
   render: function() {
     return (
       <form className="taskForm" onSubmit={this.handleSubmit}>
+        <hr/>
+        <h4>Add a task</h4>
         <input type="text" placeholder="Title" ref="title" />
         <input type="textarea" placeholder="Description..." ref="description" />
         <input type="submit" value="Post" />

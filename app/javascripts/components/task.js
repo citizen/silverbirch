@@ -5,6 +5,7 @@ var React = require('react'),
     { Route, RouteHandler, Link } = Router,
     auth = require('./auth').auth,
     Authentication = require('./auth').Authentication,
+    UserList = require('./user-list'),
     TaskForm = require('./task-form'),
     TaskList = require('./task-list');
 
@@ -17,7 +18,10 @@ var Task = React.createClass({
 
   getInitialState: function () {
     return {
-      task: {children:[]},
+      task: {
+        children:[],
+        users: {}
+      },
       fbRef: this.props.fbRef
     };
   },
@@ -57,13 +61,14 @@ var Task = React.createClass({
   },
 
   render: function () {
-    var task = this.state.task;
+    var task = this.state.task,
+        users = Object.keys(task.users);
 
     return (
       <div className="task">
         <h3>{ task.title }</h3>
-        <p>wtf -> {this.getParams().taskId}</p>
         <span>{ task.description }</span>
+        <UserList users={users} fbRef={this.props.fbRef} />
         <TaskList tasks={task.children} />
         <TaskForm parentId={task.id} fbRef={this.props.fbRef} />
       </div>

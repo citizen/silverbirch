@@ -8,13 +8,14 @@ var TaskList = React.createClass({
   render: function() {
     var taskNodes = this.props.tasks.map(function(task, index) {
       return (
-        <li>
-          <Link to="task" params={{taskId: task.id}} key={index}>{task.title}</Link>
+        <li key={index}>
+          <Link to="task" params={{taskId: task.id}}>{task.title}</Link>
         </li>
       );
     });
     return (
       <div className="taskList">
+        <h4>Child tasks</h4>
         <ul>
           {taskNodes}
         </ul>
