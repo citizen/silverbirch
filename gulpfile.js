@@ -34,7 +34,10 @@ gulp.task('styles', function() {
 
 // Scripts
 gulp.task('scripts', function() {
-  return browserify('./app/javascripts/main.js')
+  return browserify({
+      entries: './app/javascripts/main.js',
+      debug: true
+    })
     .bundle()
     .pipe(source('main.js'))
     .pipe(gulp.dest('dist/javascripts'));
