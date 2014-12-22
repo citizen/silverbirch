@@ -31,7 +31,7 @@ var Tasks = React.createClass({
         uid = usersTasks.getAuth().uid;
 
     usersTasks.child(uid).on('value', function(userTaskSnapshot) {
-      var tasks = Object.keys(userTaskSnapshot.val()),
+      var tasks = (userTaskSnapshot.val()) ? Object.keys(userTaskSnapshot.val()) : [],
           len = tasks.length;
 
       _.each(tasks, function(id) {
