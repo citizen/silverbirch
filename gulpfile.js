@@ -26,9 +26,8 @@ gulp.task('styles', function() {
     .pipe($.sourcemaps.write())
     .pipe($.autoprefixer('last 1 version'))
     .pipe(gulp.dest('dist/stylesheets'))
-    .pipe(reload({
-      stream: true
-    }))
+    .pipe($.filter('**/*.css'))
+    .pipe(reload({stream: true}))
     .pipe($.size());
 });
 
@@ -88,7 +87,7 @@ gulp.task('watch', ['bower', 'jade', 'styles', 'scripts', 'images', 'serve'], fu
   // Watch .js files
   gulp.watch('app/javascripts/**/*.js', ['scripts', browserSync.reload]);
   // Watch image files
-  gulp.watch('app/images/**/*', ['images']);
+  gulp.watch('app/images/**/*', ['images', browserSync.reload]);
 });
 
 // Build
