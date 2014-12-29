@@ -29,4 +29,13 @@ body {
     margin: 5px 0;
     padding: 5px;
   }
+
+  .avatar {
+    margin: 0 10px;
+    width: 24px;
+
+    &--big {
+      width: 120px;
+    }
+  }
 }
