@@ -1,8 +1,5 @@
 var env = {};
 
-/* feature dev */
-env.db = "https://jkilla-dev.firebaseio.com";
-/* feature prod */
-env.db = "https://jkilla-prod.firebaseio.com";
+env.db = "https://jkilla.firebaseio.com";
 
 module.exports = env;

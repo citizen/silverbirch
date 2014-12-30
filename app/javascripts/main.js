@@ -4,6 +4,7 @@ var fb = require('firebase'),
     React = require('react'),
     Router = require('react-router'),
     { Route, RouteHandler, Link } = Router,
+    config = require('./config'),
     Task = require('./components/task'),
     Tasks = require('./components/tasks'),
     Login = require('./components/login'),
@@ -74,6 +75,6 @@ var routes = (
 );
 
 Router.run(routes, function (Handler) {
-  var fbRef = new fb("https://jkilla.firebaseio.com/");
+  var fbRef = new fb(config.db);
   React.render(<Handler fbRef={fbRef} />, document.getElementById('app'));
 });

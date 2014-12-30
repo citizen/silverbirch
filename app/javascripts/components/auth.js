@@ -1,6 +1,7 @@
 require("firebase");
 
-var Login = require('./login');
+var Login = require('./login'),
+    config = require('./../config');
 
 function pretendRequest(email, pass, cb) {
   setTimeout(function () {
@@ -41,7 +42,7 @@ var auth = {
   },
 
   logout: function (cb) {
-    var db = new Firebase("https://jkilla.firebaseio.com");
+    var db = new Firebase(config.db);
     db.unauth();
 
     if (cb) { cb(); }
