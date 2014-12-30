@@ -16,8 +16,7 @@ var Tasks = React.createClass({
   getInitialState: function () {
     return {
       tasks: {},
-      parentId: null,
-      fbRef: this.props.fbRef
+      parentId: null
     };
   },
 
@@ -25,7 +24,7 @@ var Tasks = React.createClass({
     var self = this,
         tops = [],
         tasksChildren = [],
-        dbRef = this.state.fbRef,
+        dbRef = this.props.fbRef,
         tasksEdgesRef = dbRef.child("tasksEdges"),
         usersTasks = dbRef.child("usersTasks"),
         uid = usersTasks.getAuth().uid;
@@ -97,7 +96,7 @@ var Tasks = React.createClass({
     return (
       <div className="task-list">
         { Object.keys(this.state.tasks).map(createItem) }
-        <TaskForm parentId={this.state.parentId} fbRef={this.props.fbRef} />
+        <TaskForm parentId={this.state.parentId} {...this.props} />
       </div>
     );
   }
