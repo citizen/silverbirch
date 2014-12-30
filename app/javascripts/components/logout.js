@@ -1,15 +1,16 @@
 'use strict';
 
-var React = require('react'),
-    auth = require('./auth').auth;
+var React = require('react');
 
 var Logout = React.createClass({
   componentDidMount: function () {
-    auth.logout();
+    this.props.fbRef.unauth();
   },
 
   render: function () {
-    return <p>You are now logged out</p>;
+    return (
+      <p>You are now logged out</p>
+    );
   }
 });
 

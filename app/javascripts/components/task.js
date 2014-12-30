@@ -3,11 +3,10 @@
 var React = require('react'),
     Router = require('react-router'),
     { Route, RouteHandler, Link } = Router,
-    auth = require('./auth').auth,
-    Authentication = require('./auth').Authentication,
     UserList = require('./user-list'),
     TaskForm = require('./task-form'),
-    TaskList = require('./task-list');
+    TaskList = require('./task-list'),
+    Authentication = require('./auth');
 
 var Task = React.createClass({
   mixins: [

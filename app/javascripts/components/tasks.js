@@ -5,7 +5,7 @@ var _ = require('lodash'),
     Router = require('react-router'),
     { Route, Link } = Router,
     TaskForm = require('./task-form'),
-    Authentication = require('./auth').Authentication;
+    Authentication = require('./auth');
 
 var Tasks = React.createClass({
   mixins: [

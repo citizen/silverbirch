@@ -18,18 +18,14 @@ var App = React.createClass({
 
   getInitialState: function () {
     return {
-      user: {},
-      loggedIn: false,
-      fbRef: this.props.fbRef
+      user: null
     };
   },
 
   componentWillMount: function () {
-    this.state.fbRef.onAuth(function(auth) {
-      var loggedIn = auth !== null;
+    this.props.fbRef.onAuth(function(auth) {
       this.setState({
-        loggedIn: loggedIn,
-        user: loggedIn ? auth.github : null
+        user: auth ? auth.github : null
       });
     }, this);
   },
@@ -37,7 +33,7 @@ var App = React.createClass({
   render: function () {
     var loginOrOut, profileLink;
 
-    profileLink = (this.state.loggedIn) ?
+    profileLink = (this.state.user) ?
       <li>
         <Link to="profile" params={{username: this.state.user.id}}>
           <img className="avatar" src={this.state.user.cachedUserProfile.avatar_url} />
@@ -45,7 +41,7 @@ var App = React.createClass({
         </Link>
       </li> : '';
 
-    loginOrOut = (this.state.loggedIn) ?
+    loginOrOut = (this.state.user) ?
       <Link to="logout">Sign out</Link> :
       <Link to="login">Sign in</Link>;
 
