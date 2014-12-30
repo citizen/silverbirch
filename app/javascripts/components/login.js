@@ -25,14 +25,20 @@ var Login = React.createClass({
   },
 
   createUser: function (userData) {
-    // TODO: use switch case to allow for more auth providers
     var username = userData.github.username,
         usersRef = this.props.fbRef.child("users");
 
-    usersRef.child(username).transaction(function(currentUserData) {
-      if (!currentUserData) {
-        // store new user object with the following data
-        return userData;
+    usersRef.child(username).transaction(function(userExists) {
+      if (!userExists) {
+        // TODO: use switch case to allow for more auth providers
+        if(userData.provider === 'github') {
+          var githubUser = userData.github;
+          userData.email        = githubUser.email;
+          userData.avatar       = githubUser.cachedUserProfile.avatar_url;
+          userData.username     = username;
+          userData.displayName  = githubUser.displayName;
+          return userData;
+        }
       }
     }, function(error, committed) {
       this.userCreated(username, committed);
