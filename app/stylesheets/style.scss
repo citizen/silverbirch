@@ -4,38 +4,46 @@ $yellow: #FFFFE0;
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
 
-  .template {
-    background-color: $yellow;
+.navbar-brand {
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
   }
+}
 
-  .helper {
-    border:1px solid $blue;
-  }
+.template {
+  background-color: $yellow;
+}
 
-  .styled {
-    -webkit-transform: rotate(-30deg);
-    -moz-transform: rotate(-30deg);
-    -ms-transform: rotate(-30deg);
-    -o-transform: rotate(-30deg);
-    transform: rotate(-30deg);
-    margin-top: 100px;
-    position: absolute;
-  }
+.helper {
+  border:1px solid $blue;
+}
 
-  .task {
-    border: 1px solid red;
-    display: block;
-    margin: 5px 0;
-    padding: 5px;
-  }
+.styled {
+  -webkit-transform: rotate(-30deg);
+  -moz-transform: rotate(-30deg);
+  -ms-transform: rotate(-30deg);
+  -o-transform: rotate(-30deg);
+  transform: rotate(-30deg);
+  margin-top: 100px;
+  position: absolute;
+}
 
-  .avatar {
-    margin: 0 10px;
-    width: 24px;
+.task {
+  border: 1px solid red;
+  display: block;
+  margin: 5px 0;
+  padding: 5px;
+}
 
-    &--big {
-      width: 120px;
-    }
+.avatar {
+  margin: 0 10px;
+  width: 24px;
+
+  &--big {
+    width: 120px;
   }
 }
