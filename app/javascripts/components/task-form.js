@@ -47,12 +47,28 @@ var TaskForm = React.createClass({
 
   render: function() {
     return (
-      <form className="taskForm" onSubmit={this.handleSubmit}>
+      <form className="form-inline" onSubmit={this.handleSubmit}>
         <hr/>
         <h4>Add a task</h4>
-        <input type="text" placeholder="Title" ref="title" />
-        <input type="textarea" placeholder="Description..." ref="description" />
-        <input type="submit" value="Post" />
+        <div className="form-group">
+          <input
+            id="title"
+            ref="title"
+            type="text"
+            placeholder="Title"
+            className="form-control"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            id="description"
+            ref="description"
+            type="textarea"
+            placeholder="Description..."
+            className="form-control"
+          />
+        </div>
+        <button type="submit" className="btn btn-default">Add</button>
       </form>
     );
   }

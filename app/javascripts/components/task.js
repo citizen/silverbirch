@@ -78,12 +78,14 @@ var Task = React.createClass({
         users = Object.keys(task.users);
 
     return (
-      <div className="task">
-        <h3>{ task.title }</h3>
-        <span>{ task.description }</span>
-        <UserList users={users} fbRef={this.props.fbRef} removeUser={this.removeUser} />
-        <TaskList tasks={task.children} />
-        <TaskForm parentId={task.id} fbRef={this.props.fbRef} />
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <h3>{ task.title }</h3>
+          <span>{ task.description }</span>
+          <UserList users={users} fbRef={this.props.fbRef} removeUser={this.removeUser} />
+          <TaskList tasks={task.children} />
+          <TaskForm parentId={task.id} fbRef={this.props.fbRef} />
+        </div>
       </div>
     );
   }

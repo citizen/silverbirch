@@ -1,42 +1,12 @@
-$blue: #5B83AD;
-$yellow: #FFFFE0;
-
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-.navbar-brand {
-  img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-  }
-}
-
-.template {
-  background-color: $yellow;
-}
-
-.helper {
-  border:1px solid $blue;
-}
-
-.styled {
-  -webkit-transform: rotate(-30deg);
-  -moz-transform: rotate(-30deg);
-  -ms-transform: rotate(-30deg);
-  -o-transform: rotate(-30deg);
-  transform: rotate(-30deg);
-  margin-top: 100px;
-  position: absolute;
-}
-
-.task {
-  border: 1px solid red;
-  display: block;
-  margin: 5px 0;
-  padding: 5px;
+.navbar-brand img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 
 .avatar {

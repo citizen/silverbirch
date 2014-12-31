@@ -25,9 +25,9 @@ var Tasks = React.createClass({
         tops = [],
         tasksChildren = [],
         dbRef = this.props.fbRef,
+        uid = dbRef.getAuth().uid,
         tasksEdgesRef = dbRef.child("tasksEdges"),
-        usersTasks = dbRef.child("usersTasks"),
-        uid = usersTasks.getAuth().uid;
+        usersTasks = dbRef.child("usersTasks");
 
     usersTasks.child(uid).on('value', function(userTaskSnapshot) {
       var tasks = (userTaskSnapshot.val()) ? Object.keys(userTaskSnapshot.val()) : [],
@@ -35,7 +35,7 @@ var Tasks = React.createClass({
 
       _.each(tasks, function(id) {
         tasksEdgesRef.child(id).child('child').on('value', function(edgeSnapshot) {
-          var children = edgeSnapshot.val();
+          var children = (edgeSnapshot.val()) ? edgeSnapshot.val() : {id};
           if ( children ) {
             var childKeys = Object.keys(children);
             tasksChildren = _.union(tasksChildren, childKeys);
@@ -83,13 +83,17 @@ var Tasks = React.createClass({
     var createItem = function(item, index) {
       item = this.state.tasks[item];
       return (
-        <Link to="task" params={{taskId: item.uid}} className="task" key={ index }>
-          <h3>
-            { item.title }
-            <span className="badge">{item.childCount}</span>
-          </h3>
-          <span>{ item.description }</span>
-        </Link>
+        <div className="panel panel-default">
+          <div className="panel-body">
+            <Link to="task" params={{taskId: item.uid}} key={ index }>
+              <h3>
+                { item.title }
+                <span className="badge">{item.childCount}</span>
+              </h3>
+              <span>{ item.description }</span>
+            </Link>
+          </div>
+        </div>
       );
     }.bind(this);
 
