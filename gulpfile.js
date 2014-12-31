@@ -128,7 +128,7 @@ gulp.task('dev', ['bower', 'styles:dev', 'scripts:dev', 'images', 'jade:dev', 's
   // Watch .jade files
   gulp.watch(files.views + '/**/*.jade', ['jade:dev', browserSync.reload]);
   // Watch .js files
-  gulp.watch(files.js + '/**/*.js', ['scripts', browserSync.reload]);
+  gulp.watch(files.js + '/**/*.js', ['scripts:dev', browserSync.reload]);
   // Watch image files
   gulp.watch(files.img + '/**/*', ['images', browserSync.reload]);
 });
