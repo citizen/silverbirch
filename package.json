@@ -16,6 +16,7 @@
     "gulp-autoprefixer": "~1.0.1",
     "gulp-bower": "0.0.7",
     "gulp-cache": "~0.2.4",
+    "gulp-cachebust": "0.0.5",
     "gulp-debug": "^1.0.1",
     "gulp-filter": "^1.0.2",
     "gulp-imagemin": "~1.0.1",
