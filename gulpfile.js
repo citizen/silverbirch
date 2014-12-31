@@ -1,23 +1,22 @@
 'use strict';
 
+// Load plugins
 var gulp = require('gulp');
 var del = require('del');
-var path = require('path');
-
-// Load plugins
 var $ = require('gulp-load-plugins')();
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
+var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
 // Clean
-gulp.task('clean', function(cb) {
-  return del(['dist/*'], cb);
+gulp.task('clean', function (cb) {
+  del(['dist/*'], cb);
 });
 
 // Styles
-gulp.task('styles', function() {
+gulp.task('styles:dev', function() {
   return gulp.src('app/stylesheets/style.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
@@ -28,6 +27,16 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('dist/stylesheets'))
     .pipe($.filter('**/*.css'))
     .pipe(reload({stream: true}))
+    .pipe($.size());
+});
+
+gulp.task('styles:build', function() {
+  return gulp.src('app/stylesheets/style.scss')
+    .pipe($.sass({
+      errLogToConsole: true
+    }))
+    .pipe($.autoprefixer('last 1 version'))
+    .pipe(gulp.dest('dist/stylesheets'))
     .pipe($.size());
 });
 
@@ -73,15 +82,15 @@ gulp.task('bower', function() {
 gulp.task('serve', function() {
   return browserSync({
     server: {
-      baseDir: './dist/'
+      baseDir: './dist'
     }
   });
 });
 
-// Watch
-gulp.task('watch', ['bower', 'jade', 'styles', 'scripts', 'images', 'serve'], function() {
+// Dev
+gulp.task('dev', ['bower', 'jade', 'styles:dev', 'scripts', 'images', 'serve'], function() {
   // Watch .scss files
-  gulp.watch('app/stylesheets/**/*.scss', ['styles']);
+  gulp.watch('app/stylesheets/**/*.scss', ['styles:dev']);
   // Watch .jade files
   gulp.watch('app/views/**/*.jade', ['jade', browserSync.reload]);
   // Watch .js files
@@ -91,7 +100,14 @@ gulp.task('watch', ['bower', 'jade', 'styles', 'scripts', 'images', 'serve'], fu
 });
 
 // Build
-gulp.task('build', ['bower', 'jade', 'styles', 'scripts', 'images']);
+gulp.task('build', ['bower', 'jade', 'styles:build', 'scripts', 'images']);
+
+// Watch task
+gulp.task('watch', function (cb) {
+  runSequence('clean', 'dev', cb);
+});
 
 // Default task
-gulp.task('default', ['clean', 'build']);
+gulp.task('default', function (cb) {
+  runSequence('clean', 'build', cb);
+});
