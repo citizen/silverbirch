@@ -33,10 +33,10 @@ var Login = React.createClass({
         // TODO: use switch case to allow for more auth providers
         if(userData.provider === 'github') {
           var githubUser = userData.github;
-          userData.email        = githubUser.email;
-          userData.avatar       = githubUser.cachedUserProfile.avatar_url;
           userData.username     = username;
-          userData.displayName  = githubUser.displayName;
+          userData.email        = (githubUser.email) ? githubUser.email : null;
+          userData.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
+          userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
           return userData;
         }
       }
