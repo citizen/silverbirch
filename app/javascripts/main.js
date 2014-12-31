@@ -43,7 +43,7 @@ var App = React.createClass({
       <li>
         <Link to="profile" params={{username: this.state.user.username}}>
           <img className="avatar" src={this.state.user.avatar} />
-          <span>{this.state.user.displayName}</span>
+          <span>{this.state.user.username}</span>
         </Link>
       </li> : '';
 
