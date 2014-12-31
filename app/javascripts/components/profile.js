@@ -25,19 +25,23 @@ var Profile = React.createClass({
 
   getUser: function() {
     var dbRef = this.props.fbRef,
-        userId = 'github:' + this.getParams().username,
-        usersRef = dbRef.child("users").child(userId);
+        username = this.getParams().username,
+        usersRef = dbRef.child("users").child(username);
+
+    console.log('username ' , username);
 
     usersRef.on('value', function(taskSnapshot) {
-      var userData = taskSnapshot.val();
+      var userData = {},
+          userDataVal = taskSnapshot.val();
+      console.log('userDataVal ' , userDataVal);
+
+      userData.email = (userDataVal.email) ? userDataVal.email : '';
+      userData.avatar = (userDataVal.avatar) ? userDataVal.avatar : '';
+      userData.username = (userDataVal.username) ? userDataVal.username : '';
+      userData.displayName = (userDataVal.displayName) ? userDataVal.displayName : '';
 
       this.setState({
-        user: {
-          email: userData.github.email,
-          avatar: userData.github.cachedUserProfile.avatar_url,
-          username: userData.github.username,
-          displayName: userData.github.displayName,
-        }
+        user: userData
       });
     }.bind(this));
   },

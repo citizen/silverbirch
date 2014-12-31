@@ -24,9 +24,15 @@ var App = React.createClass({
 
   componentWillMount: function () {
     this.props.fbRef.onAuth(function(auth) {
-      this.setState({
-        user: auth ? auth.github : null
-      });
+      if(auth) {
+        this.props.fbRef.child('users').child(auth.github.username).on('value', function(authData) {
+          this.setState({
+            user: authData.val()
+          });
+        }.bind(this));
+      } else {
+        console.warn('not authed!');
+      }
     }, this);
   },
 
@@ -35,8 +41,8 @@ var App = React.createClass({
 
     profileLink = (this.state.user) ?
       <li>
-        <Link to="profile" params={{username: this.state.user.id}}>
-          <img className="avatar" src={this.state.user.cachedUserProfile.avatar_url} />
+        <Link to="profile" params={{username: this.state.user.username}}>
+          <img className="avatar" src={this.state.user.avatar} />
           <span>{this.state.user.displayName}</span>
         </Link>
       </li> : '';
