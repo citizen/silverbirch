@@ -122,7 +122,7 @@ gulp.task('serve', function() {
 });
 
 // Dev
-gulp.task('dev', ['bower', 'styles:dev', 'scripts:dev', 'images', 'jade:dev', 'serve'], function() {
+gulp.task('dev', ['bower', 'styles:dev', 'scripts:dev', 'images', 'jade:dev'], function() {
   // Watch .scss files
   gulp.watch(files.scss + '/**/*.scss', ['styles:dev']);
   // Watch .jade files
@@ -138,7 +138,7 @@ gulp.task('build', ['bower', 'images', 'jade:build']);
 
 // Watch task
 gulp.task('watch', function (cb) {
-  runSequence('clean', 'dev', cb);
+  runSequence('clean', 'dev', 'serve', cb);
 });
 
 // Default task
