@@ -78,7 +78,7 @@ var Task = React.createClass({
         users = Object.keys(task.users);
 
     return (
-      <div className="panel panel-default">
+      <div className="panel panel-default col-md-6">
         <div className="panel-body">
           <h3>{ task.title }</h3>
           <span>{ task.description }</span>

@@ -91,8 +91,9 @@ var routes = (
   <Route handler={App}>
     <Route name="login" handler={Login}/>
     <Route name="logout" handler={Logout}/>
-    <Route name="tasks" handler={Tasks}/>
-    <Route name="task" path="tasks/:taskId" handler={Task}/>
+    <Route name="tasks" handler={Tasks}>
+      <Route name="task" path=":taskId" handler={Task}/>
+    </Route>
     <Route name="profile" path="profile/:username" handler={Profile}/>
   </Route>
 );
