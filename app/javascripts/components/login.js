@@ -56,9 +56,10 @@ var Login = React.createClass({
 
   render: function () {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <button>Log in</button>
-      </form>
+      <div onClick={this.handleSubmit}>
+        <h3>Log in with...</h3>
+        <span className="btn btn-default">Github</span>
+      </div>
     );
   }
 });

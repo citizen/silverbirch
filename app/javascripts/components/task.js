@@ -84,7 +84,7 @@ var Task = React.createClass({
           <span>{ task.description }</span>
           <UserList users={users} fbRef={this.props.fbRef} removeUser={this.removeUser} />
           <TaskList tasks={task.children} />
-          <TaskForm parentId={task.id} fbRef={this.props.fbRef} />
+          <TaskForm parentId={task.id} {...this.props} />
         </div>
       </div>
     );

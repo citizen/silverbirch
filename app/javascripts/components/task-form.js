@@ -15,12 +15,12 @@ var TaskForm = React.createClass({
       return;
     }
 
-    var userId = dbRef.getAuth().uid,
+    var userId = this.props.user.username,
         tasksRef = dbRef.child('tasks'),
         edgesRef = dbRef.child('tasksEdges'),
         usersTasksRef = dbRef.child('usersTasks');
 
-    // save that shit
+    // save this shit
     var task = {
       "users": {},
       "title": title,

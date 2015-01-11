@@ -25,15 +25,24 @@ var App = React.createClass({
   componentWillMount: function () {
     this.props.fbRef.onAuth(function(auth) {
       if(auth) {
-        this.props.fbRef.child('users').child(auth.github.username).on('value', function(authData) {
-          this.setState({
-            user: authData.val()
-          });
-        }.bind(this));
-      } else {
-        console.warn('not authed!');
+        this.props.fbRef
+          .child('users')
+          .child(auth[auth.provider].username)
+          .on('value', function(authData) {
+            this.setUser(authData.val());
+          }.bind(this));
+      }
+      else {
+        this.setUser(auth);
       }
     }, this);
+  },
+
+  setUser: function (userData) {
+    this.setState({
+      user: userData
+    });
+    this.forceUpdate();
   },
 
   render: function () {
@@ -72,7 +81,7 @@ var App = React.createClass({
             </ul>
           </div>
         </nav>
-        <RouteHandler {...this.props}/>
+        <RouteHandler user={this.state.user} {...this.props}/>
       </div>
     );
   }

@@ -25,7 +25,6 @@ var Tasks = React.createClass({
         tops = [],
         tasksChildren = [],
         dbRef = this.props.fbRef,
-        uid = dbRef.getAuth().uid,
         tasksEdgesRef = dbRef.child("tasksEdges"),
         usersTasks = dbRef.child("usersTasks");
 
@@ -57,6 +56,7 @@ var Tasks = React.createClass({
   updateState: function (n, tasks, dbRef) {
     var tasksRef = dbRef.child("tasks"),
         tasksEdgesRef = dbRef.child("tasksEdges");
+          uid = dbRef.props.user.username,
 
     if (--n < 1) {
       var self = this,
