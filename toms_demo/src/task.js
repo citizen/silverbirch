@@ -8,25 +8,24 @@ var App = React.createClass({
     var tasks = {
       "task 1": {
         "title": "level 1",
-        "children": []
+        "children": {}
       },
       "task 2": {
         "title": "level 2",
-        "children": []
+        "children": {}
       },
       "task 3": {
         "title": "level 3",
-        "children": []
+        "children": {}
       }
     };
 
-    tasks["task 1"].children.push(tasks["task 2"]);
-    tasks["task 2"].children.push(tasks["task 3"]);
+    tasks["task 1"].children["task 2"] = tasks["task 2"];
+    tasks["task 2"].children["task 3"] = tasks["task 3"];
 
-    var task_tops = [tasks["task 1"]];
+    var task_tops = {"task 1": tasks["task 1"]};
     this.setState({tasks: tasks, task_tops: task_tops});
     /*
-    */
     var self = this;
     function add_new_task(level) {
       var new_task = {
@@ -39,9 +38,9 @@ var App = React.createClass({
       setTimeout(function() {add_new_task(level + 1)}, 2000);
     }
     add_new_task(4);
+    */
 
     /*
-    */
     function add_new_parent_task(level) {
       var new_task = {
         "title": "level " + level,
@@ -54,6 +53,7 @@ var App = React.createClass({
       setTimeout(function() {add_new_parent_task(level - 1)}, 2000);
     }
     add_new_parent_task(0);
+    */
   },
 
   componentWillMountie: function() {
@@ -142,11 +142,11 @@ var Task = React.createClass({
 
 var Tasks = React.createClass({
   render: function() {
-    var tasks = this.props.tasks.map(function (task) {
+    var tasks = Object.keys(this.props.tasks).map(function ( taskId) {
       return (
-        <Task task={task} />
+        <Task task={this.props.tasks[taskId]} />
       );
-    });
+    }.bind(this));
     return (
       <ul className="tasks">
         {tasks}
