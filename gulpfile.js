@@ -1,16 +1,15 @@
 'use strict';
 
 // Load plugins
-var gulp = require('gulp');
-var del = require('del');
-var $ = require('gulp-load-plugins')();
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
+var $           = require('gulp-load-plugins')();
+var del         = require('del');
+var gulp        = require('gulp');
+var source      = require('vinyl-source-stream');
+var browserify  = require('browserify');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
-var reload = browserSync.reload;
 var CacheBuster = require('gulp-cachebust');
-var cachebust = new CacheBuster();
+var cachebust   = new CacheBuster();
 
 var src = './app';
 var dist = './dist';
@@ -28,28 +27,25 @@ gulp.task('clean', function (cb) {
 
 // Styles
 gulp.task('styles:dev', function() {
-  return gulp.src(files.scss + '/style.scss')
+  return gulp.src(files.scss + '/**/*.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
       errLogToConsole: true
     }))
-    .pipe($.sourcemaps.write())
     .pipe($.autoprefixer('last 1 version'))
+    .pipe($.sourcemaps.write())
     .pipe(gulp.dest(dist + '/stylesheets'))
     .pipe($.filter('**/*.css'))
-    .pipe(reload({stream: true}))
+    .pipe(browserSync.reload({stream:true}))
     .pipe($.size());
 });
 
 gulp.task('styles:build', function() {
-  return gulp.src(files.scss + '/style.scss')
-    .pipe($.sourcemaps.init())
+  return gulp.src(files.scss + '/**/*.scss')
     .pipe($.sass({
       errLogToConsole: true
     }))
-    .pipe($.sourcemaps.write())
     .pipe($.autoprefixer('last 1 version'))
-    .pipe(cachebust.resources())
     .pipe(gulp.dest(dist + '/stylesheets'))
     .pipe($.size());
 });
