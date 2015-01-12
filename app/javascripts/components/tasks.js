@@ -45,11 +45,9 @@ var Tasks = React.createClass({
         tasksRef.child(taskId).on('value', function(taskData) {
           var task = {};
 
-          task[taskId] = {
-            uid: taskId,
-            title: taskData.val().title,
-            children: {}
-          };
+          task[taskId] = taskData.val();
+          task[taskId].uid = taskId;
+          task[taskId].children = {};
 
           this.updateTasks(task);
 
@@ -103,7 +101,7 @@ var Tasks = React.createClass({
       <div>
         <div className="row">
           <div className="col-md-6">
-            <TaskTree tasks={this.state.treeTops} />
+            <TaskTree tasks={this.state.treeTops} {...this.props} />
           </div>
           <RouteHandler {...this.props} />
         </div>

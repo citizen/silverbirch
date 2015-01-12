@@ -2,17 +2,19 @@
 
 var React = require('react'),
     Router = require('react-router'),
-    { Link } = Router;
+    { Link } = Router,
+    TaskControls = require('./task-controls');
 
 var TaskTreeItem = React.createClass({
   render: function() {
     var task = this.props.task;
     return (
-      <li className="task">
-        <Link to="task" params={{taskId: task.uid}}>
-          <span>{task.title}</span>
+      <li className="task clearfix">
+        <Link to="task" params={{taskId: task.uid}} className="pull-left">
+          <h4 className="title">{task.title}</h4>
           <TaskTree tasks={task.children} />
         </Link>
+        <TaskControls task={task} {...this.props} />
       </li>
     );
   }
@@ -23,12 +25,12 @@ var TaskTree = React.createClass({
     var tasks = Object.keys(this.props.tasks).map(function (taskId) {
       var task = this.props.tasks[taskId];
 
-      if (!task.uid) { return null; }
-      return <TaskTreeItem task={task} key={task.uid} />;
+      if (!task.uid || task.archived) { return null; }
+      return <TaskTreeItem task={task} key={task.uid} {...this.props} />;
     }.bind(this));
 
     return (
-      <ul className="tasks">
+      <ul className="tasks list-unstyled">
         {tasks}
       </ul>
     );
