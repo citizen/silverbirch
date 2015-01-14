@@ -102,12 +102,6 @@ gulp.task('images', function() {
     .pipe($.size());
 });
 
-// Bower helper
-gulp.task('bower', function() {
-  return $.bower()
-    .pipe(gulp.dest(dist + '/bower_components'));
-});
-
 // Webserver
 gulp.task('serve', function() {
   return browserSync({
@@ -118,7 +112,7 @@ gulp.task('serve', function() {
 });
 
 // Dev
-gulp.task('dev', ['bower', 'styles:dev', 'scripts:dev', 'images', 'jade:dev'], function() {
+gulp.task('dev', ['styles:dev', 'scripts:dev', 'images', 'jade:dev'], function() {
   // Watch .scss files
   gulp.watch(files.scss + '/**/*.scss', ['styles:dev']);
   // Watch .jade files
@@ -130,7 +124,7 @@ gulp.task('dev', ['bower', 'styles:dev', 'scripts:dev', 'images', 'jade:dev'], f
 });
 
 // Build
-gulp.task('build', ['bower', 'images', 'jade:build']);
+gulp.task('build', ['jade', 'styles:build', 'scripts:build', 'images']);
 
 // Watch task
 gulp.task('watch', function (cb) {
