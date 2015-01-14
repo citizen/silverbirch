@@ -1,10 +1,10 @@
 var App = React.createClass({
 
   getInitialState: function() {
-    return {tasks : {}, top_tasks: []};
+    return {tasks : {}, top_tasks: {}};
   },
 
-  componentWillMount: function() {
+  componentWillMountStaticTest: function() {
     var tasks = {
       "task 1": {
         "title": "level 1",
@@ -23,9 +23,10 @@ var App = React.createClass({
     tasks["task 1"].children["task 2"] = tasks["task 2"];
     tasks["task 2"].children["task 3"] = tasks["task 3"];
 
-    var task_tops = {"task 1": tasks["task 1"]};
-    this.setState({tasks: tasks, task_tops: task_tops});
+    var top_tasks = {"task 1": tasks["task 1"]};
+    this.setState({tasks: tasks, top_tasks: top_tasks});
     /*
+    */
     var self = this;
     function add_new_task(level) {
       var new_task = {
@@ -33,83 +34,108 @@ var App = React.createClass({
         "children": []
       }
       tasks["task " + level] = new_task;
-      tasks["task " + (level - 1)].children.push(tasks["task " + level]);
-      self.setState({tasks: tasks, task_tops: task_tops});
+      tasks["task " + (level - 1)].children["task " + level] = tasks["task " + level];
+      self.setState({tasks: tasks, top_tasks: top_tasks});
       setTimeout(function() {add_new_task(level + 1)}, 2000);
     }
     add_new_task(4);
-    */
 
     /*
+    */
     function add_new_parent_task(level) {
       var new_task = {
         "title": "level " + level,
         "children": []
       }
       tasks["task " + level] = new_task;
-      tasks["task " + level].children.push(tasks["task " + (level + 1)]);
-      task_tops = [tasks["task " + level]];
-      self.setState({tasks: tasks, task_tops: task_tops});
-      setTimeout(function() {add_new_parent_task(level - 1)}, 2000);
+      tasks["task " + level].children["task " + level] = tasks["task " + (level + 1)];
+      top_tasks = [tasks["task " + level]];
+      self.setState({tasks: tasks, top_tasks: top_tasks});
+      setTimeout(function() {add_new_parent_task(level + 1)}, 2000);
     }
     add_new_parent_task(0);
-    */
   },
 
-  componentWillMountie: function() {
-    var firebaseRef = new Firebase("https://jkilla.firebaseio.com/");
-    var tasks = this.state.tasks;
+  initme: function(parentId, level) {
+    var firebaseRef = new Firebase("https://jkilla-tom.firebaseio.com/");
+    var authData = firebaseRef.getAuth();
+    var users = {};
+    users[authData.uid] = true;
+    var task = firebaseRef.child('tasks').push();
+    var taskId = task.key();
+    var initme = this.initme;
+    task.set({
+        title: "task level " + level,
+        description: "description for task level " + level,
+        users: users
+    }, function(error) {
+      if (error) {
+        console.log('Synchronization failed');
+      } else {
+        firebaseRef.child('usersTasks/' + authData.uid + "/" + taskId).set(true);
+        if(parentId) {
+          firebaseRef.child('tasks/' + parentId + "/relationships/child_of/" + taskId).set(true);
+        }
+        if(level < 10) {
+          setTimeout(function() { initme(taskId, level + 1) }.bind(this), 1000);
+        }
+      }
+    });
+  },
+
+  componentWillMount: function() {
+    var firebaseRef = new Firebase("https://jkilla-tom.firebaseio.com/");
+    var tasks = {};
+    var initme = this.initme;
+    var first_time = true;
+    console.log("tasks object", tasks);
     firebaseRef.onAuth(function(authData) {
       if (authData) {
-
-        var children = [];
-        firebaseRef.child('usersTasks').on('child_added', function(usersTaskSnapshot) {
-          firebaseRef.child('tasks').on('child_added', function(taskSnapshot) {
-            var taskId = taskSnapshot.key();
+        initme(null, 0);
+        firebaseRef.child('usersTasks/' + authData.uid).on('child_added', function(usersTaskSnapshot) {
+          var taskId = usersTaskSnapshot.key();
+          firebaseRef.child('tasks/' + taskId).on('value', function(taskSnapshot) {
+	    var task = taskSnapshot.val();
+	    task.uid = taskId;
             if (taskId in tasks) {
-              var children = tasks[taskId].children;
-	      tasks[taskId] = taskSnapshot.val();
-	      tasks[taskId].children = children;
+	      tasks[taskId].title = task.title;
+	      tasks[taskId].description = task.description;
+	      tasks[taskId].fbRef = taskSnapshot.ref();
+              tasks[taskId].children = {};
+              if ('relationships' in task && 'child_of' in task.relationships) {
+	        Object.keys(task.relationships.child_of).forEach(function(childId, idx) {
+                  if (!(childId in tasks)) {
+                    tasks[childId] = {};
+                  }
+	          tasks[taskId].children[childId] = tasks[childId];
+                });
+              };
 	    } else {
-              tasks[taskId] = taskSnapshot.val();
-              tasks[taskId].children = [];
+              tasks[taskId] = {
+                title: task.title,
+                description: task.description,
+	        fbRef: taskSnapshot.ref(),
+	        children: {}
+              }
+	      if ('relationships' in task && 'child_of' in task.relationships) {
+	        Object.keys(task.relationships.child_of).forEach(function(childId, idx) {
+                  if (!(childId in tasks)) {
+                    tasks[childId] = {};
+                  }
+	          tasks[taskId].children[childId] = tasks[childId];
+                });
+	      }
             }
+
             this.setState({tasks: tasks});
-          });
-        });
-
-        firebaseRef.child('tasksEdges').on('child_added', function(taskEdgesSnapshot) {
-          var taskId = taskEdgesSnapshot.key();
-          if (! taskId in tasks) {
-            tasks[taskId] = {title: null, children: []};
-          }
-          taskEdgesSnapshot.child('child').on('child_added', function(childTaskEdgeSnapshot) {
-            var childTaskId = childTaskEdgeSnapshot.key();
-            if (! childTaskId in tasks) {
-              tasks[childTaskId] = {title: null, children: []};
+            if(first_time) {
+              first_time = false;
+              var top_tasks = {};
+              top_tasks[taskId] = tasks[taskId];
+              this.setState({top_tasks: top_tasks});
             }
-          });
-        });
-
-        //var tasks = {
-        //  "abc": {
-        //    "title": "1st level",
-        //    "children": []
-        //  },
-        //  "def": {
-        //    "title": "2nd level",
-        //    "children": []
-        //  },
-        //  "ghi": {
-        //    "title": "3rd level",
-        //    "children": []
-        //  }
-        //};
-        //var task_tops = [tasks["abc"]];
-        //tasks["abc"].children.push(tasks["def"]);
-        //tasks["def"].children.push(tasks["ghi"]);
-        //this.setState({tasks: tasks, task_tops: task_tops});
-
+          }, function(error) {console.log("fetch error on " + taskId + " - ", error)}, this);
+        }, function(error) {console.log("fetch error on " + taskId + " - ", error)}, this);
       } else {
         firebaseRef.authWithOAuthPopup("github", function(error, authData) {
           console.log("freshly authed");
@@ -119,10 +145,11 @@ var App = React.createClass({
   },
 
   render: function() {
+    //console.log("App.state.top_tasks", this.state.top_tasks);
     return (
       <div className="app">
         <ul className="tasks">
-          <Task task={{"title": "pseudo-top", "children": this.state.task_tops}} />
+          <Task task={{"title": "pseudo-top", "children": this.state.top_tasks}} />
         </ul>
       </div>
     );
@@ -131,6 +158,7 @@ var App = React.createClass({
 
 var Task = React.createClass({
   render: function() {
+    //console.log("Task.props.task.children", this.props.task.children);
     return (
       <li className="task">
         <h1>{this.props.task.title}</h1>
@@ -142,14 +170,18 @@ var Task = React.createClass({
 
 var Tasks = React.createClass({
   render: function() {
-    var tasks = Object.keys(this.props.tasks).map(function ( taskId) {
-      return (
-        <Task task={this.props.tasks[taskId]} />
-      );
-    }.bind(this));
+    //console.log("Tasks.props.tasks", this.props.tasks);
+    var tasks = this.props.tasks;
+    var taskNodes = Object.keys(tasks).map(function (taskId) {
+      if(taskId in tasks && 'title' in tasks[taskId]) {
+        return (
+          <Task task={tasks[taskId]} />
+        );
+      }
+    });
     return (
       <ul className="tasks">
-        {tasks}
+        {taskNodes}
       </ul>
     );
   }
