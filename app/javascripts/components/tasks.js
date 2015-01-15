@@ -3,7 +3,7 @@
 var _ = require('lodash'),
     React = require('react/addons'),
     Router = require('react-router'),
-    { RouteHandler } = Router,
+    { Link, RouteHandler } = Router,
     TaskForm = require('./task-form'),
     TaskTree = require('./task-tree'),
     Authentication = require('./auth');
@@ -99,13 +99,13 @@ var Tasks = React.createClass({
   render: function() {
     return (
       <div>
+        <Link to="newTask" className="btn btn-primary glyphicon glyphicon-plus"></Link>
         <div className="row">
           <div className="col-md-6">
             <TaskTree tasks={this.state.treeTops} {...this.props} />
           </div>
           <RouteHandler {...this.props} />
         </div>
-        <TaskForm {...this.props} />
       </div>
     );
   }

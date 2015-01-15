@@ -20,7 +20,6 @@ var TaskForm = React.createClass({
         edgesRef = dbRef.child('tasksEdges'),
         usersTasksRef = dbRef.child('usersTasks');
 
-    // save this shit
     var task = {
       "users": {},
       "title": title,
@@ -47,8 +46,7 @@ var TaskForm = React.createClass({
 
   render: function() {
     return (
-      <form className="form-inline" onSubmit={this.handleSubmit}>
-        <hr/>
+      <form className="col-md-6" onSubmit={this.handleSubmit}>
         <h4>Add a task</h4>
         <div className="form-group">
           <input
@@ -60,15 +58,14 @@ var TaskForm = React.createClass({
           />
         </div>
         <div className="form-group">
-          <input
+          <textarea
             id="description"
             ref="description"
-            type="textarea"
             placeholder="Description..."
             className="form-control"
           />
         </div>
-        <button type="submit" className="btn btn-default">Add</button>
+        <button type="submit" className="btn btn-default pull-right">Add</button>
       </form>
     );
   }

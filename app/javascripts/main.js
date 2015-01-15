@@ -9,7 +9,8 @@ var fb = require('firebase'),
     Tasks = require('./components/tasks'),
     Login = require('./components/login'),
     Logout = require('./components/logout'),
-    Profile = require('./components/profile');
+    Profile = require('./components/profile'),
+    TaskForm = require('./components/task-form');
 
 var App = React.createClass({
   mixins: [
@@ -92,6 +93,7 @@ var routes = (
     <Route name="login" handler={Login}/>
     <Route name="logout" handler={Logout}/>
     <Route name="tasks" handler={Tasks}>
+      <Route name="newTask" path="new" handler={TaskForm}/>
       <Route name="task" path=":taskId" handler={Task}/>
     </Route>
     <Route name="profile" path="profile/:username" handler={Profile}/>
