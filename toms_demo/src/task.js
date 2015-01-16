@@ -74,7 +74,7 @@ var App = React.createClass({
       } else {
         firebaseRef.child('usersTasks/' + authData.uid + "/" + taskId).set(true);
         if(parentId) {
-          firebaseRef.child('tasks/' + parentId + "/relationships/child_of/" + taskId).set(true);
+          firebaseRef.child('tasks/' + parentId + "/relationships/has_child/" + taskId).set(true);
         }
         if(level < 10) {
           setTimeout(function() { initme(taskId, level + 1) }.bind(this), 1000);
@@ -87,7 +87,6 @@ var App = React.createClass({
     var firebaseRef = new Firebase("https://jkilla-tom.firebaseio.com/");
     var tasks = {};
     var initme = this.initme;
-    var first_time = true;
     console.log("tasks object", tasks);
     firebaseRef.onAuth(function(authData) {
       if (authData) {
@@ -102,8 +101,8 @@ var App = React.createClass({
 	      tasks[taskId].description = task.description;
 	      tasks[taskId].fbRef = taskSnapshot.ref();
               tasks[taskId].children = {};
-              if ('relationships' in task && 'child_of' in task.relationships) {
-	        Object.keys(task.relationships.child_of).forEach(function(childId, idx) {
+              if ('relationships' in task && 'has_child' in task.relationships) {
+	        Object.keys(task.relationships.has_child).forEach(function(childId, idx) {
                   if (!(childId in tasks)) {
                     tasks[childId] = {};
                   }
@@ -117,8 +116,8 @@ var App = React.createClass({
 	        fbRef: taskSnapshot.ref(),
 	        children: {}
               }
-	      if ('relationships' in task && 'child_of' in task.relationships) {
-	        Object.keys(task.relationships.child_of).forEach(function(childId, idx) {
+	      if ('relationships' in task && 'has_child' in task.relationships) {
+	        Object.keys(task.relationships.has_child).forEach(function(childId, idx) {
                   if (!(childId in tasks)) {
                     tasks[childId] = {};
                   }
@@ -128,12 +127,26 @@ var App = React.createClass({
             }
 
             this.setState({tasks: tasks});
-            if(first_time) {
-              first_time = false;
-              var top_tasks = {};
-              top_tasks[taskId] = tasks[taskId];
-              this.setState({top_tasks: top_tasks});
-            }
+            taskList = Object.keys(tasks).map(function(taskId) {
+              return taskId;
+            });
+            var nestedChildrenList = Object.keys(tasks).map(function(taskId) {
+              if ('children' in tasks[taskId] && Object.keys(tasks[taskId]['children'])) {
+                var children = Object.keys(tasks[taskId]["children"]);
+                return children;
+              } else {
+                return [];
+              }
+            });
+            var mergedChildrenList = [];
+            mergedChildrenList = mergedChildrenList.concat.apply(mergedChildrenList, nestedChildrenList);
+            var top_tasks_list = _.difference(taskList, mergedChildrenList);
+            var top_tasks_hash = {};
+            top_tasks_list.forEach(function(taskId) {
+              top_tasks_hash[taskId] = tasks[taskId];
+            });
+            //console.log("top_tasks", top_tasks_hash);
+            this.setState({top_tasks: top_tasks_hash});
           }, function(error) {console.log("fetch error on " + taskId + " - ", error)}, this);
         }, function(error) {console.log("fetch error on " + taskId + " - ", error)}, this);
       } else {
