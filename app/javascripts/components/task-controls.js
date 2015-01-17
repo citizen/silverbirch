@@ -15,7 +15,16 @@ var TaskControls = React.createClass({
   render: function() {
     return (
       <div className="task-controls">
-        <span onClick={this.archiveTask} className="glyphicon glyphicon-remove pull-left"></span>
+        <Link
+          to="newChildTask"
+          params={{taskId: this.props.task.uid}}
+          className="glyphicon glyphicon-plus pull-left"
+        ></Link>
+        <span
+          onClick={this.archiveTask}
+          className="glyphicon glyphicon-remove pull-left"
+        >
+        </span>
       </div>
     );
   }

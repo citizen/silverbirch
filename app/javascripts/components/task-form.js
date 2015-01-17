@@ -1,12 +1,16 @@
 "use strict";
 
-var React = require("react");
+var React = require("react"),
+    Router = require("react-router");
 
 var TaskForm = React.createClass({
+  mixins: [ Router.State ],
+
   handleSubmit: function(e) {
     e.preventDefault();
 
     var dbRef = this.props.fbRef,
+        parentId = this.getParams().taskId,
         title = this.refs.title.getDOMNode().value.trim(),
         description = this.refs.description.getDOMNode().value.trim() || null;
 
@@ -17,7 +21,6 @@ var TaskForm = React.createClass({
 
     var userId = this.props.user.username,
         tasksRef = dbRef.child('tasks'),
-        edgesRef = dbRef.child('tasksEdges'),
         usersTasksRef = dbRef.child('usersTasks');
 
     var task = {
@@ -33,8 +36,8 @@ var TaskForm = React.createClass({
     var edge = {};
     edge[newTask.key()] = true;
 
-    if( this.props.parentId ) {
-      edgesRef.child(this.props.parentId+"/child").update(edge);
+    if( parentId ) {
+      dbRef.child('tasks/' + parentId + "/relationships/children/").update(edge);
     }
 
     usersTasksRef.child(userId).update(edge);
@@ -45,9 +48,13 @@ var TaskForm = React.createClass({
   },
 
   render: function() {
+    var formTitle = this.getParams().taskId ?
+      'Add a task to ' + this.getParams().taskId :
+      'Add a task';
+
     return (
       <form className="col-md-6" onSubmit={this.handleSubmit}>
-        <h4>Add a task</h4>
+        <h4>{formTitle}</h4>
         <div className="form-group">
           <input
             id="title"

@@ -15,6 +15,7 @@ var Login = React.createClass({
   handleSubmit: function (event) {
     event.preventDefault();
 
+    // TODO: ask for email to use as uid
     this.props.fbRef.authWithOAuthPopup("github", function(err, authData) {
       if (err) {
         console.warn('error: ', err);

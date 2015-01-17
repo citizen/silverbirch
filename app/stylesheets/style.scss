@@ -36,10 +36,8 @@ body {
 }
 
 .task {
-  &:hover {
-    .glyphicon {
-      display: block;
-    }
+  > span {
+    display: inline-block;
   }
 
   .title {
@@ -47,9 +45,12 @@ body {
   }
 
   .glyphicon {
-    display: none;
     cursor: pointer;
-    margin: 0.1em 0.2em;
+    margin: 0 0.2em;
+  }
+
+  .glyphicon-plus {
+    color: green;
   }
 
   .glyphicon-remove {
@@ -58,7 +59,12 @@ body {
 }
 
 .task-controls {
-  display: inline-block;
+  display: none;
+  margin-left: 5px;
+
+  .task > span:hover & {
+    display: inline-block;
+  }
 }
 
 // /* the tree node's style */

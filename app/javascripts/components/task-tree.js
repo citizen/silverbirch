@@ -10,8 +10,10 @@ var TaskTreeItem = React.createClass({
     var task = this.props.task;
     return (
       <li className="task clearfix">
-        <Link to="task" params={{taskId: task.uid}}>{task.title}</Link>
-        <TaskControls task={task} {...this.props} />
+        <span>
+          <Link to="task" params={{taskId: task.uid}}>{task.title}</Link>
+          <TaskControls task={task} {...this.props} />
+        </span>
         <TaskTree tasks={task.children} />
       </li>
     );

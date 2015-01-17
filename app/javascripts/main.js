@@ -109,6 +109,7 @@ var routes = (
     <Route name="tasks" handler={Tasks}>
       <Route name="newTask" path="new" handler={TaskForm}/>
       <Route name="task" path=":taskId" handler={Task}/>
+      <Route name="newChildTask" path=":taskId/new" handler={TaskForm}/>
       <NotFoundRoute handler={TaskNotFound} />
     </Route>
     <Route name="profile" path="profile/:username" handler={Profile}/>
