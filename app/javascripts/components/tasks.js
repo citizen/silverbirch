@@ -16,8 +16,7 @@ var Tasks = React.createClass({
 
   getInitialState: function () {
     return {
-      tasks: {},
-      topTasks: {}
+      taskTree: {}
     };
   },
 
@@ -45,6 +44,8 @@ var Tasks = React.createClass({
           var task = taskData.val();
 
           tasks[taskId] = (taskId in tasks) ? tasks[taskId] : {};
+
+          tasks[taskId].uid = taskId;
           tasks[taskId].children = {};
 
           for (var prop in task) {
@@ -79,10 +80,7 @@ var Tasks = React.createClass({
 
           // TODO: investigate the performance of clobbering state like this
           // vs React's immutability helpers (see `this.updateTasks()` below)
-          this.setState({
-            tasks: tasks,
-            topTasks: top_tasks_hash
-          });
+          this.setState({taskTree: top_tasks_hash});
 
         }.bind(this));
 
@@ -106,7 +104,7 @@ var Tasks = React.createClass({
         <Link to="newTask" className="btn btn-primary glyphicon glyphicon-plus"></Link>
         <div className="row">
           <div className="col-md-6">
-            <TaskTree tasks={this.state.topTasks} {...this.props} />
+            <TaskTree tasks={this.state.taskTree} {...this.props} />
           </div>
           <RouteHandler {...this.props} />
         </div>
