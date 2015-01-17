@@ -20,6 +20,19 @@ body {
 
 .tasks {
   padding: 0.5em 0;
+
+  ul {
+    margin-left: 10px;
+    padding: 0;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  li {
+    margin-top: 10px;
+  }
 }
 
 .task {
@@ -42,6 +55,10 @@ body {
   .glyphicon-remove {
     color: red;
   }
+}
+
+.task-controls {
+  display: inline-block;
 }
 
 // /* the tree node's style */

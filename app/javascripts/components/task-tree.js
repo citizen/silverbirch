@@ -10,11 +10,9 @@ var TaskTreeItem = React.createClass({
     var task = this.props.task;
     return (
       <li className="task clearfix">
-        <Link to="task" params={{taskId: task.uid}} className="pull-left">
-          <h4 className="title">{task.title}</h4>
-          <TaskTree tasks={task.children} />
-        </Link>
+        <Link to="task" params={{taskId: task.uid}}>{task.title}</Link>
         <TaskControls task={task} {...this.props} />
+        <TaskTree tasks={task.children} />
       </li>
     );
   }
@@ -25,8 +23,8 @@ var TaskTree = React.createClass({
     var tasks = Object.keys(this.props.tasks).map(function (taskId) {
       var task = this.props.tasks[taskId];
 
-      if (!task.uid || task.archived) { return null; }
-      return <TaskTreeItem task={task} key={task.uid} {...this.props} />;
+      if (!Object.keys(task).length || task.archived) { return null; }
+      return <TaskTreeItem task={task} key={taskId} {...this.props} />;
     }.bind(this));
 
     return (

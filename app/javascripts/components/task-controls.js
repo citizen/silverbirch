@@ -1,6 +1,8 @@
 'use strict';
 
-var React = require('react');
+var React = require('react'),
+    Router = require('react-router'),
+    { Link } = Router;
 
 var TaskControls = React.createClass({
   archiveTask: function () {
@@ -12,7 +14,7 @@ var TaskControls = React.createClass({
 
   render: function() {
     return (
-      <div className="pull-left">
+      <div className="task-controls">
         <span onClick={this.archiveTask} className="glyphicon glyphicon-remove pull-left"></span>
       </div>
     );
