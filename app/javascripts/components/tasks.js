@@ -17,7 +17,7 @@ var Tasks = React.createClass({
   getInitialState: function () {
     return {
       tasks: {},
-      treeTops: {}
+      topTasks: {}
     };
   },
 
@@ -31,54 +31,56 @@ var Tasks = React.createClass({
 
   loadTasks: function () {
     if (this.props.user) {
-      var tops = [],
-          kids = [],
+      var tasks = {},
+          top_tasks_list = [],
+          top_tasks_hash = {},
+          nestedChildrenList = [],
           dbRef = this.props.fbRef,
-          username = this.props.user.username,
-          tasksRef = dbRef.child("tasks"),
-          edgesRef = dbRef.child("tasksEdges"),
-          usersTasks = dbRef.child("usersTasks");
+          username = this.props.user.username;
 
-      usersTasks.child(username).on('child_added', function(usersTask) {
+      dbRef.child('usersTasks/' + username).on('child_added', function(usersTask) {
         var taskId = usersTask.key();
 
-        tasksRef.child(taskId).on('value', function(taskData) {
-          var task = {};
+        dbRef.child('tasks/' + taskId).on('value', function(taskData) {
+          var task = taskData.val();
 
-          task[taskId] = taskData.val();
-          task[taskId].uid = taskId;
-          task[taskId].children = {};
+          tasks[taskId] = (taskId in tasks) ? tasks[taskId] : {};
 
-          this.updateTasks(task);
+          tasks[taskId] = taskData.val();
+          tasks[taskId].uid = taskId;
+          tasks[taskId].children = {};
+          delete tasks[taskId].relationships;
 
-          var newState = React.addons.update(this.state.treeTops, {
-            $merge: task
-          });
-
-          this.setState({
-            treeTops: newState
-          });
-
-          edgesRef.child(taskId).child('child').on('child_added', function(childData) {
-            var topsObj = {},
-                childId = childData.key();
-
-            task[taskId].children[childId] = this.state.tasks[childId];
-            this.updateTasks(task);
-
-            // find tree tops
-            kids = _.union(kids, [childId]);
-            tops = (tops.length) ? tops : Object.keys(this.state.tasks);
-            tops = _.difference(tops, kids);
-
-            tops.forEach(function (taskId) {
-              topsObj[taskId] = this.state.tasks[taskId];
-            }.bind(this));
-
-            this.setState({
-              treeTops: topsObj
+          if ('relationships' in task && 'children' in task.relationships) {
+            Object.keys(task.relationships.children).forEach(function(childId, idx) {
+              if (!(childId in tasks)) {
+                tasks[childId] = {};
+              }
+              tasks[taskId].children[childId] = tasks[childId];
             });
-          }.bind(this));
+          }
+
+          nestedChildrenList = Object.keys(tasks).map(function(taskId) {
+            if ('children' in tasks[taskId] && Object.keys(tasks[taskId]['children'])) {
+              var children = Object.keys(tasks[taskId]["children"]);
+              return children;
+            } else {
+              return [];
+            }
+          });
+
+          top_tasks_list = _.difference(Object.keys(tasks), _.flatten(nestedChildrenList));
+
+          top_tasks_list.forEach(function(taskId) {
+            top_tasks_hash[taskId] = tasks[taskId];
+          });
+
+          // TODO: investigate the performance of clobbering state like this
+          // vs React's immutability helpers (see `this.updateTasks()` below)
+          this.setState({
+            tasks: tasks,
+            topTasks: top_tasks_hash
+          });
 
         }.bind(this));
 
@@ -86,15 +88,15 @@ var Tasks = React.createClass({
     }
   },
 
-  updateTasks: function (task) {
-    var newState = React.addons.update(this.state.tasks, {
-      $merge: task
-    });
+  // updateTasks: function (task) {
+  //   var newState = React.addons.update(this.state.tasks, {
+  //     $merge: task
+  //   });
 
-    this.setState({
-      tasks: newState
-    });
-  },
+  //   this.setState({
+  //     tasks: newState
+  //   });
+  // },
 
   render: function() {
     return (
@@ -102,7 +104,7 @@ var Tasks = React.createClass({
         <Link to="newTask" className="btn btn-primary glyphicon glyphicon-plus"></Link>
         <div className="row">
           <div className="col-md-6">
-            <TaskTree tasks={this.state.treeTops} {...this.props} />
+            <TaskTree tasks={this.state.topTasks} {...this.props} />
           </div>
           <RouteHandler {...this.props} />
         </div>
