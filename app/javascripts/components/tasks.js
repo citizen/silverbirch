@@ -1,10 +1,11 @@
 'use strict';
 
 var _ = require('lodash'),
-    React = require('react'),
+    React = require('react/addons'),
     Router = require('react-router'),
-    { Route, Link } = Router,
+    { Link, RouteHandler } = Router,
     TaskForm = require('./task-form'),
+    TaskTree = require('./task-tree'),
     Authentication = require('./auth');
 
 var Tasks = React.createClass({
@@ -15,92 +16,98 @@ var Tasks = React.createClass({
 
   getInitialState: function () {
     return {
-      tasks: {},
-      parentId: null
+      taskTree: {}
     };
   },
 
   componentWillMount: function () {
-    var self = this,
-        tops = [],
-        tasksChildren = [],
-        dbRef = this.props.fbRef,
-        tasksEdgesRef = dbRef.child("tasksEdges"),
-        usersTasks = dbRef.child("usersTasks");
-
-    usersTasks.child(uid).on('value', function(userTaskSnapshot) {
-      var tasks = (userTaskSnapshot.val()) ? Object.keys(userTaskSnapshot.val()) : [],
-          len = tasks.length;
-
-      _.each(tasks, function(id) {
-        tasksEdgesRef.child(id).child('child').on('value', function(edgeSnapshot) {
-          var children = (edgeSnapshot.val()) ? edgeSnapshot.val() : {id};
-          if ( children ) {
-            var childKeys = Object.keys(children);
-            tasksChildren = _.union(tasksChildren, childKeys);
-            tops = _.difference(tasks, tasksChildren);
-          }
-          self.updateState(len--, tops, dbRef);
-        });
-      });
-    });
-
-    usersTasks.child(uid).on('child_removed', function(childSnapshot) {
-      delete this.state.tasks[childSnapshot.key()];
-      this.setState({
-        tasks: this.state.tasks
-      });
-    }.bind(this));
+    this.loadTasks();
   },
 
-  updateState: function (n, tasks, dbRef) {
-    var tasksRef = dbRef.child("tasks"),
-        tasksEdgesRef = dbRef.child("tasksEdges");
-          uid = dbRef.props.user.username,
+  componentWillReceiveProps: function () {
+    this.loadTasks();
+  },
 
-    if (--n < 1) {
-      var self = this,
-          taskData = {};
+  loadTasks: function () {
+    if (this.props.user) {
+      var tasks = {},
+          top_tasks_list = [],
+          top_tasks_hash = {},
+          nestedChildrenList = [],
+          dbRef = this.props.fbRef,
+          username = this.props.user.username;
 
-      _.each(tasks, function (id) {
-        tasksRef.child(id).on('value', function(taskSnapshot) {
-          taskData[id] = taskSnapshot.val();
-          taskData[id].uid = taskSnapshot.key();
+      dbRef.child('usersTasks/' + username).on('child_added', function(usersTask) {
+        var taskId = usersTask.key();
 
-          tasksEdgesRef.child(taskSnapshot.key()).child('child').once('value', function(children) {
-            taskData[id].childCount = (children.val()) ? Object.keys(children.val()).length: "";
+        dbRef.child('tasks/' + taskId).on('value', function(taskData) {
+          var task = taskData.val();
+
+          tasks[taskId] = (taskId in tasks) ? tasks[taskId] : {};
+
+          tasks[taskId].uid = taskId;
+          tasks[taskId].children = {};
+
+          for (var prop in task) {
+            if( task.hasOwnProperty( prop ) && prop !== 'relationships' ) {
+              tasks[taskId][prop] = task[prop];
+            }
+          }
+
+          if ('relationships' in task && 'children' in task.relationships) {
+            Object.keys(task.relationships.children).forEach(function(childId, idx) {
+              if (!(childId in tasks)) {
+                tasks[childId] = {};
+              }
+              tasks[taskId].children[childId] = tasks[childId];
+            });
+          }
+
+          nestedChildrenList = Object.keys(tasks).map(function(taskId) {
+            if ('children' in tasks[taskId] && Object.keys(tasks[taskId]['children'])) {
+              var children = Object.keys(tasks[taskId]["children"]);
+              return children;
+            } else {
+              return [];
+            }
           });
 
-          self.setState({
-            tasks: taskData
+          top_tasks_list = _.difference(Object.keys(tasks), _.flatten(nestedChildrenList));
+
+          top_tasks_list.forEach(function(taskId) {
+            top_tasks_hash[taskId] = tasks[taskId];
           });
-        });
-      });
+
+          // TODO: investigate the performance of clobbering state like this
+          // vs React's immutability helpers (see `this.updateTasks()` below)
+          this.setState({taskTree: top_tasks_hash});
+
+        }.bind(this));
+
+      }.bind(this));
     }
   },
 
-  render: function() {
-    var createItem = function(item, index) {
-      item = this.state.tasks[item];
-      return (
-        <div className="panel panel-default">
-          <div className="panel-body">
-            <Link to="task" params={{taskId: item.uid}} key={ index }>
-              <h3>
-                { item.title }
-                <span className="badge">{item.childCount}</span>
-              </h3>
-              <span>{ item.description }</span>
-            </Link>
-          </div>
-        </div>
-      );
-    }.bind(this);
+  // updateTasks: function (task) {
+  //   var newState = React.addons.update(this.state.tasks, {
+  //     $merge: task
+  //   });
 
+  //   this.setState({
+  //     tasks: newState
+  //   });
+  // },
+
+  render: function() {
     return (
-      <div className="task-list">
-        { Object.keys(this.state.tasks).map(createItem) }
-        <TaskForm parentId={this.state.parentId} {...this.props} />
+      <div>
+        <Link to="newTask" className="btn btn-primary glyphicon glyphicon-plus"></Link>
+        <div className="row">
+          <div className="col-md-6">
+            <TaskTree tasks={this.state.taskTree} {...this.props} />
+          </div>
+          <RouteHandler {...this.props} />
+        </div>
       </div>
     );
   }

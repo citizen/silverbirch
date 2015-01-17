@@ -17,3 +17,84 @@ body {
     width: 120px;
   }
 }
+
+.tasks {
+  padding: 0.5em 0;
+
+  ul {
+    margin-left: 10px;
+    padding: 0;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  li {
+    margin-top: 10px;
+  }
+}
+
+.task {
+  > span {
+    display: block;
+  }
+
+  .title {
+    margin: 0 0.5em 0 0;
+  }
+
+  .glyphicon {
+    cursor: pointer;
+    margin: 0 0.2em;
+  }
+
+  .glyphicon-plus {
+    color: green;
+  }
+
+  .glyphicon-remove {
+    color: red;
+  }
+}
+
+.task-controls {
+  display: none;
+  margin-left: 5px;
+
+  .task > span:hover & {
+    display: inline-block;
+  }
+}
+
+// /* the tree node's style */
+// .tree-view {
+//   overflow-y: hidden;
+// }
+
+// /* style for the container */
+// .tree-view_children {
+//   margin-left: 16px;
+// }
+
+// .tree-view_children-collapsed {
+//   height: 0px;
+// }
+
+// .tree-view_arrow {
+//   cursor: pointer;
+//   margin-right: 6px;
+//   display: inline-block;
+//   -webkit-user-select: none;
+//   -moz-user-select: none;
+//   -ms-user-select: none;
+//   user-select: none;
+// }
+
+// /* rotate the triangle to close it */
+// .tree-view_arrow-collapsed {
+//   -webkit-transform: rotate(-90deg);
+//   -moz-transform: rotate(-90deg);
+//   -ms-transform: rotate(-90deg);
+//   transform: rotate(-90deg);
+// }

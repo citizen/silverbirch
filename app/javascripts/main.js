@@ -3,13 +3,14 @@
 var fb = require('firebase'),
     React = require('react'),
     Router = require('react-router'),
-    { Route, RouteHandler, Link } = Router,
+    { Route, RouteHandler, Link, NotFoundRoute } = Router,
     config = require('./config'),
     Task = require('./components/task'),
     Tasks = require('./components/tasks'),
     Login = require('./components/login'),
     Logout = require('./components/logout'),
-    Profile = require('./components/profile');
+    Profile = require('./components/profile'),
+    TaskForm = require('./components/task-form');
 
 var App = React.createClass({
   mixins: [
@@ -87,12 +88,30 @@ var App = React.createClass({
   }
 });
 
+var TaskNotFound = React.createClass({
+  mixins: [
+    Router.Navigation
+  ],
+
+  componentWillMount: function () {
+    this.transitionTo('tasks');
+  },
+
+  render: function () {
+    return false;
+  }
+});
+
 var routes = (
   <Route handler={App}>
     <Route name="login" handler={Login}/>
     <Route name="logout" handler={Logout}/>
-    <Route name="tasks" handler={Tasks}/>
-    <Route name="task" path="tasks/:taskId" handler={Task}/>
+    <Route name="tasks" handler={Tasks}>
+      <Route name="newTask" path="new" handler={TaskForm}/>
+      <Route name="task" path=":taskId" handler={Task}/>
+      <Route name="newChildTask" path=":taskId/new" handler={TaskForm}/>
+      <NotFoundRoute handler={TaskNotFound} />
+    </Route>
     <Route name="profile" path="profile/:username" handler={Profile}/>
   </Route>
 );
