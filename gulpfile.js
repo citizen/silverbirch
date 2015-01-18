@@ -46,6 +46,7 @@ gulp.task('styles:build', function() {
       errLogToConsole: true
     }))
     .pipe($.autoprefixer('last 1 version'))
+    .pipe(cachebust.resources())
     .pipe(gulp.dest(dist + '/stylesheets'))
     .pipe($.size());
 });
