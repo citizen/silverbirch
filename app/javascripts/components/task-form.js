@@ -40,7 +40,11 @@ var TaskForm = React.createClass({
       dbRef.child('tasks/' + parentId + "/relationships/children/").update(edge);
     }
 
-    usersTasksRef.child(userId).update(edge);
+    usersTasksRef.child(userId).update(edge, function(error) {
+      if(error) {
+        tasksRef.child(newTask.key()).remove();
+      }
+    });
 
     this.refs.title.getDOMNode().value = "";
     this.refs.description.getDOMNode().value = "";
