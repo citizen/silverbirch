@@ -124,7 +124,7 @@ gulp.task('dev', ['styles:dev', 'scripts:dev', 'images', 'jade:dev'], function()
 });
 
 // Build
-gulp.task('build', ['jade', 'styles:build', 'scripts:build', 'images']);
+gulp.task('build', ['styles:build', 'scripts:build', 'images', 'jade:build']);
 
 // Watch task
 gulp.task('watch', function (cb) {
