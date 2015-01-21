@@ -39,6 +39,7 @@ var Login = React.createClass({
           userData.email        = (githubUser.email) ? githubUser.email : null;
           userData.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
           userData.username     = githubUser.username;
+          userData.is_viewing   = sbId;
           userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
 
           dbRef.child(sbId).set(userData);
