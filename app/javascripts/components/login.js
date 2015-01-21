@@ -15,7 +15,6 @@ var Login = React.createClass({
   handleSubmit: function (event) {
     event.preventDefault();
 
-    // TODO: ask for email to use as uid
     this.props.fbRef.authWithOAuthPopup("github", function(err, authData) {
       if (err) {
         console.warn('error: ', err);
@@ -26,23 +25,28 @@ var Login = React.createClass({
   },
 
   createUser: function (userData) {
-    var username = userData.github.username,
-        usersRef = this.props.fbRef.child("users");
+    var uid = userData.auth.uid,
+        dbRef = this.props.fbRef;
 
-    usersRef.child(username).transaction(function(userExists) {
+    dbRef.child(uid).transaction(function(userExists) {
       if (!userExists) {
         // TODO: use switch case to allow for more auth providers
         if(userData.provider === 'github') {
-          var githubUser = userData.github;
-          userData.username     = username;
+          var githubUser = userData.github,
+              sbId = 'sb:' + githubUser.username;
+
+          userData.sbid         = sbId;
           userData.email        = (githubUser.email) ? githubUser.email : null;
           userData.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
+          userData.username     = githubUser.username;
           userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
-          return userData;
+
+          dbRef.child(sbId).set(userData);
+          return {belongs_to_user: sbId};
         }
       }
     }, function(error, committed) {
-      this.userCreated(username, committed);
+      this.userCreated(userData.username, committed);
     }.bind(this));
   },
 
