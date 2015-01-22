@@ -48,19 +48,19 @@ var Tasks = React.createClass({
 
             tasks[taskId] = (taskId in tasks) ? tasks[taskId] : {};
             tasks[taskId].uid = taskId;
+            tasks[taskId].children = {};
 
             for (var prop in task) {
-              if( task.hasOwnProperty( prop ) && prop !== 'has_children' ) {
+              if(task.hasOwnProperty(prop) && prop !== 'has_children') {
                 tasks[taskId][prop] = task[prop];
               }
             }
 
             if ('has_children' in task) {
-              Object.keys(task.relationships.children).forEach(function(childId, idx) {
+              Object.keys(task.has_children).forEach(function(childId, idx) {
                 if (!(childId in tasks)) {
                   tasks[childId] = {};
                 }
-                tasks[taskId].children = {};
                 tasks[taskId].children[childId] = tasks[childId];
               });
             }

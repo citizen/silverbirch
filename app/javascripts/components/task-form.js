@@ -49,7 +49,9 @@ var TaskForm = React.createClass({
     dbRef.child(taskList + '/has_tasks/' + newTaskId.key()).set(true);
 
     if( parentId ) {
-      dbRef.child(parentId + '/has_children/' + newTaskId.key()).update(true);
+      var childTask = {};
+      childTask[newTaskId.key()] = true;
+      dbRef.child(parentId + '/has_children').update(childTask);
     }
 
     this.refs.title.getDOMNode().value = "";
