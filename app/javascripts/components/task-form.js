@@ -9,7 +9,9 @@ var TaskForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
 
-    var dbRef = this.props.fbRef,
+    var task, newTaskId, taskList,
+        user = this.props.user,
+        dbRef = this.props.fbRef,
         parentId = this.getParams().taskId,
         title = this.refs.title.getDOMNode().value.trim(),
         description = this.refs.description.getDOMNode().value.trim() || null;
@@ -19,32 +21,38 @@ var TaskForm = React.createClass({
       return;
     }
 
-    var userId = this.props.user.username,
-        tasksRef = dbRef.child('tasks'),
-        usersTasksRef = dbRef.child('usersTasks');
-
-    var task = {
-      "users": {},
-      "title": title,
-      "description": description
+    task = {
+      "is_type": "task",
+      "has_state": "open",
+      "has_users": {},
+      "created_on": Date.now(),
+      "has_meta": {
+        "title": title,
+        "description": description
+      }
     };
+    task.has_users[user.sbid] = true;
 
-    task.users[userId] = true;
+    // create new task
+    newTaskId = dbRef.push(task);
 
-    var newTask = tasksRef.push(task);
-
-    var edge = {};
-    edge[newTask.key()] = true;
-
-    if( parentId ) {
-      dbRef.child('tasks/' + parentId + "/relationships/children/").update(edge);
+    // find user's task list (or create it if it doesn't exist)
+    if (user.has_task_list) {
+      taskList = user.has_task_list;
+    } else {
+      taskList = dbRef.push({"is_type": "taskList"});
+      taskList = taskList.key();
+      dbRef.child(user.sbid + '/has_task_list').set(taskList);
     }
 
-    usersTasksRef.child(userId).update(edge, function(error) {
-      if(error) {
-        tasksRef.child(newTask.key()).remove();
-      }
-    });
+    // add new task to task list
+    dbRef.child(taskList + '/has_tasks/' + newTaskId.key()).set(true);
+
+    if( parentId ) {
+      var childTask = {};
+      childTask[newTaskId.key()] = true;
+      dbRef.child(parentId + '/has_children').update(childTask);
+    }
 
     this.refs.title.getDOMNode().value = "";
     this.refs.description.getDOMNode().value = "";

@@ -26,12 +26,10 @@ var App = React.createClass({
   componentWillMount: function () {
     this.props.fbRef.onAuth(function(auth) {
       if(auth) {
-        this.props.fbRef
-          .child('users')
-          .child(auth[auth.provider].username)
-          .on('value', function(authData) {
-            this.setUser(authData.val());
-          }.bind(this));
+        var dbRef = this.props.fbRef;
+        dbRef.child(auth.uid).once('value', function(authData) {
+          dbRef.child(authData.val().belongs_to_user).on('value', this.setUser);
+        }.bind(this));
       }
       else {
         this.setUser(auth);
@@ -41,7 +39,7 @@ var App = React.createClass({
 
   setUser: function (userData) {
     this.setState({
-      user: userData
+      user: userData ? userData.val() : null
     });
     this.forceUpdate();
   },

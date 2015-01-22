@@ -7,20 +7,26 @@ var React = require('react'),
 
 var TaskTreeItem = React.createClass({
   render: function() {
-    var task = this.props.task;
+    var task = this.props.task,
+        taskTree = (task.children) ? <TaskTree tasks={task.children} /> : '';
+
     return (
       <li className="task clearfix">
         <span>
-          <Link to="task" params={{taskId: task.uid}}>{task.title}</Link>
+          <Link to="task" params={{taskId: task.uid}}>{task.has_meta.title}</Link>
           <TaskControls task={task} {...this.props} />
         </span>
-        <TaskTree tasks={task.children} />
+        {taskTree}
       </li>
     );
   }
 });
 
 var TaskTree = React.createClass({
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return !!Object.keys(nextProps.tasks).length;
+  },
+
   render: function() {
     var tasks = Object.keys(this.props.tasks).map(function (taskId) {
       var task = this.props.tasks[taskId];
