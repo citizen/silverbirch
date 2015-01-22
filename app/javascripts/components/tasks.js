@@ -35,55 +35,58 @@ var Tasks = React.createClass({
           top_tasks_hash = {},
           nestedChildrenList = [],
           dbRef = this.props.fbRef,
-          username = this.props.user.username;
+          userId = this.props.user.sbid;
 
-      dbRef.child('usersTasks/' + username).on('child_added', function(usersTask) {
-        var taskId = usersTask.key();
+      dbRef.child(userId + '/has_task_list').once('value', function(taskList) {
+        if (!taskList.val()) { return false; }
 
-        dbRef.child('tasks/' + taskId).on('value', function(taskData) {
-          var task = taskData.val();
+        dbRef.child(taskList.val() + '/has_tasks').on('child_added', function(userTask) {
+          var taskId = userTask.key();
 
-          tasks[taskId] = (taskId in tasks) ? tasks[taskId] : {};
+          dbRef.child(taskId).on('value', function(taskData) {
+            var task = taskData.val();
 
-          tasks[taskId].uid = taskId;
-          tasks[taskId].children = {};
+            tasks[taskId] = (taskId in tasks) ? tasks[taskId] : {};
+            tasks[taskId].uid = taskId;
 
-          for (var prop in task) {
-            if( task.hasOwnProperty( prop ) && prop !== 'relationships' ) {
-              tasks[taskId][prop] = task[prop];
-            }
-          }
-
-          if ('relationships' in task && 'children' in task.relationships) {
-            Object.keys(task.relationships.children).forEach(function(childId, idx) {
-              if (!(childId in tasks)) {
-                tasks[childId] = {};
+            for (var prop in task) {
+              if( task.hasOwnProperty( prop ) && prop !== 'has_children' ) {
+                tasks[taskId][prop] = task[prop];
               }
-              tasks[taskId].children[childId] = tasks[childId];
-            });
-          }
-
-          nestedChildrenList = Object.keys(tasks).map(function(taskId) {
-            if ('children' in tasks[taskId] && Object.keys(tasks[taskId]['children'])) {
-              var children = Object.keys(tasks[taskId]["children"]);
-              return children;
-            } else {
-              return [];
             }
-          });
 
-          top_tasks_list = _.difference(Object.keys(tasks), _.flatten(nestedChildrenList));
+            if ('has_children' in task) {
+              Object.keys(task.relationships.children).forEach(function(childId, idx) {
+                if (!(childId in tasks)) {
+                  tasks[childId] = {};
+                }
+                tasks[taskId].children = {};
+                tasks[taskId].children[childId] = tasks[childId];
+              });
+            }
 
-          top_tasks_list.forEach(function(taskId) {
-            top_tasks_hash[taskId] = tasks[taskId];
-          });
+            nestedChildrenList = Object.keys(tasks).map(function(taskId) {
+              if ('children' in tasks[taskId] && Object.keys(tasks[taskId]['children'])) {
+                var children = Object.keys(tasks[taskId]["children"]);
+                return children;
+              } else {
+                return [];
+              }
+            });
 
-          // TODO: investigate the performance of clobbering state like this
-          // vs React's immutability helpers (see `this.updateTasks()` below)
-          this.setState({taskTree: top_tasks_hash});
+            top_tasks_list = _.difference(Object.keys(tasks), _.flatten(nestedChildrenList));
+
+            top_tasks_list.forEach(function(taskId) {
+              top_tasks_hash[taskId] = tasks[taskId];
+            });
+
+            // TODO: investigate the performance of clobbering state like this
+            // vs React's immutability helpers (see `this.updateTasks()` below)
+            this.setState({taskTree: top_tasks_hash});
+
+          }.bind(this));
 
         }.bind(this));
-
       }.bind(this));
     }
   },
