@@ -11,7 +11,8 @@ var _ = require('lodash'),
 var Tasks = React.createClass({
   mixins: [
     Router.State,
-    Authentication
+    Authentication,
+    React.PureRenderMixin
   ],
 
   getInitialState: function () {
@@ -32,7 +33,6 @@ var Tasks = React.createClass({
     if (this.props.user) {
       var tasks = {},
           top_tasks_list = [],
-          top_tasks_hash = {},
           nestedChildrenList = [],
           dbRef = this.props.fbRef,
           userId = this.props.user.sbid;
@@ -67,15 +67,15 @@ var Tasks = React.createClass({
 
             nestedChildrenList = Object.keys(tasks).map(function(taskId) {
               if ('children' in tasks[taskId] && Object.keys(tasks[taskId]['children'])) {
-                var children = Object.keys(tasks[taskId]["children"]);
-                return children;
-              } else {
-                return [];
+                return Object.keys(tasks[taskId]["children"]);
               }
             });
 
+            var test = _.flatten(nestedChildrenList);
+
             top_tasks_list = _.difference(Object.keys(tasks), _.flatten(nestedChildrenList));
 
+            var top_tasks_hash = {};
             top_tasks_list.forEach(function(taskId) {
               top_tasks_hash[taskId] = tasks[taskId];
             });
@@ -85,7 +85,6 @@ var Tasks = React.createClass({
             this.setState({taskTree: top_tasks_hash});
 
           }.bind(this));
-
         }.bind(this));
       }.bind(this));
     }
