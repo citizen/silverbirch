@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react'),
+var React = require('react/addons'),
     Router = require('react-router'),
     { Link } = Router,
     TaskControls = require('./task-controls');
@@ -23,9 +23,9 @@ var TaskTreeItem = React.createClass({
 });
 
 var TaskTree = React.createClass({
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return !!Object.keys(nextProps.tasks).length;
-  },
+  mixins: [
+    React.PureRenderMixin
+  ],
 
   render: function() {
     var tasks = Object.keys(this.props.tasks).map(function (taskId) {

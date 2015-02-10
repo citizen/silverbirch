@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash'),
-    React = require('react/addons'),
+    React = require('react'),
     Router = require('react-router'),
     { Link, RouteHandler } = Router,
     TaskForm = require('./task-form'),
@@ -11,8 +11,7 @@ var _ = require('lodash'),
 var Tasks = React.createClass({
   mixins: [
     Router.State,
-    Authentication,
-    React.PureRenderMixin
+    Authentication
   ],
 
   getInitialState: function () {
