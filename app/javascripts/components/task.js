@@ -3,25 +3,17 @@
 var React = require('react'),
     Router = require('react-router'),
     { Route, RouteHandler, Link } = Router,
-    UserList = require('./user-list'),
-    TaskForm = require('./task-form'),
-    TaskList = require('./task-list'),
     Authentication = require('./auth');
 
 var Task = React.createClass({
   mixins: [
     Router.State,
-    Router.Navigation,
     Authentication
   ],
 
   getInitialState: function () {
     return {
-      task: {
-        children:[],
-        users: {}
-      },
-      fbRef: this.props.fbRef
+      task: {}
     };
   },
 
@@ -34,55 +26,26 @@ var Task = React.createClass({
   },
 
   loadTask: function() {
-    var taskId = this.getParams().taskId,
-        dbRef = this.state.fbRef,
-        tasksRef = dbRef.child("tasks");
+    var dbRef = this.props.fbRef,
+        taskId = this.getParams().taskId;
 
-    tasksRef.child(taskId).on('value', function(taskSnapshot) {
-      var task = taskSnapshot.val();
-      task.id = taskSnapshot.key();
-      task.children = [];
+    dbRef.child(taskId).on('value', function(taskSnapshot) {
       this.setState({
-        task: task
+        task: taskSnapshot.val()
       });
-      dbRef.child('tasksEdges/'+taskId+'/child/').on('child_added', function(taskEdgeSnapshot) {
-        dbRef.child('tasks/'+taskEdgeSnapshot.key()).on('value', function(taskSnapshot) {
-          var childTask = {};
-          childTask.title = taskSnapshot.child('title').val();
-          childTask.id = taskSnapshot.key();
-          task.children.push(childTask);
-          this.setState({
-            task: task
-          });
-        }, this);
-      }, this);
     }, this);
   },
 
-  removeUser: function (userId) {
-    var taskId = this.state.task.id,
-        userRef = this.state.fbRef.child("usersTasks/"+userId+"/"+taskId),
-        taskRef = this.state.fbRef.child("tasks/"+taskId+"/users/"+userId);
-
-    function logResult(err) {
-      var msg = (err) ? err : userId + " removed from task " + taskId;
-      console.info(msg);
-    }
-
-    userRef.remove(logResult);
-    taskRef.remove(logResult);
-  },
-
   render: function () {
-    var task = this.state.task,
-        users = Object.keys(task.users);
+    var taskMeta = this.state.task.has_meta,
+        title = taskMeta ? taskMeta.title : '',
+        description = taskMeta ? taskMeta.description : '';
 
     return (
       <div className="panel panel-default col-md-6">
         <div className="panel-body">
-          <h3>{ task.title }</h3>
-          <span>{ task.description }</span>
-          <UserList users={users} fbRef={this.props.fbRef} removeUser={this.removeUser} />
+          <h3>{ title }</h3>
+          <p>{ description }</p>
         </div>
       </div>
     );
