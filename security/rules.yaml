@@ -1,0 +1,42 @@
+functions:
+  - isLoggedIn(): auth.uid !== null
+  - providerIdIsOwnedByUserInProvidersBelongsTo(): root[root[auth.uid].belongs_to_user].has_provider_id[auth.uid] == true
+  - userIsMemberOfUserOrTeamInUsersWorkingOn(): root[root[auth.uid].belongs_to_user].working_on == root[auth.uid].belongs_to_user || root[root[root[auth.uid].belongs_to_user].working_on].has_member[root[auth.uid].belongs_to_user] == true
+  - userIsWhoTheySayTheyAre(): isLoggedIn() &&
+                               providerIdIsOwnedByUserInProvidersBelongsTo() &&
+                               userIsMemberOfUserOrTeamInUsersWorkingOn()
+
+  - notChangingTypeOfNode(): (!prev.exists() || prev.type == next.type)
+  - nodeWriteableByUsersWorkingOn(): (!prev.exists() || (prev.exists() && prev.writeable_by[root[root[auth.uid].belongs_to_user].working_on] == true)) && next.writeable_by[root[root[auth.uid].belongs_to_user].working_on] == true
+  # the provider node must have the same key as the auth.uid
+  # the user node's has_provider_id object must contain the auth.uid and the provider node's belongs_to_user must be equal to the user node's key
+  # every other node's writeable_by must 
+  - writeNode(nodeId): notChangingTypeOfNode() &&
+                       (
+                         ( next.type == "provider_user" && auth.uid == nodeId ) ||
+                         ( next.type == "user" && ( ( !prev.exists() || prev.has_provider_id[auth.uid] == true && root[auth.uid].belongs_to_user == nodeId ) && next.has_provider_id[auth.uid] == true && root[auth.uid].belongs_to_user == nodeId ) ) ||
+                         ( ( next.type == "team" || next.type == "task" ) && userIsWhoTheySayTheyAre() && nodeWriteableByUsersWorkingOn() )
+                       )
+
+schema:
+  type: object
+  properties:
+    $nodeId:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [task, user, team, provider_user]
+          #enum: [task, user, team, provider_user, event, taskList, eventList]
+      required:
+        - type
+      examples:
+        - {type: "task", has_dependancy: "something"}
+      nonexamples:
+        - {type: "thing", has_dependancy: "something"}        # Invalid type
+        - {missingtype: "thing", has_dependancy: "something"} # No type
+
+access:
+  - location: /$nodeId
+    write: writeNode($nodeId)
+    read: false
