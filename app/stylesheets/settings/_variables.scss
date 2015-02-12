@@ -1,0 +1,95 @@
+/*------------------------------------*\
+    #VARIABLES
+\*------------------------------------*/
+
+
+
+
+
+/*------------------------------------*\
+    #COLORS
+\*------------------------------------*/
+
+$white : 			#ffffff;
+$black : 			#000000;
+
+$dark : 			rgb(30,30,30);
+$light : 			rgb(242,242,242);
+
+$grey-1 :           rgb(211,205,192);
+$grey-2 :			rgb(188,180,160);
+$grey-3 :			rgb(144,130,097);
+$grey-4 :			rgb(108,098,073);
+
+$red : 				rgb(201,55,6);
+$yellow : 			rgb(252,207,80);
+$orange : 			rgb(242,174,20);
+$blue : 			rgb(39,102,143);
+$green : 			rgb(153,188,138);
+
+$brand-facebook : 	#03539e;
+$brand-twitter : 	#35ccff;
+$brand-linkedin : 	#217bc1;
+
+
+
+
+
+/*------------------------------------*\
+    #TYPOGRAPHY
+\*------------------------------------*/
+
+$font : 'Muli', sans-serif;
+$font-secondary : serif;
+$font-titling : 'Varela Round', sans-serif;
+
+/**
+ * Our typography uses Perfect Fourth Scaling - do not play with these values
+ */
+
+$h1-fz : 50px;
+$h2-fz : 37px;
+$h3-fz : 28px;
+$h4-fz : 21px;
+$h5-fz : 16px;
+$h6-fz : 12px;
+
+$mega : 55px;
+$kilo :	60px;
+$tera : 70px;
+
+$base-font-size : 16px;
+$base-line-height : 6px;
+@include establish-baseline;
+
+
+
+
+
+/*------------------------------------*\
+    #SPACING HELPERS
+\*------------------------------------*/
+
+$pad : rhythm();
+$pad-double : rhythm(2);
+
+
+
+
+
+
+/*------------------------------------*\
+    #GRID SETTINGS
+\*------------------------------------*/
+
+
+
+
+
+/*------------------------------------*\
+    #BREAKPOINTS
+\*------------------------------------*/
+
+$bp-small : 24em;
+$bp-med : 50em;
+$bp-large : 80em;

@@ -1,0 +1,13 @@
+@mixin rounded-border($color: #eee, $background:transparent ) {
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-ms-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid $color;
+	background-color: $background;
+	background-image: none;
+	vertical-align: middle;
+    padding: 0.375em 0.75em;
+    line-height: 1.5em;
+}
+

@@ -1,0 +1,19 @@
+/*------------------------------------*\
+    #TASK TILE
+\*------------------------------------*/
+
+li.task{
+  background: $light;
+  padding: rhythm(4);
+  border-bottom: 1px solid $grey-1;
+}
+
+.task-controls {
+  display: none;
+  margin-left: 5px;
+
+  .task > span:hover & {
+    display: inline-block;
+    float: right;
+  }
+}
