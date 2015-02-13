@@ -54,4 +54,4 @@ schema:
 access:
   - location: /$nodeId
     write: writeNode($nodeId)
-    read: false
+    read: true
