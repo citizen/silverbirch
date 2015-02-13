@@ -19,20 +19,32 @@ var Task = React.createClass({
         description = taskMeta ? taskMeta.description : '';
 
     var editLink = task.uid ?
-        <Link
-          to="editTask"
-          params={{taskId: this.props.task.uid}}
-          className="glyphicon glyphicon-edit pull-right"
-        ></Link> : '';
+          <Link
+            to="editTask"
+            params={{taskId: this.props.task.uid}}
+            className="glyphicon glyphicon-edit pull-right btn btn-default"
+          ></Link> : '';
+
+    var profileLink = (this.props.user) ?
+          <Link to="profile" params={{username: this.props.user.username}}>
+            <img className="avatar" src={this.props.user.avatar} />
+            <span>{this.props.user.username}</span>
+          </Link> : '';
+
+    console.log('this.props ' , this.props);
 
     return (
       <div className="panel panel-default col-md-6">
         {editLink}
+
         <div className="panel-body">
           <h3>{ title }</h3>
+
           <blockquote>
             <p>{ description }</p>
           </blockquote>
+
+          {profileLink}
         </div>
       </div>
     );
