@@ -27,6 +27,7 @@ var Task = React.createClass({
 
   loadTask: function() {
     var dbRef = this.props.fbRef,
+	// TODO: pass this through from tasks.js as a prop
         taskId = this.getParams().taskId;
 
     dbRef.child(taskId).on('value', function(taskSnapshot) {

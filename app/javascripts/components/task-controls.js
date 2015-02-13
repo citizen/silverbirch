@@ -6,9 +6,8 @@ var React = require('react'),
 
 var TaskControls = React.createClass({
   archiveTask: function () {
-    var tasksRef = this.props.fbRef.child('tasks');
-    tasksRef.child(this.props.task.uid).update({
-      'archived': true
+    this.props.fbRef.child(this.props.task.uid).update({
+      'has_state': 'archived'
     });
   },
 

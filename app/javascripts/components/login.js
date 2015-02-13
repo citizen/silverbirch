@@ -42,6 +42,7 @@ var Login = React.createClass({
           userData.is_viewing   = sbId;
           userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
 
+	  // TODO: guarentee ordering through callbacks
           dbRef.child(sbId).set(userData);
           return {belongs_to_user: sbId};
         }

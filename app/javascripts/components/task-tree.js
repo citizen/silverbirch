@@ -8,12 +8,17 @@ var React = require('react/addons'),
 var TaskTreeItem = React.createClass({
   render: function() {
     var task = this.props.task,
-        taskTree = (task.children) ? <TaskTree tasks={task.children} /> : '';
+	cx = React.addons.classSet,
+	taskTree = (task.children) ? <TaskTree tasks={task.children} fbRef={this.props.fbRef} /> : '';
+
+    var classes = cx({
+      'archived': task.has_state === 'archived'
+    });
 
     return (
       <li className="task clearfix">
         <span>
-          <Link to="task" params={{taskId: task.uid}}>{task.has_meta.title}</Link>
+	  <Link to="task" params={{taskId: task.uid}} className={classes}>{task.has_meta.title}</Link>
           <TaskControls task={task} {...this.props} />
         </span>
         {taskTree}
