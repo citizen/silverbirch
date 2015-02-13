@@ -4,6 +4,7 @@ app/**/vendor/
 node_modules/
 .sass-cache/
 dist/
+security/*.json
 
 # OS or Editor folders
 .DS_Store

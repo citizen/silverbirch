@@ -1,15 +1,15 @@
 'use strict';
 
 // Load plugins
-var $           = require('gulp-load-plugins')();
-var del         = require('del');
-var gulp        = require('gulp');
-var source      = require('vinyl-source-stream');
-var browserify  = require('browserify');
+var $ = require('gulp-load-plugins')();
+var del = require('del');
+var gulp = require('gulp');
+var source = require('vinyl-source-stream');
+var browserify = require('browserify');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var CacheBuster = require('gulp-cachebust');
-var cachebust   = new CacheBuster();
+var cachebust = new CacheBuster();
 
 var src = './app';
 var dist = './dist';
@@ -21,7 +21,7 @@ var files = {
 };
 
 // Clean
-gulp.task('clean', function (cb) {
+gulp.task('clean', function(cb) {
   del([dist + '/*'], cb);
 });
 
@@ -36,7 +36,9 @@ gulp.task('styles:dev', function() {
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(dist + '/stylesheets'))
     .pipe($.filter('**/*.css'))
-    .pipe(browserSync.reload({stream:true}))
+    .pipe(browserSync.reload({
+      stream: true
+    }))
     .pipe($.size());
 });
 
@@ -103,6 +105,16 @@ gulp.task('images', function() {
     .pipe($.size());
 });
 
+// Security rules
+gulp.task('blaze', function() {
+  gulp.src('security/rules.yaml')
+    .pipe($.blaze({
+      debug: true
+    }))
+    .pipe($.rename('rules.json'))
+    .pipe(gulp.dest('security/'));
+});
+
 // Webserver
 gulp.task('serve', function() {
   return browserSync({
@@ -128,11 +140,11 @@ gulp.task('dev', ['styles:dev', 'scripts:dev', 'images', 'jade:dev'], function()
 gulp.task('build', ['styles:build', 'scripts:build', 'images', 'jade:build']);
 
 // Watch task
-gulp.task('watch', function (cb) {
+gulp.task('watch', function(cb) {
   runSequence('clean', 'dev', 'serve', cb);
 });
 
 // Default task
-gulp.task('default', function (cb) {
+gulp.task('default', function(cb) {
   runSequence('clean', 'build', cb);
 });
