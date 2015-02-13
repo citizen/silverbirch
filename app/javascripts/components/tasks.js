@@ -4,7 +4,6 @@ var _ = require('lodash'),
     React = require('react'),
     Router = require('react-router'),
     { Link, RouteHandler } = Router,
-    TaskForm = require('./task-form'),
     TaskTree = require('./task-tree'),
     Authentication = require('./auth');
 
@@ -16,7 +15,8 @@ var Tasks = React.createClass({
 
   getInitialState: function () {
     return {
-      taskTree: {}
+      taskTree: {},
+      currentTask: {}
     };
   },
 
@@ -81,6 +81,10 @@ var Tasks = React.createClass({
 
             // TODO: investigate the performance of clobbering state like this
             // vs React's immutability helpers (see `this.updateTasks()` below)
+            if( this.getParams().taskId && this.getParams().taskId === taskId ) {
+              this.setState({currentTask: tasks[this.getParams().taskId]});
+            }
+
             this.setState({taskTree: top_tasks_hash});
 
           }.bind(this));
@@ -107,7 +111,7 @@ var Tasks = React.createClass({
           <div className="col-md-6">
             <TaskTree tasks={this.state.taskTree} {...this.props} />
           </div>
-          <RouteHandler {...this.props} />
+          <RouteHandler {...this.props} task={this.state.currentTask} />
         </div>
       </div>
     );

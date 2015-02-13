@@ -8,45 +8,31 @@ var React = require('react'),
 var Task = React.createClass({
   mixins: [
     Router.State,
-    Authentication
+    Authentication,
+    React.PureRenderMixin
   ],
 
-  getInitialState: function () {
-    return {
-      task: {}
-    };
-  },
-
-  componentWillReceiveProps: function() {
-    this.loadTask();
-  },
-
-  componentDidMount: function () {
-    this.loadTask();
-  },
-
-  loadTask: function() {
-    var dbRef = this.props.fbRef,
-	// TODO: pass this through from tasks.js as a prop
-        taskId = this.getParams().taskId;
-
-    dbRef.child(taskId).on('value', function(taskSnapshot) {
-      this.setState({
-        task: taskSnapshot.val()
-      });
-    }, this);
-  },
-
   render: function () {
-    var taskMeta = this.state.task.has_meta,
+    var task = this.props.task,
+        taskMeta = task.has_meta ? task.has_meta : null,
         title = taskMeta ? taskMeta.title : '',
         description = taskMeta ? taskMeta.description : '';
 
+    var editLink = task.uid ?
+        <Link
+          to="editTask"
+          params={{taskId: this.props.task.uid}}
+          className="glyphicon glyphicon-edit pull-right"
+        ></Link> : '';
+
     return (
       <div className="panel panel-default col-md-6">
+        {editLink}
         <div className="panel-body">
           <h3>{ title }</h3>
-          <p>{ description }</p>
+          <blockquote>
+            <p>{ description }</p>
+          </blockquote>
         </div>
       </div>
     );

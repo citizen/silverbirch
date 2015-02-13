@@ -18,7 +18,7 @@ var TaskTreeItem = React.createClass({
     return (
       <li className="task clearfix">
         <span>
-	  <Link to="task" params={{taskId: task.uid}} className={classes}>{task.has_meta.title}</Link>
+      	  <Link to="task" params={{taskId: task.uid}} className={classes}>{task.has_meta.title}</Link>
           <TaskControls task={task} {...this.props} />
         </span>
         {taskTree}
