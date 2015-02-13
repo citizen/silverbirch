@@ -9,12 +9,6 @@ var Profile = React.createClass({
     Router.State
   ],
 
-  getInitialState: function() {
-    return {
-      user: {}
-    };
-  },
-
   componentWillMount: function() {
     this.getUser();
   },
@@ -24,26 +18,19 @@ var Profile = React.createClass({
   },
 
   getUser: function() {
-    var dbRef = this.props.fbRef,
-        username = this.getParams().username,
-        usersRef = dbRef.child("users").child(username);
+    var userData = {},
+        user = this.props.user ? this.props.user : {};
 
-    console.log('username ' , username);
+    console.log('this.props ' , this.props);
 
-    usersRef.on('value', function(taskSnapshot) {
-      var userData = {},
-          userDataVal = taskSnapshot.val();
-      console.log('userDataVal ' , userDataVal);
+    userData.email = (user.email) ? user.email : '';
+    userData.avatar = (user.avatar) ? user.avatar : '';
+    userData.username = (user.username) ? user.username : '';
+    userData.displayName = (user.displayName) ? user.displayName : '';
 
-      userData.email = (userDataVal.email) ? userDataVal.email : '';
-      userData.avatar = (userDataVal.avatar) ? userDataVal.avatar : '';
-      userData.username = (userDataVal.username) ? userDataVal.username : '';
-      userData.displayName = (userDataVal.displayName) ? userDataVal.displayName : '';
-
-      this.setState({
-        user: userData
-      });
-    }.bind(this));
+    this.setState({
+      user: userData
+    });
   },
 
   render: function() {
