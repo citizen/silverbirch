@@ -6,16 +6,16 @@ functions:
                                providerIdIsOwnedByUserInProvidersBelongsTo() &&
                                userIsMemberOfUserOrTeamInUsersWorkingOn()
 
-  - notChangingTypeOfNode(): (!prev.exists() || prev.type == next.type)
+  - notChangingTypeOfNode(): (!prev.exists() || prev.is_type == next.is_type)
   - nodeWriteableByUsersWorkingOn(): (!prev.exists() || (prev.exists() && prev.writeable_by[root[root[auth.uid].belongs_to_user].working_on] == true)) && next.writeable_by[root[root[auth.uid].belongs_to_user].working_on] == true
   # the provider node must have the same key as the auth.uid
   # the user node's has_provider_id object must contain the auth.uid and the provider node's belongs_to_user must be equal to the user node's key
   # every other node's writeable_by must 
   - writeNode(nodeId): notChangingTypeOfNode() &&
                        (
-                         ( next.type == "provider_user" && auth.uid == nodeId ) ||
-                         ( next.type == "user" && ( ( !prev.exists() || prev.has_provider_id[auth.uid] == true && root[auth.uid].belongs_to_user == nodeId ) && next.has_provider_id[auth.uid] == true && root[auth.uid].belongs_to_user == nodeId ) ) ||
-                         ( ( next.type == "team" || next.type == "task" ) && userIsWhoTheySayTheyAre() && nodeWriteableByUsersWorkingOn() )
+                         ( next.is_type == "provider_user" && auth.uid == nodeId ) ||
+                         ( next.is_type == "user" && ( ( !prev.exists() || prev.has_provider_id[auth.uid] == true && root[auth.uid].belongs_to_user == nodeId ) && next.has_provider_id[auth.uid] == true && root[auth.uid].belongs_to_user == nodeId ) ) ||
+                         ( ( next.is_type == "team" || next.is_type == "task" ) && userIsWhoTheySayTheyAre() && nodeWriteableByUsersWorkingOn() )
                        )
 
 schema:
@@ -24,17 +24,17 @@ schema:
     $nodeId:
       type: object
       properties:
-        type:
+        is_type:
           type: string
           enum: [task, user, team, provider_user]
           #enum: [task, user, team, provider_user, event, taskList, eventList]
       required:
-        - type
+        - is_type
       examples:
-        - {type: "task", has_dependancy: "something"}
+        - {is_type: "task", has_dependancy: "something"}
       nonexamples:
-        - {type: "thing", has_dependancy: "something"}        # Invalid type
-        - {missingtype: "thing", has_dependancy: "something"} # No type
+        - {is_type: "thing", has_dependancy: "something"}        # Invalid type
+        - {missingis_type: "thing", has_dependancy: "something"} # No type
 
 access:
   - location: /$nodeId
