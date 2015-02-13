@@ -1,5 +1,5 @@
 var env = {};
 
-env.db = "https://jkilla-dev.firebaseio.com";
+env.db = "https://silverbirch.firebaseio.com";
 
 module.exports = env;
