@@ -67,7 +67,10 @@ body {
   }
 }
 
-.archived {
+.archived,
+.archived:hover,
+.archived:focus,
+.archived:active {
   text-decoration: line-through;
 }
 
