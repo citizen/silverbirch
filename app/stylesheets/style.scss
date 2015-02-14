@@ -29,6 +29,7 @@
  *
  * OBJECTS
  * Task Tile............Basic task constraining element.
+ * Navbar...............Top Navbar element
  *
  * TRUMPS
  * Shame................Nasty bits - this file should be empty on delpoy!
@@ -84,6 +85,7 @@
     #COMPONENTS
 \*------------------------------------*/
 
+@import "components/page-head";
 @import "components/button";
 @import "components/text-input";
 @import "components/text-area";
@@ -98,6 +100,7 @@
 \*------------------------------------*/
 
 @import "objects/task-tile";
+@import "objects/navbar";
 
 
 

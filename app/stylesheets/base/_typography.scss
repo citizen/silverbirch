@@ -1,5 +1,5 @@
 /*------------------------------------*\
-    $TYPOGRAPHY
+    #TYPOGRAPHY
 \*------------------------------------*/
 
 body{
@@ -54,6 +54,11 @@ h6, .zeta {
 	margin: rhythm(4, $h6-fz) 0 rhythm();
 }
 
+.tera{
+	@include adjust-font-size-to($tera);
+	margin: rhythm(4, $tera) 0 rhythm(2, $tera);
+}
+
 .mega{
 	@include adjust-font-size-to($mega);
 	margin: rhythm(4, $mega) 0 rhythm(2, $mega);
@@ -62,9 +67,4 @@ h6, .zeta {
 .kilo{
 	@include adjust-font-size-to($kilo);
 	margin: rhythm(4, $kilo) 0 rhythm(2, $kilo);
-}
-
-.tera{
-	@include adjust-font-size-to($tera);
-	margin: rhythm(4, $tera) 0 rhythm(2, $tera);
 }
