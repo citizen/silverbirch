@@ -105,7 +105,7 @@ var Tasks = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="container-fluid">
         <Link to="newTask" className="btn btn-primary glyphicon glyphicon-plus"></Link>
         <div className="row">
           <div className="col-md-6">
