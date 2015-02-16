@@ -18,6 +18,7 @@ var files = {
   views: src + '/views',
   js: src + '/javascripts',
   scss: src + '/stylesheets',
+  fonts: src + '/fonts'
 };
 
 // Clean
@@ -26,7 +27,7 @@ gulp.task('clean', function(cb) {
 });
 
 // Styles
-gulp.task('styles:dev', function() {
+gulp.task('styles:dev', ['fonts'], function() {
   return gulp.src(files.scss + '/**/*.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
@@ -42,7 +43,7 @@ gulp.task('styles:dev', function() {
     .pipe($.size());
 });
 
-gulp.task('styles:build', function() {
+gulp.task('styles:build', ['fonts'], function() {
   return gulp.src(files.scss + '/**/*.scss')
     .pipe($.sass({
       errLogToConsole: true
@@ -73,6 +74,12 @@ gulp.task('scripts:build', function() {
     .pipe(source('main.js'))
     .pipe(cachebust.resources())
     .pipe(gulp.dest(dist + '/javascripts'));
+});
+
+// Fonts
+gulp.task('fonts', function() {
+  return gulp.src(files.fonts + '/bootstrap/*')
+    .pipe(gulp.dest(dist + '/stylesheets/fonts'));
 });
 
 // Templates

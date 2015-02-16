@@ -1,107 +1,115 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+/**
+ * Built wit respect for the principles outlined: http://cssguidelin.es/
+ *
+ * CONTENTS
+ *
+ * VENDOR
+ * Webfonts.............Import of google fonts, TODO make this nicer using mixin
+ * Vertical Rhythms.....Vertical rhythms without compass
+ *
+ * GENERIC
+ * Reset................A level playing field.
+ * Mixins...............Mix ins yo!
+ * Fonts................Font-Face declarations only.
+ *
+ * SETTINGS
+ * Varables.............Globally-available variables and config.
+ *
+ * BASE
+ * Global...............Global declarations for body 
+ * Typography................H1–H6 styles & text styles
+ *
+ * COMPONENTS
+ * Page-head............The main page header.
+ * Page-foot............The main page footer.
+ * Navigation...........Navigation elements.
+ * Button...............Button elements.
+ * Text-Input...........Text Inputs
+ * Text-Area............Text areas
+ *
+ * OBJECTS
+ * Task Tile............Basic task constraining element.
+ * Navbar...............Top Navbar element
+ *
+ * TRUMPS
+ * Shame................Nasty bits - this file should be empty on delpoy!
+ */
 
-.navbar-brand img {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
+/*------------------------------------*\
+    #VENDOR
+\*------------------------------------*/
 
-.avatar {
-  margin: 0 10px;
-  width: 24px;
+@import "vendor/webfonts";
+@import "vendor/vertical-rhythms";
 
-  &--big {
-    width: 120px;
-  }
-}
 
-.tasks {
-  padding: 0.5em 0;
 
-  ul {
-    margin-left: 10px;
-    padding: 0;
 
-    &:empty {
-      display: none;
-    }
-  }
 
-  li {
-    margin-top: 10px;
-  }
-}
+/*------------------------------------*\
+    #GENERIC
+\*------------------------------------*/
 
-.task {
-  > span {
-    display: block;
-  }
+@import "generic/reset";
+@import "generic/mixins";
 
-  .title {
-    margin: 0 0.5em 0 0;
-  }
 
-  .glyphicon {
-    cursor: pointer;
-    margin: 0 0.2em;
-  }
 
-  .glyphicon-plus {
-    color: green;
-  }
 
-  .glyphicon-remove {
-    color: red;
-  }
-}
 
-.task-controls {
-  display: none;
-  margin-left: 5px;
 
-  .task > span:hover & {
-    display: inline-block;
-  }
-}
 
-.archived,
-.archived:hover,
-.archived:focus,
-.archived:active {
-  text-decoration: line-through;
-}
+/*------------------------------------*\
+    #SETTINGS
+\*------------------------------------*/
 
-// /* the tree node's style */
-// .tree-view {
-//   overflow-y: hidden;
-// }
+@import "settings/variables";
 
-// /* style for the container */
-// .tree-view_children {
-//   margin-left: 16px;
-// }
 
-// .tree-view_children-collapsed {
-//   height: 0px;
-// }
 
-// .tree-view_arrow {
-//   cursor: pointer;
-//   margin-right: 6px;
-//   display: inline-block;
-//   -webkit-user-select: none;
-//   -moz-user-select: none;
-//   -ms-user-select: none;
-//   user-select: none;
-// }
 
-// /* rotate the triangle to close it */
-// .tree-view_arrow-collapsed {
-//   -webkit-transform: rotate(-90deg);
-//   -moz-transform: rotate(-90deg);
-//   -ms-transform: rotate(-90deg);
-//   transform: rotate(-90deg);
-// }
+
+
+/*------------------------------------*\
+    #BASE
+\*------------------------------------*/
+
+@import "vendor/bootstrap";
+@import "base/global";
+@import "base/typography";
+
+
+
+
+
+
+/*------------------------------------*\
+    #COMPONENTS
+\*------------------------------------*/
+
+@import "components/page-head";
+@import "components/button";
+@import "components/text-input";
+@import "components/text-area";
+
+
+
+
+
+
+/*------------------------------------*\
+    #OBJECTS
+\*------------------------------------*/
+
+@import "objects/task-tile";
+@import "objects/navbar";
+
+
+
+
+
+/*------------------------------------*\
+    #Trumps
+\*------------------------------------*/
+
+@import "trumps/shame";

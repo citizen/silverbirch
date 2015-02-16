@@ -1,0 +1,70 @@
+/*------------------------------------*\
+    #TYPOGRAPHY
+\*------------------------------------*/
+
+body{
+	font-family: $font;
+	@include adjust-leading-to(4);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.mega,
+.kilo,
+.tera {
+	font-family: $font-titling;
+	font-weight: normal;
+}
+
+p{
+	margin-bottom: rhythm(2);
+}
+
+h1, .alpha {
+	@include adjust-font-size-to($h1-fz);
+	margin: rhythm(4, $h1-fz) 0 rhythm(2, $h1-fz);
+}
+
+h2, .beta {
+	@include adjust-font-size-to($h2-fz);
+	margin: rhythm(4, $h2-fz) 0 rhythm(2, $h2-fz);
+}
+
+h3, .gamma {
+	@include adjust-font-size-to($h3-fz);
+	margin: rhythm(4, $h3-fz) 0 rhythm(2, $h3-fz);
+}
+
+h4, .delta {
+	@include adjust-font-size-to($h4-fz);
+	margin: rhythm(4, $h4-fz) 0 rhythm();
+}
+
+h5, .epsilon {
+	@include adjust-font-size-to($h5-fz);
+	margin: rhythm(4, $h5-fz) 0 rhythm();
+}
+
+h6, .zeta {
+	@include adjust-font-size-to($h6-fz);
+	margin: rhythm(4, $h6-fz) 0 rhythm();
+}
+
+.tera{
+	@include adjust-font-size-to($tera);
+	margin: rhythm(4, $tera) 0 rhythm(2, $tera);
+}
+
+.mega{
+	@include adjust-font-size-to($mega);
+	margin: rhythm(4, $mega) 0 rhythm(2, $mega);
+}
+
+.kilo{
+	@include adjust-font-size-to($kilo);
+	margin: rhythm(4, $kilo) 0 rhythm(2, $kilo);
+}
