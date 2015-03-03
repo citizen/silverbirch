@@ -15,8 +15,18 @@ var TaskTreeItem = React.createClass({
       'archived': task.has_state === 'archived'
     });
 
+     var profileLink = (this.props.user) ?
+          <Link to="profile" params={{username: this.props.user.username}}>
+            <img className="avatar" src={this.props.user.avatar} />
+            <span>{this.props.user.username}</span>
+          </Link> : '';
+
+
+
+
     return (
       <li className="task clearfix">
+      {profileLink}
         <span>
       	  <Link to="task" params={{taskId: task.uid}} className={classes}>{task.has_meta.title}</Link>
           <TaskControls task={task} {...this.props} />
@@ -41,9 +51,11 @@ var TaskTree = React.createClass({
     }.bind(this));
 
     return (
+      <div className="">
       <ul className="tasks list-unstyled">
         {tasks}
       </ul>
+      </div>
     );
   }
 });
