@@ -82,7 +82,8 @@ var App = React.createClass({
             </ul>
           </div>
         </nav>
-        <Menu/>
+        <Menu position="left" />
+        <Menu position="right" />
         <RouteHandler user={this.state.user} {...this.props}/>
       </div>
     );

@@ -7,10 +7,8 @@
   transition: all 0.5s ease-in-out;
 }
 
-.nav-controller {
+.menu ~ .nav-controller {
     position: fixed;
-    top: 75px;
-    right: 15px;
     padding: 5px 6px 1px;
     border: 5px solid rgb(51, 51, 51);
     color: white;
@@ -18,10 +16,24 @@
     font-size: 12pt;
     cursor: pointer;
     z-index: 300;
+}
 
-    .focus ~ & {
-      right: 215px;
-    }
+.menu-left ~ .nav-controller {
+  top: 75px;
+  left: 15px;
+}
+
+.menu-left.focus ~ .nav-controller {
+  left: 215px;
+}
+
+.menu-right ~ .nav-controller {
+  top: 75px;
+  right: 15px;
+}
+
+.menu-right.focus ~ .nav-controller {
+  right: 215px;
 }
 
 .menu ~ .nav-controller > .controller-open {
@@ -40,21 +52,34 @@
 }
 
 .menu {
-    position: fixed;
-    top: 0px;
-    right: -100%;
-    padding-top: 65px;
-    padding-bottom: 15px;
-    height: 100%;
-    max-width: 200px;
-    text-align: right;
-    background-color: rgb(255, 255, 255);
-    box-shadow: -3px 0px 3px 0px rgba(160, 160, 160, 0.30);
-    z-index: 100;
-    overflow: auto;
+  position: fixed;
+  padding-top: 65px;
+  padding-bottom: 15px;
+  height: 100%;
+  max-width: 200px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: -3px 0px 3px 0px rgba(160, 160, 160, 0.30);
+  z-index: 100;
+  overflow: auto;
 }
 
-.menu.focus {
+.menu-left {
+    top: 0px;
+    left: -100%;
+    text-align: left;
+}
+
+.menu-right {
+    top: 0px;
+    right: -100%;
+    text-align: right;
+}
+
+.menu-left.focus {
+    left: 0px;
+}
+
+.menu-right.focus {
     right: 0px;
 }
 

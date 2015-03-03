@@ -5,8 +5,9 @@ var React = require('react'),
 
 var Menu = React.createClass({
   openMenu: function (e) {
+    console.log(e);
     var className = 'focus',
-        menu = document.getElementById('menu');
+        menu = document.getElementById('menu-'+this.props.position);
 
     if (menu.classList)
       menu.classList.add(className);
@@ -16,7 +17,7 @@ var Menu = React.createClass({
 
   closeMenu: function (e) {
     var className = 'focus',
-        menu = document.getElementById('menu');
+        menu = document.getElementById('menu-'+this.props.position);
 
     if (menu.classList)
       menu.classList.remove(className);
@@ -25,9 +26,12 @@ var Menu = React.createClass({
     },
 
 	render: function() {
+    var id = "menu-" + this.props.position,
+        posClass = "animate menu menu-" + this.props.position;
+
 		return (
       <div>
-        <nav className="animate menu" id="menu">
+        <nav className={posClass} id={id}>
             <ul>
                 <li>
                     <a href="https://twitter.com/mouse0270">@mouse0270 on twitter</a>
