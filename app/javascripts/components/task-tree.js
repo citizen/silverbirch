@@ -24,7 +24,7 @@ var TaskTreeItem = React.createClass({
           </Link> : '';
 
     var time = moment(task.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
-    
+
     return (
       <section className="comment-list">
         <article className="row">
@@ -37,7 +37,7 @@ var TaskTreeItem = React.createClass({
                 <TaskControls task={task} {...this.props} />
                 <header className="text-left">
                   <div className="comment-user"><i className="fa fa-user"></i> Assignee</div>
-                  <time className="comment-date" datetime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> {time}</time>
+                  <time className="comment-date" dateTime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> {time}</time>
                 </header>
                 <div className={classes}>
                   <h1><Link to="task" params={{taskId: task.uid}}>{task.has_meta.title}</Link></h1>

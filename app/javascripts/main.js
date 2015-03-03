@@ -6,6 +6,7 @@ var fb = require('firebase'),
     { Route, RouteHandler, Link, NotFoundRoute } = Router,
     config = require('./config'),
     Task = require('./components/task'),
+    Menu = require('./components/menu'),
     Tasks = require('./components/tasks'),
     Login = require('./components/login'),
     Logout = require('./components/logout'),
@@ -81,6 +82,7 @@ var App = React.createClass({
             </ul>
           </div>
         </nav>
+        <Menu/>
         <RouteHandler user={this.state.user} {...this.props}/>
       </div>
     );

@@ -1,12 +1,18 @@
 body {
+    color: white;
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     background-color: black;
 }
 
+@import "menu";
+
 /*font Awesome http://fontawesome.io*/
 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 /*Comment List styles*/
+.comment-list {
+  color: black;
+}
 .comment-list .row {
   margin-bottom: 0px;
 }
