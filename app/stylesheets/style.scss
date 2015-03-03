@@ -108,7 +108,7 @@ body {
         margin-top: 10px;
     }
 }
-.task {
+.task-panel {
     > span {
         display: block;
     }
@@ -127,14 +127,15 @@ body {
     }
 }
 .task-controls {
+    float: right;
     display: none;
     margin-left: 5px;
-    .task > span:hover & {
+    .task-panel:hover & {
         display: inline-block;
     }
 }
-.archived, .archived:hover, .archived:focus, .archived:active {
-    text-decoration: line-through;
+.archived.comment-post > * {
+  text-decoration: line-through;
 }
 // /* the tree node's style */
 // .tree-view {
