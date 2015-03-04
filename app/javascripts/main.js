@@ -6,7 +6,6 @@ var fb = require('firebase'),
     { Route, RouteHandler, Link, NotFoundRoute } = Router,
     config = require('./config'),
     Task = require('./components/task'),
-    Menu = require('./components/menu'),
     Tasks = require('./components/tasks'),
     Login = require('./components/login'),
     Header = require('./includes/header'),
@@ -55,24 +54,9 @@ var App = React.createClass({
   },
 
   render: function () {
-    var leftMenuItems = [
-      "SilverBirch",
-      "WebOps"
-    ];
-
-    var rightMenuItems = [
-      "rpowis",
-      "jsuarez",
-      "tommyvn",
-      "chrisk2020",
-      "anguspaterson"
-    ];
-
     return (
       <div>
         <Header user={this.state.user} />
-        <Menu position="left" title="Teams" menuItems={leftMenuItems} />
-        <Menu position="right" title="Members" menuItems={rightMenuItems} />
         <RouteHandler user={this.state.user} {...this.props} />
       </div>
     );

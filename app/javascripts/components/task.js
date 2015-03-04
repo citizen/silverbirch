@@ -31,8 +31,6 @@ var Task = React.createClass({
             <span>{this.props.user.username}</span>
           </Link> : '';
 
-    console.log('this.props ' , this.props);
-
     return (
       <div className="panel panel-default col-md-6">
         {editLink}
