@@ -35,12 +35,73 @@ var Profile = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <h2>Profile for {this.state.user.displayName}</h2>
-        <img className="avatar avatar--big" src={this.state.user.avatar} />
-        <h4>Username: {this.state.user.username}</h4>
-        <h4>Email: {this.state.user.email}</h4>
-      </div>
+
+<div class="container">
+    <div class="row user-menu-container square">
+<div class="col-md-7 user-details">
+<div className="row coralbg white">
+                <div className="col-md-6 no-pad">
+                    <div className="user-pad">
+                        <h3>Welcome back, {this.state.user.displayName}</h3>
+                        <h4 className="white"><i className="fa fa-check-circle-o"></i> London, UK</h4>
+                        <h4 className="white"><i className="fa fa-twitter"></i> jeremyjsuarez</h4>
+                        <h4>Email: {this.state.user.email}</h4>
+                        <button type="button" className="btn btn-labeled btn-info" href="#">
+                            <span className="btn-label"><i className="fa fa-pencil"></i></span>Update</button>
+                    </div>
+                </div>
+                <div className="col-md-6 no-pad">
+                    <div className="user-image">
+
+        <img className="img-responsive thumbnail" src={this.state.user.avatar} />
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div className="row overview">
+                <div className="col-md-4 user-pad text-center">
+                    <h3>FOLLOWERS</h3>
+                    <h4>2,784</h4>
+                </div>
+                <div className="col-md-4 user-pad text-center">
+                    <h3>FOLLOWING</h3>
+                    <h4>456</h4>
+                </div>
+                <div className="col-md-4 user-pad text-center">
+                    <h3>APPRECIATIONS</h3>
+                    <h4>4,901</h4>
+                </div>
+            </div>
+
+            <div className="col-md-1 user-menu-btns">
+            <div className="btn-group-vertical square" id="responsive">
+                <a href="#" className="btn btn-block btn-default active">
+                  <i className="fa fa-bell-o fa-3x"></i>
+                </a>
+                <a href="#" className="btn btn-default">
+                  <i className="fa fa-envelope-o fa-3x"></i>
+                </a>
+                <a href="#" className="btn btn-default">
+                  <i className="fa fa-laptop fa-3x"></i>
+                </a>
+                <a href="#" className="btn btn-default">
+                  <i className="fa fa-cloud-upload fa-3x"></i>
+                </a>
+            </div>
+        </div>
+
+            </div>
+
+            </div>
+
+            </div>
+
+
+
     );
   }
 });

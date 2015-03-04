@@ -34,19 +34,19 @@ var Menu = React.createClass({
         <nav className={posClass} id={id}>
             <ul>
                 <li>
-                    <a href="https://twitter.com/mouse0270">@mouse0270 on twitter</a>
+                    <a href="">on twitter</a>
                 </li>
                 <li>
-                    <a href="https://facebook.com/rem.mcintosh">Learn More about me on Facebook</a>
+                    <a href="">Learn More about me on Facebook</a>
                 </li>
                 <li>
-                    <a href="http://bootsnipp.com/mouse0270">Snippets</a>
+                    <a href="">Snippets</a>
                 </li>
                 <li>
-                    <a href="https://github.com/mouse0270">Projects</a>
+                    <a href="">Projects</a>
                 </li>
                 <li>
-                    <a href="http://bootsnipp.com/user/snippets/www.linkedin.com/in/remcintosh/">Résumé</a>
+                    <a href="">Résumé</a>
                 </li>
             </ul>
         </nav>
