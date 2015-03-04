@@ -367,7 +367,8 @@ div.user-menu div.user-menu-content:not(.active){
     float: right;
     display: none;
     margin-left: 5px;
-    .task-panel:hover & {
+
+    .panel-body:hover > & {
         display: inline-block;
     }
 }
