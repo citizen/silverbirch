@@ -28,28 +28,35 @@ var Login = React.createClass({
     var uid = userData.auth.uid,
         dbRef = this.props.fbRef;
 
-    dbRef.child(uid).transaction(function(userExists) {
-      if (!userExists) {
-        // TODO: use switch case to allow for more auth providers
-        if(userData.provider === 'github') {
-          var githubUser = userData.github,
-              sbId = 'sb:' + githubUser.username;
-
-          userData.sbid         = sbId;
-          userData.email        = (githubUser.email) ? githubUser.email : null;
-          userData.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
-          userData.is_type      = 'auth_provider';
-          userData.username     = githubUser.username;
-          userData.is_viewing   = sbId;
-          userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
-
-	  // TODO: guarentee ordering through callbacks
-          dbRef.child(sbId).set(userData);
-          return {belongs_to_user: sbId};
-        }
+    dbRef.child('sb:'+userData[userData.provider].username).once('value', function(userExists) {
+      if( userExists.val() ) {
+      	this.replaceWith('/tasks');
       }
-    }, function(error, committed) {
-      this.userCreated(userData.username, committed);
+      else {
+      	dbRef.child(uid).transaction(function(authExists) {
+      	  if (!authExists) {
+      	    // TODO: use switch case to allow for more auth providers
+      	    if(userData.provider === 'github') {
+      	      var githubUser = userData.github,
+      		  sbId = 'sb:' + githubUser.username;
+
+      	      userData.sbid         = sbId;
+      	      userData.email        = (githubUser.email) ? githubUser.email : null;
+      	      userData.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
+      	      userData.is_type      = 'auth_provider';
+      	      userData.username     = githubUser.username;
+      	      userData.is_viewing   = sbId;
+      	      userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
+
+      	      // TODO: guarentee ordering through callbacks
+      	      dbRef.child(sbId).set(userData);
+      	      return {belongs_to_user: sbId};
+      	    }
+      	  }
+      	}, function(error, committed) {
+      	  this.userCreated(userData.username, committed);
+      	}.bind(this));
+      }
     }.bind(this));
   },
 

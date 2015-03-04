@@ -30,7 +30,12 @@ var App = React.createClass({
       if(auth) {
         var dbRef = this.props.fbRef;
         dbRef.child(auth.uid).once('value', function(authData) {
-          dbRef.child(authData.val().belongs_to_user).on('value', this.setUser);
+          if( !authData.val() ) {
+            this.setUser(false);
+          }
+          else {
+            dbRef.child(authData.val().belongs_to_user).on('value', this.setUser);
+          }
         }.bind(this));
       }
       else {
