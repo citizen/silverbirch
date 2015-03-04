@@ -70,7 +70,6 @@ var App = React.createClass({
 
     return (
       <div>
-      <br/><br/>
         <nav className="navbar navbar-default navbar-fixed-top">
           <div className="container-fluid">
             <div className="navbar-header">
