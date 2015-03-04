@@ -29,26 +29,18 @@ var Menu = React.createClass({
     var id = "menu-" + this.props.position,
         posClass = "animate menu menu-" + this.props.position;
 
+    var menuItems = (this.props.menuItems) ? this.props.menuItems : [],
+        menuItem = menuItems.map(function(item, index) {
+          return ( <li key={index}><a href="#">{item}</a></li> );
+        })
+
 		return (
       <div>
         <nav className={posClass} id={id}>
-            <ul>
-                <li>
-                    <a href="">on twitter</a>
-                </li>
-                <li>
-                    <a href="">Learn More about me on Facebook</a>
-                </li>
-                <li>
-                    <a href="">Snippets</a>
-                </li>
-                <li>
-                    <a href="">Projects</a>
-                </li>
-                <li>
-                    <a href="">Résumé</a>
-                </li>
-            </ul>
+          <p>{this.props.title}</p>
+          <ul>
+            {menuItem}
+          </ul>
         </nav>
         <div className="nav-controller">
             <span onClick={this.openMenu} className="[ glyphicon glyphicon-chevron-left ] controller-open"></span>

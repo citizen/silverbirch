@@ -55,11 +55,24 @@ var App = React.createClass({
   },
 
   render: function () {
+    var leftMenuItems = [
+      "SilverBirch",
+      "WebOps"
+    ];
+
+    var rightMenuItems = [
+      "rpowis",
+      "jsuarez",
+      "tommyvn",
+      "chrisk2020",
+      "anguspaterson"
+    ];
+
     return (
       <div>
         <Header user={this.state.user} />
-        <Menu position="left" />
-        <Menu position="right" />
+        <Menu position="left" title="Teams" menuItems={leftMenuItems} />
+        <Menu position="right" title="Members" menuItems={rightMenuItems} />
         <RouteHandler user={this.state.user} {...this.props} />
       </div>
     );
