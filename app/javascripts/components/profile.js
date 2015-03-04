@@ -21,8 +21,6 @@ var Profile = React.createClass({
     var userData = {},
         user = this.props.user ? this.props.user : {};
 
-    console.log('this.props ' , this.props);
-
     userData.email = (user.email) ? user.email : '';
     userData.avatar = (user.avatar) ? user.avatar : '';
     userData.username = (user.username) ? user.username : '';

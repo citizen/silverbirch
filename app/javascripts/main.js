@@ -16,7 +16,8 @@ var fb = require('firebase'),
 
 var App = React.createClass({
   mixins: [
-    Router.State
+    Router.State,
+    Router.Navigation
   ],
 
   getInitialState: function () {
@@ -40,6 +41,7 @@ var App = React.createClass({
       }
       else {
         this.setUser(auth);
+        this.transitionTo('tasks');
       }
     }, this);
   },
