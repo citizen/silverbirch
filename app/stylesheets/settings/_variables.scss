@@ -32,7 +32,27 @@ $brand-facebook : 	#03539e;
 $brand-twitter : 	#35ccff;
 $brand-linkedin : 	#217bc1;
 
+/* -- color classes We should clean these up to be propper variables-- */
 
+.coralbg {
+    background-color: #FA396F;
+}
+
+.coral {
+    color: #FA396f;
+}
+
+.turqbg {
+    background-color: #46D8D2;
+}
+
+.turq {
+    color: #46D8D2;
+}
+
+.white {
+    color: #fff!important;
+}
 
 
 
@@ -133,7 +153,7 @@ $brand-danger:          $red;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               $green;
+$body-bg:               $black;
 //** Global text color on `<body>`.
 $text-color:            $gray-dark !default;
 
