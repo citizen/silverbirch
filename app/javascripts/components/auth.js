@@ -16,6 +16,7 @@ var Authentication = {
     willTransitionTo: function (transition) {
       if (!auth.loggedIn()) {
         Login.attemptedTransition = transition;
+        // NOTE: if we ever have publicly visible tasks, redirect to '/tasks'
         transition.redirect('/login');
       }
     }

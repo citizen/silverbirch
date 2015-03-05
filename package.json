@@ -6,7 +6,8 @@
     "url": "https://bitbucket.org/jkillas/jkilla"
   },
   "dependencies": {
-    "firebase": "^2.0.6"
+    "firebase": "^2.0.6",
+    "moment": "^2.9.0"
   },
   "devDependencies": {
     "browser-sync": "^1.8.3",

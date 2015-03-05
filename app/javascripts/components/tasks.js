@@ -4,6 +4,7 @@ var _ = require('lodash'),
     React = require('react'),
     Router = require('react-router'),
     { Link, RouteHandler } = Router,
+    Menu = require('./menu'),
     TaskTree = require('./task-tree'),
     Authentication = require('./auth');
 
@@ -12,6 +13,7 @@ var Tasks = React.createClass({
     Router.State,
     Authentication
   ],
+
 
   getInitialState: function () {
     return {
@@ -104,15 +106,30 @@ var Tasks = React.createClass({
   // },
 
   render: function() {
+    var leftMenuItems = [
+      "SilverBirch",
+      "WebOps"
+    ];
+
+    var rightMenuItems = [
+      "rpowis",
+      "jsuarez",
+      "tommyvn",
+      "chrisk2020",
+      "anguspaterson"
+    ];
+
     return (
-      <div className="container-fluid">
-        <Link to="newTask" className="btn btn-primary glyphicon glyphicon-plus"></Link>
-        <div className="row">
-          <div className="col-md-6">
-            <TaskTree tasks={this.state.taskTree} {...this.props} />
-          </div>
-          <RouteHandler {...this.props} task={this.state.currentTask} />
+      <div className="row">
+        <Menu position="left" title="Teams" menuItems={leftMenuItems} />
+        <Menu position="right" title="Members" menuItems={rightMenuItems} />
+        <div className="col-md-6">
+          <TaskTree tasks={this.state.taskTree} {...this.props} />
         </div>
+        <div className="col-md-6">
+          <Link to="newTask" className="btn btn-primary glyphicon glyphicon-plus"></Link>
+        </div>
+        <RouteHandler {...this.props} task={this.state.currentTask} />
       </div>
     );
   }

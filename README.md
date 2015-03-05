@@ -40,23 +40,17 @@ Coming soon...
 Tests are run automatically as part of the `gulp watch` task.
 However, if you want to run the tests on their own, just run `gulp test`.
 
-#### Deployment instructions
+#### Deployment
 
-Coming soon...
-
-<!--
-If you're happy with your changes...
+Once you're happy with your changes...
 
 1. Install the firebase command line tools
     * `npm install -g firebase-tools`
 2. Build the project
-	1. Dev
-		* `mimosa build`
-	2. Prod
-		* `mimosa build -P prod`
+		* `gulp build`
 3. Deploy to Firebase
     * `firebase deploy`
- -->
+
 
 ### Contribution guidelines ###
 
