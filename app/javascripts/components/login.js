@@ -54,7 +54,7 @@ var Login = React.createClass({
   },
 
   userCreated: function (username, error) {
-    if (!error) {
+    if (error) {
       console.info('error creating' + username + ': ', error);
     } else {
       console.info('Successfully created ' + username);
