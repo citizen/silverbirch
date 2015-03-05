@@ -1,6 +1,6 @@
 # Generated files and folders
 */bower_components/
-app/**/vendor/
+
 node_modules/
 .sass-cache/
 dist/
