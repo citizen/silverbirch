@@ -43,14 +43,17 @@ var Login = React.createClass({
       	      userData.sbid         = sbId;
       	      userData.email        = (githubUser.email) ? githubUser.email : null;
       	      userData.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
-      	      userData.is_type      = 'auth_provider';
+      	      userData.is_type      = 'user';
       	      userData.username     = githubUser.username;
       	      userData.is_viewing   = sbId;
       	      userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
 
       	      // TODO: guarentee ordering through callbacks
       	      dbRef.child(sbId).set(userData);
-      	      return {belongs_to_user: sbId};
+      	      return {
+                belongs_to_user: sbId,
+                is_type: "provider_id"
+              };
       	    }
       	  }
       	}, function(error, committed) {

@@ -1,29 +1,29 @@
 functions:
   - isLoggedIn(): auth.uid !== null
-  - providerIdIsOwnedByUserInProvidersBelongsTo(): root[root[auth.uid].belongs_to_user].has_provider_id[auth.uid] == true
-  - userIsMemberOfUserOrTeamInUsersWorkingOn(): root[root[auth.uid].belongs_to_user].working_on == root[auth.uid].belongs_to_user ||
-                                                root[root[root[auth.uid].belongs_to_user].working_on].has_member[root[auth.uid].belongs_to_user] == true
+  - userHasProviderId(): root[root[auth.uid].belongs_to_user].uid == auth.uid
+  - userIsMemberOfUserOrTeamInUsersWorkingOn(): root[root[auth.uid].belongs_to_user].is_viewing == root[auth.uid].belongs_to_user ||
+                                                root[root[root[auth.uid].belongs_to_user].is_viewing].has_members[root[auth.uid].belongs_to_user] == true
   - userIsWhoTheySayTheyAre(): isLoggedIn() &&
-                               providerIdIsOwnedByUserInProvidersBelongsTo() &&
+                               userHasProviderId() &&
                                userIsMemberOfUserOrTeamInUsersWorkingOn()
 
   - notChangingTypeOfNode(): (!prev.exists() || prev.is_type == next.is_type)
-  - nodeWriteableByUsersWorkingOn():  (
-                                        !prev.exists() ||
-                                        (
-                                          prev.exists() &&
-                                          prev.writeable_by[root[root[auth.uid].belongs_to_user].working_on] == true
-                                        )
-                                      ) &&
-                                      next.writeable_by[root[root[auth.uid].belongs_to_user].working_on] == true
+  - nodeWriteableByUsersViewing():  (
+                                      !prev.exists() ||
+                                      (
+                                        prev.exists() &&
+                                        prev.has_users[root[root[auth.uid].belongs_to_user].is_viewing] == true
+                                      )
+                                    ) &&
+                                    next.has_users[root[root[auth.uid].belongs_to_user].is_viewing] == true
   # the provider node must have the same key as the auth.uid
   # the user node's has_provider_id object must contain the auth.uid and the provider node's belongs_to_user must be equal to the user node's key
-  # every other node's writeable_by must
+  # every other node's has_users must
   - writeNode(nodeId): notChangingTypeOfNode() &&
                        (
-                         ( next.is_type == "auth_provider" && auth.uid == nodeId ) ||
-                         ( next.is_type == "user" && ( ( !prev.exists() || prev.has_provider_id[auth.uid] == true && root[auth.uid].belongs_to_user == nodeId ) && next.has_provider_id[auth.uid] == true && root[auth.uid].belongs_to_user == nodeId ) ) ||
-                         ( ( next.is_type == "team" || next.is_type == "task" ) && userIsWhoTheySayTheyAre() && nodeWriteableByUsersWorkingOn() )
+                         ( next.is_type == "provider_id" && auth.uid == nodeId ) ||
+                         ( next.is_type == "user" && ( ( !prev.exists() || prev.uid == auth.uid && root[auth.uid].belongs_to_user == nodeId ) && next.uid == auth.uid && root[auth.uid].belongs_to_user == nodeId ) ) ||
+                         ( ( next.is_type == "team" || next.is_type == "task" ) && userIsWhoTheySayTheyAre() && nodeWriteableByUsersViewing() )
                        )
 
 schema:
