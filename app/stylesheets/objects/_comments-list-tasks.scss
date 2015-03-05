@@ -45,20 +45,20 @@
   /*****Left Arrow*****/
   /*Outline effect style*/
   .comment-list .panel.arrow.left:before {
-    left: 0px;
+    left: 5px;
     top: 30px;
     /*Use boarder color of panel*/
-    border-right-color: inherit;
+    border-right-color: $white;
     border-width: 16px;
   }
-  /*Background color effect*/
-  .comment-list .panel.arrow.left:after {
-    left: 1px;
-    top: 31px;
-    /*Change for different outline color*/
-    border-right-color: #FFFFFF;
-    border-width: 15px;
-  }
+  // /*Background color effect*/
+  // .comment-list .panel.arrow.left:after {
+  //   left: 1px;
+  //   top: 31px;
+  //   /*Change for different outline color*/
+  //   border-right-color: #FFFFFF;
+  //   border-width: 15px;
+  // }
   /*****Right Arrow*****/
   /*Outline effect style*/
   .comment-list .panel.arrow.right:before {
