@@ -28,7 +28,7 @@
   }
 }
 
-.task {
+.task-panel {
   > span {
     display: block;
   }
@@ -51,177 +51,6 @@
   }
 }
 
-// .task-controls {
-//   display: none;
-//   margin-left: 5px;
-
-//   .task > span:hover & {
-//     display: inline-block;
-//   }
-// }
-
-// /* the tree node's style */
-// .tree-view {
-//   overflow-y: hidden;
-// }
-
-// /* style for the container */
-// .tree-view_children {
-//   margin-left: 16px;
-// }
-
-// .tree-view_children-collapsed {
-//   height: 0px;
-// }
-
-// .tree-view_arrow {
-//   cursor: pointer;
-//   margin-right: 6px;
-//   display: inline-block;
-//   -webkit-user-select: none;
-//   -moz-user-select: none;
-//   -ms-user-select: none;
-//   user-select: none;
-// }
-
-// /* rotate the triangle to close it */
-// .tree-view_arrow-collapsed {
-//   -webkit-transform: rotate(-90deg);
-//   -moz-transform: rotate(-90deg);
-//   -ms-transform: rotate(-90deg);
-//   transform: rotate(-90deg);
-// }
-
-
-
-
-/*font Awesome http://fontawesome.io*/
-//@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
-
-/*Comment List styles*/
-
-.panel-body {
-  color: black;
-}
-.comment-list .row {
-  margin-bottom: 0px;
-}
-.comment-list .panel .panel-heading {
-  padding: 4px 15px;
-  position: absolute;
-  border:none;
-  /*Panel-heading border radius*/
-  border-top-right-radius:0px;
-  top: 1px;
-}
-.comment-list .panel .panel-heading.right {
-  border-right-width: 0px;
-  /*Panel-heading border radius*/
-  border-top-left-radius:0px;
-  right: 16px;
-}
-.comment-list .panel .panel-heading .panel-body {
-  padding-top: 6px;
-}
-.comment-list figcaption {
-  /*For wrapping text in thumbnail*/
-  word-wrap: break-word;
-}
-/* Portrait tablets and medium desktops */
-@media (min-width: 768px) {
-  .comment-list .arrow:after, .comment-list .arrow:before {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-color: transparent;
-  }
-  .comment-list .panel.arrow.left:after, .comment-list .panel.arrow.left:before {
-    border-left: 0;
-  }
-  /*****Left Arrow*****/
-  /*Outline effect style*/
-  .comment-list .panel.arrow.left:before {
-    left: 0px;
-    top: 30px;
-    /*Use boarder color of panel*/
-    border-right-color: inherit;
-    border-width: 16px;
-  }
-  /*Background color effect*/
-  .comment-list .panel.arrow.left:after {
-    left: 1px;
-    top: 31px;
-    /*Change for different outline color*/
-    border-right-color: #FFFFFF;
-    border-width: 15px;
-  }
-  /*****Right Arrow*****/
-  /*Outline effect style*/
-  .comment-list .panel.arrow.right:before {
-    right: -16px;
-    top: 30px;
-    /*Use boarder color of panel*/
-    border-left-color: inherit;
-    border-width: 16px;
-  }
-  /*Background color effect*/
-  .comment-list .panel.arrow.right:after {
-    right: -14px;
-    top: 31px;
-    /*Change for different outline color*/
-    border-left-color: #FFFFFF;
-    border-width: 15px;
-  }
-}
-.comment-list .comment-post {
-  margin-top: 6px;
-}
-
-.navbar-brand img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-.avatar {
-    margin: 0 10px;
-    width: 24px;
-    &--big {
-        width: 120px;
-    }
-}
-.tasks {
-    padding: 0.5em 0;
-    ul {
-        margin-left: 10px;
-        padding: 0;
-        &:empty {
-            display: none;
-        }
-    }
-    li {
-        margin-top: 10px;
-    }
-}
-.task-panel {
-    > span {
-        display: block;
-    }
-    .title {
-        margin: 0 0.5em 0 0;
-    }
-    .glyphicon {
-        cursor: pointer;
-        margin: 0 0.2em;
-    }
-    .glyphicon-plus {
-        color: green;
-    }
-    .glyphicon-remove {
-        color: red;
-    }
-}
 .task-controls {
     float: right;
     display: none;
@@ -231,34 +60,10 @@
         display: inline-block;
     }
 }
+
 .archived.comment-post > * {
   text-decoration: line-through;
 }
-// /* the tree node's style */
-// .tree-view {
-//   overflow-y: hidden;
-// }
-// /* style for the container */
-// .tree-view_children {
-//   margin-left: 16px;
-// }
-// .tree-view_children-collapsed {
-//   height: 0px;
-// }
-// .tree-view_arrow {
-//   cursor: pointer;
-//   margin-right: 6px;
-//   display: inline-block;
-//   -webkit-user-select: none;
-//   -moz-user-select: none;
-//   -ms-user-select: none;
-//   user-select: none;
-// }
-// /* rotate the triangle to close it */
-// .tree-view_arrow-collapsed {
-//   -webkit-transform: rotate(-90deg);
-//   -moz-transform: rotate(-90deg);
-//   -ms-transform: rotate(-90deg);
-//   transform: rotate(-90deg);
-// }
 
+/*font Awesome http://fontawesome.io*/
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
