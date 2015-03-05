@@ -21,10 +21,12 @@ var TaskForm = React.createClass({
       return;
     }
 
+    var has_users = {};
+    has_users[user.sbid] = true;
     task = {
       "is_type": "task",
       "has_state": "open",
-      "has_users": {},
+      "has_users": has_users,
       "created_on": Date.now(),
       "has_meta": {
         "title": title,
@@ -40,7 +42,7 @@ var TaskForm = React.createClass({
     if (user.has_task_list) {
       taskList = user.has_task_list;
     } else {
-      taskList = dbRef.push({"is_type": "taskList"});
+      taskList = dbRef.push({"is_type": "taskList", "has_users": has_users});
       taskList = taskList.key();
       dbRef.child(user.sbid + '/has_task_list').set(taskList);
     }

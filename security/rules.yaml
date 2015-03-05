@@ -23,7 +23,7 @@ functions:
                        (
                          ( next.is_type == "provider_id" && auth.uid == nodeId ) ||
                          ( next.is_type == "user" && ( ( !prev.exists() || prev.uid == auth.uid && root[auth.uid].belongs_to_user == nodeId ) && next.uid == auth.uid && root[auth.uid].belongs_to_user == nodeId ) ) ||
-                         ( ( next.is_type == "team" || next.is_type == "task" ) && userIsWhoTheySayTheyAre() && nodeWriteableByUsersViewing() )
+                         ( ( next.is_type == "team" || next.is_type == "task" || next.is_type == "taskList" ) && userIsWhoTheySayTheyAre() && nodeWriteableByUsersViewing() )
                        )
 
 schema:
@@ -38,7 +38,8 @@ schema:
             - task
             - user
             - team
-            - auth_provider
+            - provider_id
+            - taskList
           #enum: [task, user, team, auth_provider, event, taskList, eventList]
       required:
         - is_type

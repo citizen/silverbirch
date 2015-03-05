@@ -33,13 +33,8 @@ var Login = React.createClass({
       	this.replaceWith('/tasks');
       }
       else {
-      	dbRef.child(uid).transaction(function(authExists) {
-      	  if (!authExists) {
-      	    // TODO: use switch case to allow for more auth providers
-      	    if(userData.provider === 'github') {
       	      var githubUser = userData.github,
       		  sbId = 'sb:' + githubUser.username;
-
       	      userData.sbid         = sbId;
       	      userData.email        = (githubUser.email) ? githubUser.email : null;
       	      userData.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
@@ -48,24 +43,19 @@ var Login = React.createClass({
       	      userData.is_viewing   = sbId;
       	      userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
 
-      	      // TODO: guarentee ordering through callbacks
-      	      dbRef.child(sbId).set(userData);
-      	      return {
-                belongs_to_user: sbId,
-                is_type: "provider_id"
-              };
-      	    }
-      	  }
-      	}, function(error, committed) {
-      	  this.userCreated(userData.username, committed);
-      	}.bind(this));
+      	dbRef.child(uid).set({belongs_to_user: sbId, is_type: "provider_id"}, function(error) {
+      	      dbRef.child(sbId).set(userData, function(error) {
+      	          this.userCreated(userData.username, error);
+              }.bind(this));
+        }.bind(this));
+
       }
     }.bind(this));
   },
 
-  userCreated: function (username, exists) {
-    if (!exists) {
-      console.info('user ' + username + ' already exists!');
+  userCreated: function (username, error) {
+    if (error) {
+      console.info('error creating' + username + ': ', error);
     } else {
       console.info('Successfully created ' + username);
     }
