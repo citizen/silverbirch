@@ -31,6 +31,7 @@ gulp.task('styles:dev', ['fonts'], function() {
   return gulp.src(files.scss + '/**/*.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
+      includePaths: ['node_modules/bootstrap-sass/assets/stylesheets'],
       errLogToConsole: true
     }))
     .pipe($.autoprefixer('last 1 version'))
@@ -46,6 +47,7 @@ gulp.task('styles:dev', ['fonts'], function() {
 gulp.task('styles:build', ['fonts'], function() {
   return gulp.src(files.scss + '/**/*.scss')
     .pipe($.sass({
+      includePaths: ['node_modules/bootstrap-sass/assets/stylesheets'],
       errLogToConsole: true
     }))
     .pipe($.autoprefixer('last 1 version'))
