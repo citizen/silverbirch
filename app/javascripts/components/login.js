@@ -66,8 +66,16 @@ var Login = React.createClass({
   render: function () {
     return (
       <div onClick={this.handleSubmit}>
-        <h3>Log in with...</h3>
-        <span className="btn btn-default">Github</span>
+        <div className="row">
+          <div className="panel col-md-6 col-md-offset-3">
+            <div className="panel-heading">
+              <h3 className="panel-title">Log in with...</h3>
+            </div>
+            <div className="well">
+              <span className="btn btn-primary btn-lg btn-block">Github</span>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
