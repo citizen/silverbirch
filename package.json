@@ -11,7 +11,7 @@
     "moment": "^2.9.0"
   },
   "devDependencies": {
-    "browser-sync": "^1.8.3",
+    "browser-sync": "^2.2.2",
     "browserify-shim": "^3.8.2",
     "del": "^1.1.1",
     "gulp": "^3.8.10",
@@ -22,20 +22,20 @@
     "gulp-debug": "^2.0.0",
     "gulp-filter": "^2.0.0",
     "gulp-imagemin": "^2.1.0",
-    "gulp-jade": "^0.10.0",
-    "gulp-jest": "~0.2.2",
+    "gulp-jade": "^1.0.0",
+    "gulp-jest": "^0.4.0",
     "gulp-jshint": "^1.9.0",
     "gulp-load-plugins": "^0.8.0",
-    "gulp-react": "^2.0.0",
+    "gulp-react": "^3.0.0",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^1.3.1",
     "gulp-size": "^1.2.0",
     "gulp-sourcemaps": "^1.3.0",
     "gulp-useref": "^1.1.1",
     "gulp-util": "~3.0.1",
-    "lodash": "^2.4.1",
+    "lodash": "^3.3.1",
     "react": "^0.12.2",
-    "react-router": "^0.11.6",
+    "react-router": "^0.12.4",
     "reactify": ">0.15.0",
     "run-sequence": "^1.0.2",
     "vinyl-source-stream": "^1.0.0"
@@ -54,10 +54,5 @@
       ]
     ]
   },
-  "browser": {
-    "jquery": "./app/bower_components/jquery/dist/jquery.js"
-  },
-  "browserify-shim": {
-    "jquery": "$"
-  }
+  "browserify-shim": {}
 }
