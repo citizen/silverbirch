@@ -17,11 +17,12 @@ var TaskTreeItem = React.createClass({
       'comment-post': true
     });
 
-     var profileLink = (this.props.user) ?
-          <Link to="profile" className="thumbnail" params={{username: this.props.user.username}}>
-            <img className="img-responsive" src={this.props.user.avatar} />
-            <figcaption className="text-center">{this.props.user.username}</figcaption>
-          </Link> : '';
+     var profileLink = "";
+     // var profileLink = (this.props.user) ?
+     //      <Link to="profile" className="thumbnail" params={{username: this.props.user.username}}>
+     //        <img className="img-responsive" src={this.props.user.avatar} />
+     //        <figcaption className="text-center">{this.props.user.username}</figcaption>
+     //      </Link> : '';
 
     var time = moment(task.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
@@ -34,13 +35,14 @@ var TaskTreeItem = React.createClass({
           <div className="col-md-10 col-sm-10">
             <div className="task-panel panel panel-default arrow left">
               <div className="panel-body">
-                <TaskControls task={task} {...this.props} />
+                {/*<TaskControls task={task} {...this.props} />*/}
                 <header className="text-left">
                   <div className="comment-user"><i className="fa fa-user"></i> Assignee</div>
                   <time className="comment-date" dateTime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> {time}</time>
                 </header>
                 <div className={classes}>
-                  <h1><Link to="task" params={{taskId: task.uid}}>{task.has_meta.title}</Link></h1>
+                  {/*<h1><Link to="task" params={{taskId: task.uid}}>{task.has_meta.title}</Link></h1>*/}
+                  <h1>{task.has_meta.title}</h1>
                   <p>{task.has_meta.description}</p>
                 </div>
                 <p className="text-right"><a href="#" className="btn btn-default btn-sm"><i className="fa fa-reply"></i> reply</a></p>

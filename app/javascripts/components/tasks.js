@@ -23,20 +23,20 @@ var Tasks = React.createClass({
   },
 
   componentWillMount: function () {
-    this.loadTasks();
+    this.loadTasks(this.props.viewContext);
   },
 
-  componentWillReceiveProps: function () {
-    this.loadTasks();
+  componentWillReceiveProps: function (nextProps) {
+    this.loadTasks(nextProps.viewContext);
   },
 
-  loadTasks: function () {
+  loadTasks: function (viewContext) {
     if (this.props.user) {
       var tasks = {},
           top_tasks_list = [],
           nestedChildrenList = [],
           dbRef = this.props.fbRef,
-          userId = this.props.user.sbid;
+          userId = 'sb:' + viewContext;
 
       dbRef.child(userId + '/has_task_list').once('value', function(taskList) {
         if (!taskList.val()) { return false; }
@@ -118,18 +118,20 @@ var Tasks = React.createClass({
       "chrisk2020",
       "anguspaterson"
     ];
-
+        // <Menu position="left" title="Teams" menuItems={leftMenuItems} />
+        // <Menu position="right" title="Members" menuItems={rightMenuItems} />
+        // <div className="col-md-6">
+        //   <TaskTree tasks={this.state.taskTree} {...this.props} />
+        // </div>
+        // <div className="col-md-6">
+        //   <Link to="newTask" className="btn btn-primary glyphicon glyphicon-plus"></Link>
+        // </div>
+        // <RouteHandler {...this.props} task={this.state.currentTask} />
     return (
       <div className="row">
-        <Menu position="left" title="Teams" menuItems={leftMenuItems} />
-        <Menu position="right" title="Members" menuItems={rightMenuItems} />
         <div className="col-md-6">
           <TaskTree tasks={this.state.taskTree} {...this.props} />
         </div>
-        <div className="col-md-6">
-          <Link to="newTask" className="btn btn-primary glyphicon glyphicon-plus"></Link>
-        </div>
-        <RouteHandler {...this.props} task={this.state.currentTask} />
       </div>
     );
   }

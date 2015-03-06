@@ -8,11 +8,11 @@ var fb = require('firebase'),
     Task = require('./components/task'),
     Tasks = require('./components/tasks'),
     Login = require('./components/login'),
-    Header = require('./includes/header'),
     Logout = require('./components/logout'),
     Profile = require('./components/profile'),
     AddTask = require('./components/task-form-add'),
-    EditTask = require('./components/task-form-edit');
+    EditTask = require('./components/task-form-edit'),
+    ViewContext = require('./components/view-context');
 
 var App = React.createClass({
   mixins: [
@@ -41,7 +41,7 @@ var App = React.createClass({
       }
       else {
         this.setUser(auth);
-        this.transitionTo('tasks');
+        this.transitionTo('tasks', {viewContext: 'rpowis'});
       }
     }, this);
   },
@@ -55,25 +55,8 @@ var App = React.createClass({
 
   render: function () {
     return (
-      <div>
-        <Header user={this.state.user} />
-        <RouteHandler user={this.state.user} {...this.props} />
-      </div>
+      <RouteHandler user={this.state.user} {...this.props} />
     );
-  }
-});
-
-var TaskNotFound = React.createClass({
-  mixins: [
-    Router.Navigation
-  ],
-
-  componentWillMount: function () {
-    this.transitionTo('tasks');
-  },
-
-  render: function () {
-    return false;
   }
 });
 
@@ -81,14 +64,16 @@ var routes = (
   <Route handler={App}>
     <Route name="login" handler={Login}/>
     <Route name="logout" handler={Logout}/>
-    <Route name="tasks" handler={Tasks}>
-      <Route name="newTask" path="new" handler={AddTask}/>
-      <Route name="task" path=":taskId" handler={Task}/>
-      <Route name="newChildTask" path=":taskId/new" handler={AddTask}/>
-      <Route name="editTask" path=":taskId/edit" handler={EditTask}/>
-      <NotFoundRoute handler={TaskNotFound} />
+    <Route path=":viewContext" handler={ViewContext}>
+      <Route name="tasks" handler={Tasks}>
+        {/*<Route name="newTask" path="new" handler={AddTask}/>*/}
+        {/*<Route name="task" path=":taskId" handler={Task}/>*/}
+        {/*<Route name="newChildTask" path=":taskId/new" handler={AddTask}/>*/}
+        {/*<Route name="editTask" path=":taskId/edit" handler={EditTask}/>*/}
+        {/*<NotFoundRoute handler={TaskNotFound} />*/}
+      </Route>
+      {/*<Route name="profile" path="profile/:username" handler={Profile}/>*/}
     </Route>
-    <Route name="profile" path="profile/:username" handler={Profile}/>
   </Route>
 );
 
