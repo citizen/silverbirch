@@ -66,8 +66,8 @@ var routes = (
     <Route name="logout" handler={Logout}/>
     <Route path=":viewContext" handler={ViewContext}>
       <Route name="tasks" handler={Tasks}>
-	<Route name="newTask" path="new" handler={AddTask}/>
-        {/*<Route name="task" path=":taskId" handler={Task}/>*/}
+      	<Route name="newTask" path="new" handler={AddTask}/>
+        <Route name="task" path=":taskId" handler={Task}/>
         {/*<Route name="newChildTask" path=":taskId/new" handler={AddTask}/>*/}
         {/*<Route name="editTask" path=":taskId/edit" handler={EditTask}/>*/}
         {/*<NotFoundRoute handler={TaskNotFound} />*/}

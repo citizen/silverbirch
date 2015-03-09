@@ -35,7 +35,7 @@ var Tasks = React.createClass({
           top_tasks_list = [],
           nestedChildrenList = [],
           dbRef = this.props.fbRef,
-	  userId = (viewContext) ? viewContext.sbid : "sb:"+this.getParams().viewContext;
+      	  userId = (viewContext) ? viewContext.sbid : "sb:"+this.getParams().viewContext;
 
       dbRef.child(userId + '/has_task_list').once('value', function(taskList) {
         if (!taskList.val()) { return false; }
@@ -127,10 +127,10 @@ var Tasks = React.createClass({
         <div className="col-md-6">
           <TaskTree tasks={this.state.taskTree} {...this.props} />
         </div>
-	<div className="col-md-6">
-	  <Link to="newTask" params={{viewContext: viewContextName}} className="btn btn-primary glyphicon glyphicon-plus"></Link>
-	</div>
-	<RouteHandler {...this.props} task={this.state.currentTask} />
+      	<div className="col-md-6">
+      	  <Link to="newTask" params={{viewContext: viewContextName}} className="btn btn-primary glyphicon glyphicon-plus"></Link>
+      	</div>
+      	<RouteHandler {...this.props} task={this.state.currentTask} />
       </div>
     );
   }

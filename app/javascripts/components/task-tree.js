@@ -26,6 +26,9 @@ var TaskTreeItem = React.createClass({
 
     var time = moment(task.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
+    var viewContextName = (this.props.viewContext) ?
+      this.props.viewContext.sbid.split(":")[1] : "";
+
     return (
       <section className="comment-list">
         <article className="row">
@@ -41,8 +44,12 @@ var TaskTreeItem = React.createClass({
                   <time className="comment-date" dateTime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> {time}</time>
                 </header>
                 <div className={classes}>
-                  {/*<h1><Link to="task" params={{taskId: task.uid}}>{task.has_meta.title}</Link></h1>*/}
-                  <h1>{task.has_meta.title}</h1>
+                  <h1>
+                    <Link to="task" params={{viewContext: viewContextName, taskId: task.uid}}>
+                      {task.has_meta.title}
+                    </Link>
+                  </h1>
+                  {/*<h1>{task.has_meta.title}</h1>*/}
                   <p>{task.has_meta.description}</p>
                 </div>
                 <p className="text-right"><a href="#" className="btn btn-default btn-sm"><i className="fa fa-reply"></i> reply</a></p>
