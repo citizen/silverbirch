@@ -7,7 +7,6 @@ functions:
                                userHasProviderId() &&
                                userIsMemberOfUserOrTeamInUsersWorkingOn()
 
-  - notChangingTypeOfNode(): (!prev.exists() || prev.is_type == next.is_type)
   - nodeWriteableByUsersViewing():  (
                                       !prev.exists() ||
                                       (
@@ -19,8 +18,7 @@ functions:
   # the provider node must have the same key as the auth.uid
   # the user node's has_provider_id object must contain the auth.uid and the provider node's belongs_to_user must be equal to the user node's key
   # every other node's has_users must
-  - writeNode(nodeId): notChangingTypeOfNode() &&
-                       (
+  - writeNode(nodeId): (
                          ( next.is_type == "provider_id" && auth.uid == nodeId ) ||
                          ( next.is_type == "user" && ( ( !prev.exists() || prev.uid == auth.uid && root[auth.uid].belongs_to_user == nodeId ) && next.uid == auth.uid && root[auth.uid].belongs_to_user == nodeId ) ) ||
                          ( ( next.is_type == "team" || next.is_type == "task" || next.is_type == "taskList" ) && userIsWhoTheySayTheyAre() && nodeWriteableByUsersViewing() )
@@ -43,6 +41,7 @@ schema:
           #enum: [task, user, team, auth_provider, event, taskList, eventList]
       required:
         - is_type
+      constraint: (!prev.exists() || prev.is_type == next.is_type)
       examples:
         - is_type: "task"
           has_dependancy: "something"
