@@ -10,6 +10,12 @@ var ViewContext = React.createClass({
     Router.State
   ],
 
+  getInitialState: function () {
+    return {
+      viewContextObject: null
+    };
+  },
+
   componentWillMount: function () {
     this.updateViewing();
   },
@@ -21,6 +27,12 @@ var ViewContext = React.createClass({
   updateViewing: function () {
     if (this.props.user) {
       this.props.fbRef.child(this.props.user.sbid + '/is_viewing').set('sb:' + this.getParams().viewContext);
+
+      this.props.fbRef.child('sb:'+this.getParams().viewContext).once('value', function(viewContextSnapshot) {
+	this.setState({
+	  viewContextObject: viewContextSnapshot.val()
+	});
+      }.bind(this));
     }
   },
 
@@ -28,11 +40,11 @@ var ViewContext = React.createClass({
     return (
       <div>
         <Header
-          viewContext={this.getParams().viewContext}
+	  viewContext={this.state.viewContextObject}
           {...this.props}
         />
         <RouteHandler
-          viewContext={this.getParams().viewContext}
+	  viewContext={this.state.viewContextObject}
           {...this.props}
         />
       </div>

@@ -10,7 +10,7 @@ var TaskForm = React.createClass({
     e.preventDefault();
 
     var task, newTaskId, taskList,
-        user = this.props.user,
+	owner = this.props.viewContext,
         dbRef = this.props.fbRef,
         parentId = this.getParams().taskId,
         title = this.refs.title.getDOMNode().value.trim(),
@@ -22,29 +22,30 @@ var TaskForm = React.createClass({
     }
 
     var has_users = {};
-    has_users[user.sbid] = true;
+    has_users[owner.sbid] = true;
     task = {
       "is_type": "task",
       "has_state": "open",
       "has_users": has_users,
       "created_on": Date.now(),
+      "created_by": this.props.user.sbid,
       "has_meta": {
         "title": title,
         "description": description
       }
     };
-    task.has_users[user.sbid] = true;
+    task.has_users[owner.sbid] = true;
 
     // create new task
     newTaskId = dbRef.push(task);
 
-    // find user's task list (or create it if it doesn't exist)
-    if (user.has_task_list) {
-      taskList = user.has_task_list;
+    // find owner's task list (or create it if it doesn't exist)
+    if (owner.has_task_list) {
+      taskList = owner.has_task_list;
     } else {
       taskList = dbRef.push({"is_type": "taskList", "has_users": has_users});
       taskList = taskList.key();
-      dbRef.child(user.sbid + '/has_task_list').set(taskList);
+      dbRef.child(owner.sbid + '/has_task_list').set(taskList);
     }
 
     // add new task to task list
