@@ -19,12 +19,12 @@ var Header = React.createClass({
     userName = (this.props.user) ? this.props.user.username : "";
 
     profileLink = (this.props.user) ?
-      <li className="navbar-text">
-        {/*<Link to="profile" params={{viewContext: this.props.viewContext, username: this.props.user.username}}>*/}
+      <li>
+        <Link to="profile" params={{viewContext: this.props.user.username}}>
           <span>Logged in as </span>
           <img className="avatar" src={this.props.user.avatar} />
           <span>{this.props.user.username}</span>
-        {/*</Link>*/}
+        </Link>
       </li> : '';
 
     loginOrOut = (this.props.user) ?
