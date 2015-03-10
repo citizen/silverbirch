@@ -29,8 +29,8 @@ var TaskForm = React.createClass({
     e.preventDefault();
 
     var task,
-	taskList,
-	newTaskId,
+        taskList,
+        newTaskId,
         dbRef = this.props.fbRef,
         taskId = this.getParams().taskId,
         title = this.refs.title.getDOMNode().value.trim(),
@@ -101,10 +101,10 @@ var TaskForm = React.createClass({
 
           <Link
             to="task"
-	    params={{
-	      taskId: this.getParams().taskId,
-	      viewContext: this.getParams().viewContext
-	    }}
+            params={{
+              taskId: this.getParams().taskId,
+              viewContext: this.getParams().viewContext
+            }}
             className="btn btn-link pull-right"
           >Cancel</Link>
         </div>

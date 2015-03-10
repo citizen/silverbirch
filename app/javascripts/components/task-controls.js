@@ -5,6 +5,10 @@ var React = require('react'),
     { Link } = Router;
 
 var TaskControls = React.createClass({
+  mixins: [
+    Router.State
+  ],
+
   archiveTask: function () {
     this.props.fbRef.child(this.props.task.uid).update({
       'has_state': 'archived'
@@ -16,7 +20,10 @@ var TaskControls = React.createClass({
       <div className="task-controls">
         <Link
           to="newChildTask"
-          params={{taskId: this.props.task.uid}}
+          params={{
+            taskId: this.props.task.uid,
+            viewContext: this.getParams().viewContext
+          }}
           className="glyphicon glyphicon-plus pull-left"
         ></Link>
         <span

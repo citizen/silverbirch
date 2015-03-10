@@ -27,7 +27,7 @@ var TaskTreeItem = React.createClass({
     var time = moment(task.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
     var viewContextName = (this.props.viewContext) ?
-      this.props.viewContext.sbid.split(":")[1] : "";
+          this.props.viewContext.sbid.split(":")[1] : "";
 
     return (
       <section className="comment-list">
@@ -35,24 +35,29 @@ var TaskTreeItem = React.createClass({
           <div className="col-md-2 col-sm-2 hidden-xs">
             {profileLink}
           </div>
+
           <div className="col-md-10 col-sm-10">
             <div className="task-panel panel panel-default arrow left">
               <div className="panel-body">
-                {/*<TaskControls task={task} {...this.props} />*/}
+                <TaskControls task={task} {...this.props} />
+
                 <header className="text-left">
                   <div className="comment-user"><i className="fa fa-user"></i> Assignee</div>
                   <time className="comment-date" dateTime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> {time}</time>
                 </header>
+
                 <div className={classes}>
-		  <h2>
+            		  <h2>
                     <Link to="task" params={{viewContext: viewContextName, taskId: task.uid}}>
                       {task.has_meta.title}
                     </Link>
-		  </h2>
+            		  </h2>
                   <p>{task.has_meta.description}</p>
                 </div>
+
                 <p className="text-right"><a href="#" className="btn btn-default btn-sm"><i className="fa fa-reply"></i> reply</a></p>
               </div>
+
               {taskTree}
             </div>
           </div>

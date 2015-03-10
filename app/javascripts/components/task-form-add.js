@@ -68,7 +68,7 @@ var TaskForm = React.createClass({
       'Add a task';
 
     return (
-      <form className="col-md-6" onSubmit={this.handleSubmit}>
+      <form className="panel col-md-6" onSubmit={this.handleSubmit}>
         <h4>{formTitle}</h4>
         <div className="form-group">
           <input
