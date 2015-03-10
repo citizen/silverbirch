@@ -1,31 +1,33 @@
 functions:
   - isLoggedIn(): auth.uid !== null
-  - userHasProviderId(): root[root[auth.uid].belongs_to_user].uid == auth.uid
-  - userIsMemberOfUserOrTeamInUsersWorkingOn(): root[root[auth.uid].belongs_to_user].is_viewing == root[auth.uid].belongs_to_user ||
-                                                root[root[root[auth.uid].belongs_to_user].is_viewing].has_members[root[auth.uid].belongs_to_user] == true
-  - userIsWhoTheySayTheyAre(): isLoggedIn() &&
-                               userHasProviderId() &&
-                               userIsMemberOfUserOrTeamInUsersWorkingOn()
 
-  - nodeWriteableByUsersViewing():  (
-                                      !prev.exists() ||
-                                      (
-                                        prev.exists() &&
-                                        prev.has_users[root[root[auth.uid].belongs_to_user].is_viewing] == true
-                                      )
-                                    ) &&
-                                    next.has_users[root[root[auth.uid].belongs_to_user].is_viewing] == true
-  - nodeReadableByUsersViewing(): prev.has_users[root[root[auth.uid].belongs_to_user].is_viewing] == true
+  - providerIdOwnsUser(): root[root[auth.uid].belongs_to_user].uid == auth.uid
+
+  - contextIsUser(): root[root[auth.uid].belongs_to_user].is_viewing == root[auth.uid].belongs_to_user
+  - contextIsTeam(): root[root[root[auth.uid].belongs_to_user].is_viewing].has_members[root[auth.uid].belongs_to_user] == true
+
+  - userIsWhoTheySayTheyAre(): isLoggedIn() &&
+                               providerIdOwnsUser() &&
+                               ( contextIsUser() || contextIsTeam() )
+
+  - userOrTeamIsInNodesHasUser(): prev.has_users[root[root[auth.uid].belongs_to_user].is_viewing] == true
+  - userOrTeamWillBeInNodesHasUser(): next.has_users[root[root[auth.uid].belongs_to_user].is_viewing] == true
+
+  - userOrTeamIsOrWillBeInNodesHasUser(): ( !prev.exists() || ( prev.exists() && userOrTeamIsInNodesHasUser() ) ) && userOrTeamWillBeInNodesHasUser()
+
   # the provider node must have the same key as the auth.uid
   # the user node's has_provider_id object must contain the auth.uid and the provider node's belongs_to_user must be equal to the user node's key
   # every other node's has_users must
   - writeNode(nodeId): (
                          ( next.is_type == "provider_id" && auth.uid == nodeId ) ||
                          ( next.is_type == "user" && ( ( !prev.exists() || prev.uid == auth.uid && root[auth.uid].belongs_to_user == nodeId ) && next.uid == auth.uid && root[auth.uid].belongs_to_user == nodeId ) ) ||
-                         ( ( next.is_type == "team" || next.is_type == "task" || next.is_type == "taskList" ) && userIsWhoTheySayTheyAre() && nodeWriteableByUsersViewing() )
+                         ( userIsWhoTheySayTheyAre() && userOrTeamIsOrWillBeInNodesHasUser() )
                        )
+
   - readNode(nodeId): userIsWhoTheySayTheyAre() && (
-                        ( ( next.is_type == "team" || next.is_type == "task" || next.is_type == "taskList" ) && nodeReadableByUsersViewing() )
+                        ( prev.is_type == "provider_id" && auth.uid == nodeId ) ||
+                        ( prev.is_type == "user" && prev.uid == auth.uid && root[auth.uid].belongs_to_user == nodeId ) ||
+                        userOrTeamIsInNodesHasUser()
                       )
 
 schema:
