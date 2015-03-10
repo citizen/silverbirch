@@ -28,8 +28,9 @@ var TaskForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
 
-    var task, newTaskId, taskList,
-        user = this.props.user,
+    var task,
+	taskList,
+	newTaskId,
         dbRef = this.props.fbRef,
         taskId = this.getParams().taskId,
         title = this.refs.title.getDOMNode().value.trim(),
@@ -53,7 +54,10 @@ var TaskForm = React.createClass({
     this.refs.title.getDOMNode().value = "";
     this.refs.description.getDOMNode().value = "";
 
-    this.transitionTo('task', {taskId: taskId});
+    this.transitionTo('task', {
+      taskId: taskId,
+      viewContext: this.getParams().viewContext
+    });
 
     return;
   },
@@ -66,7 +70,7 @@ var TaskForm = React.createClass({
 
   render: function() {
     return (
-      <form className="col-md-6" onSubmit={this.handleSubmit}>
+      <form className="panel col-md-6" onSubmit={this.handleSubmit}>
         <h4>Edit task {this.getParams().taskId}</h4>
 
         <div className="form-group">
@@ -97,7 +101,10 @@ var TaskForm = React.createClass({
 
           <Link
             to="task"
-            params={{taskId: this.getParams().taskId}}
+	    params={{
+	      taskId: this.getParams().taskId,
+	      viewContext: this.getParams().viewContext
+	    }}
             className="btn btn-link pull-right"
           >Cancel</Link>
         </div>

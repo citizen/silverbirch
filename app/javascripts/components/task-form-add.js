@@ -10,8 +10,8 @@ var TaskForm = React.createClass({
     e.preventDefault();
 
     var task, newTaskId, taskList,
-	owner = this.props.viewContext,
         dbRef = this.props.fbRef,
+	owner = this.props.viewContext,
         parentId = this.getParams().taskId,
         title = this.refs.title.getDOMNode().value.trim(),
         description = this.refs.description.getDOMNode().value.trim() || null;

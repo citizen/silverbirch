@@ -123,7 +123,7 @@ var Tasks = React.createClass({
         // <Menu position="left" title="Teams" menuItems={leftMenuItems} />
         // <Menu position="right" title="Members" menuItems={rightMenuItems} />
     return (
-      <div className="row">
+      <div className="container-fluid">
         <div className="col-md-6">
           <TaskTree tasks={this.state.taskTree} {...this.props} />
         </div>

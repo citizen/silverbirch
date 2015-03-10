@@ -18,13 +18,15 @@ var Task = React.createClass({
         title = taskMeta ? taskMeta.title : '',
         description = taskMeta ? taskMeta.description : '';
 
-    var editLink = "";
-    // var editLink = task.uid ?
-    //       <Link
-    //         to="editTask"
-    //         params={{taskId: this.props.task.uid}}
-    //         className="glyphicon glyphicon-edit pull-right btn btn-default"
-    //       ></Link> : '';
+    var editLink = task.uid ?
+	  <Link
+	    to="editTask"
+	    params={{
+	      taskId: this.props.task.uid,
+	      viewContext: this.getParams().viewContext
+	    }}
+	    className="glyphicon glyphicon-edit pull-right btn btn-default"
+	  ></Link> : '';
 
     var profileLink = "";
     // var profileLink = (this.props.user) ?
