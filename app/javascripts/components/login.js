@@ -28,30 +28,36 @@ var Login = React.createClass({
     var uid = userData.auth.uid,
         dbRef = this.props.fbRef;
 
-    dbRef.child('sb:' + userData[userData.provider].username).once('value', function(userExists) {
-      if( userExists.val() ) {
-      	this.replaceWith('tasks', {viewContext: userExists.val().username});
-      }
-      else {
-	      var githubUser = userData.github,
-      		  sbId = 'sb:' + githubUser.username;
+    dbRef.child('sb:' + userData[userData.provider].username).once('value', function(userSnapshot) {
+        this.replaceWith('tasks', {viewContext: userSnapshot.val().username});
+      }.bind(this),
+      function(fetchError) {
+        console.log("will create user");
+        var githubUser = userData.github,
+      	sbId = 'sb:' + githubUser.username;
 
-	      userData.sbid         = sbId;
-	      userData.email        = (githubUser.email) ? githubUser.email : null;
-	      userData.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
-	      userData.is_type      = 'user';
-	      userData.username     = githubUser.username;
-	      userData.is_viewing   = sbId;
-	      userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
+        userData.sbid         = sbId;
+        userData.email        = (githubUser.email) ? githubUser.email : null;
+        userData.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
+        userData.is_type      = 'user';
+        userData.username     = githubUser.username;
+        userData.is_viewing   = sbId;
+        userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
 
-      	dbRef.child(uid).set({belongs_to_user: sbId, is_type: "provider_id"}, function(error) {
-  	      dbRef.child(sbId).set(userData, function(error) {
-	          this.userCreated(userData.username, error);
-          }.bind(this));
+        dbRef.child(uid).set({belongs_to_user: sbId, is_type: "provider_id"}, function(error) {
+          if (error) {
+            console.log("failed to create provider object: ", error)
+          } else {
+            dbRef.child(sbId).set(userData, function(error) {
+              if (error) {
+                console.log("failed to create provider object: ", error)
+              } else {
+                this.userCreated(userData.username, error);
+              }
+            }.bind(this));
+          }
         }.bind(this));
-
-      }
-    }.bind(this));
+      }.bind(this));
   },
 
   userCreated: function (username, error) {
