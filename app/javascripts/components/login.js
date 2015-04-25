@@ -19,45 +19,62 @@ var Login = React.createClass({
       if (err) {
         console.warn('error: ', err);
       } else if (authData) {
-        this.createUser(authData);
+	this.login(authData);
       }
     }.bind(this));
   },
 
-  createUser: function (userData) {
+  login: function (userData) {
     var uid = userData.auth.uid,
         dbRef = this.props.fbRef;
 
     dbRef.child('sb:' + userData[userData.provider].username).once('value', function(userSnapshot) {
-        this.replaceWith('tasks', {viewContext: userSnapshot.val().username});
-      }.bind(this),
-      function(fetchError) {
-        console.log("will create user");
-        var githubUser = userData.github,
-      	sbId = 'sb:' + githubUser.username;
+      if ( !userSnapshot.val() ) {
+	this.createUser(dbRef, userData);
+      } else {
+	this.replaceWith('tasks', {
+	  viewContext: userSnapshot.val().properties.username
+	});
+      }
+    }.bind(this), this.createUser(dbRef, userData));
+  },
 
-        userData.sbid         = sbId;
-        userData.email        = (githubUser.email) ? githubUser.email : null;
-        userData.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
-        userData.is_type      = 'user';
-        userData.username     = githubUser.username;
-        userData.is_viewing   = sbId;
-        userData.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
+  createUser: function (dbRef, userData) {
+    var userObj = {
+	  properties: {},
+	  relationships: {}
+	},
+	authObj = {
+	  properties: {},
+	  relationships: {}
+	},
+	githubUser = userData.github,
+	sbId = 'sb:' + githubUser.username;
 
-        dbRef.child(uid).set({belongs_to_user: sbId, is_type: "provider_id"}, function(error) {
+    userObj.properties.is_type      = 'user';
+    userObj.properties.sbid         = sbId;
+    userObj.properties.email        = (githubUser.email) ? githubUser.email : null;
+    userObj.properties.avatar       = (githubUser.cachedUserProfile.avatar_url) ? githubUser.cachedUserProfile.avatar_url : null;
+    userObj.properties.username     = githubUser.username;
+    userObj.properties.is_viewing   = sbId;
+    userObj.properties.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
+
+    authObj.properties.is_type = "provider_id";
+    authObj.relationships.belongs_to_user = sbId;
+
+    dbRef.child(userData.auth.uid).set(authObj, function(error) {
+      if (error) {
+	console.log("failed to create provider object: ", error)
+      } else {
+	dbRef.child(sbId).set(userObj, function(error) {
           if (error) {
-            console.log("failed to create provider object: ", error)
+	    console.log("failed to create user object: ", error)
           } else {
-            dbRef.child(sbId).set(userData, function(error) {
-              if (error) {
-                console.log("failed to create provider object: ", error)
-              } else {
-                this.userCreated(userData.username, error);
-              }
-            }.bind(this));
+	    this.userCreated(userObj.username, error);
           }
         }.bind(this));
-      }.bind(this));
+      }
+    }.bind(this));
   },
 
   userCreated: function (username, error) {
