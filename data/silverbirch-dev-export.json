@@ -1,0 +1,134 @@
+{
+  "-Jnk2n9JvQ-8buUVYe1K" : {
+    "properties" : {
+      "is_type" : "task",
+      "created_by" : "sb:tommyvn",
+      "created_on" : 1429956670204,
+      "has_description" : "test",
+      "has_title" : "test",
+      "has_state" : "open"
+    },
+    "relationships" : {
+      "has_children" : {
+	"-Jnk2v_7AmBw_I0hY44E" : true
+      },
+      "has_users" : {
+	"sb:tommyvn" : true
+      }
+    }
+  },
+  "-Jnk2n9MCq5DRP-7Rigw" : {
+    "properties" : {
+      "is_type" : "taskList"
+    },
+    "relationships" : {
+      "has_tasks" : {
+	"-Jnk2n9JvQ-8buUVYe1K" : true,
+	"-Jnk2v_7AmBw_I0hY44E" : true,
+	"-Jnk2y1gi9UVOr17MCJN" : true
+      },
+      "has_users" : {
+	"sb:tommyvn" : true
+      }
+    }
+  },
+  "-Jnk2v_7AmBw_I0hY44E" : {
+    "properties" : {
+      "created_by" : "sb:tommyvn",
+      "created_on" : 1429956704688,
+      "has_description" : "test2",
+      "has_title" : "test2",
+      "has_state" : "open",
+      "is_type" : "task"
+    },
+    "relationships" : {
+      "has_users" : {
+	"sb:tommyvn" : true
+      }
+    }
+  },
+  "-Jnk2y1gi9UVOr17MCJN" : {
+    "properties" : {
+      "created_by" : "sb:tommyvn",
+      "created_on" : 1429956714772,
+      "has_meta" : {
+	"description" : "test3",
+	"title" : "test3"
+      },
+      "has_state" : "open",
+      "is_type" : "task"
+    },
+    "relationships" : {
+      "has_users" : {
+	"sb:tommyvn" : true
+      }
+    }
+  },
+  "github:910265" : {
+    "properties" : {
+      "is_type" : "provider_id"
+    },
+    "relationships": {
+      "belongs_to_user" : "sb:tommyvn"
+    }
+  },
+  "sb:tommyvn" : {
+    "properties": {
+      "auth" : {
+	"provider" : "github",
+	"uid" : "github:910265"
+      },
+      "avatar" : "https://avatars.githubusercontent.com/u/910265?v=3",
+      "displayName" : "Tom van Neerijnen",
+      "expires" : 1430042060,
+      "github" : {
+	"accessToken" : "3b7464291dd6cef366421eb5885706f09a1574c3",
+	"cachedUserProfile" : {
+	  "avatar_url" : "https://avatars.githubusercontent.com/u/910265?v=3",
+	  "blog" : "",
+	  "company" : "Tommy corp",
+	  "created_at" : "2011-07-12T13:30:08Z",
+	  "email" : "",
+	  "events_url" : "https://api.github.com/users/tommyvn/events{/privacy}",
+	  "followers" : 1,
+	  "followers_url" : "https://api.github.com/users/tommyvn/followers",
+	  "following" : 0,
+	  "following_url" : "https://api.github.com/users/tommyvn/following{/other_user}",
+	  "gists_url" : "https://api.github.com/users/tommyvn/gists{/gist_id}",
+	  "gravatar_id" : "",
+	  "hireable" : true,
+	  "html_url" : "https://github.com/tommyvn",
+	  "id" : 910265,
+	  "location" : "London",
+	  "login" : "tommyvn",
+	  "name" : "Tom van Neerijnen",
+	  "organizations_url" : "https://api.github.com/users/tommyvn/orgs",
+	  "public_gists" : 3,
+	  "public_repos" : 11,
+	  "received_events_url" : "https://api.github.com/users/tommyvn/received_events",
+	  "repos_url" : "https://api.github.com/users/tommyvn/repos",
+	  "site_admin" : false,
+	  "starred_url" : "https://api.github.com/users/tommyvn/starred{/owner}{/repo}",
+	  "subscriptions_url" : "https://api.github.com/users/tommyvn/subscriptions",
+	  "type" : "User",
+	  "updated_at" : "2015-04-16T17:34:50Z",
+	  "url" : "https://api.github.com/users/tommyvn"
+	},
+	"displayName" : "Tom van Neerijnen",
+	"email" : "",
+	"id" : "910265",
+	"username" : "tommyvn"
+      },
+      "is_type" : "user",
+      "is_viewing" : "sb:tommyvn",
+      "provider" : "github",
+      "sbid" : "sb:tommyvn",
+      "token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InVpZCI6ImdpdGh1Yjo5MTAyNjUiLCJwcm92aWRlciI6ImdpdGh1YiJ9LCJpYXQiOjE0Mjk5NTU2NjB9.VDWeAucxrbffYfoRG5licup6hLf6C-hdTXwZlpz77eI",
+      "uid" : "github:910265",
+      "username" : "tommyvn"
+    },
+    "relationships" : {
+      "has_task_list" : "-Jnk2n9MCq5DRP-7Rigw"
+    }
+  }
+}
