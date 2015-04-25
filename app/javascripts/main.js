@@ -12,6 +12,7 @@ var fb = require('firebase'),
     Profile = require('./components/profile'),
     AddTask = require('./components/task-form-add'),
     EditTask = require('./components/task-form-edit'),
+    SbFbGraph = require('./components/sbFbGraph'),
     ViewContext = require('./components/view-context');
 
 var App = React.createClass({
@@ -22,7 +23,8 @@ var App = React.createClass({
 
   getInitialState: function () {
     return {
-      user: null
+      user: null,
+      sbGraph: {}
     };
   },
 
@@ -41,8 +43,10 @@ var App = React.createClass({
       }
       else {
         this.setUser(auth);
-        this.transitionTo('tasks', {viewContext: 'rpowis'});
+        this.transitionTo('tasks', {viewContext: 'tommyvn'});
       }
+      var sbFbGraph = new SbFbGraph(this.props.fbRef, auth.uid, function(obj) {console.log(obj)});
+      console.log("here - ", sbFbGraph);
     }, this);
   },
 
@@ -80,3 +84,4 @@ Router.run(routes, function (Handler) {
   var fbRef = new fb(config.db);
   React.render(<Handler fbRef={fbRef} />, document.getElementById('app'));
 });
+
