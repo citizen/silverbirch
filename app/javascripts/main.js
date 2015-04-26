@@ -31,25 +31,37 @@ var App = React.createClass({
   componentWillMount: function () {
     this.props.fbRef.onAuth(function(auth) {
       if(auth) {
+        // user is logged in, sync graph
         this.sbFbGraph = new SbFbGraph(this.props.fbRef, auth.uid, this.processGraph);
-        var dbRef = this.props.fbRef;
-        dbRef.child(auth.uid).once('value', function(authData) {
-          if( !authData.val() ) {
-            this.setUser(false);
-          }
-          else {
-            dbRef.child(authData.val().relationships.belongs_to_user).on('value', this.setUser);
-          }
-        }.bind(this));
+        //var dbRef = this.props.fbRef;
+        //dbRef.child(auth.uid).once('value', function(authData) {
+        //  if( !authData.val() ) {
+        //    this.setUser(false);
+        //  }
+        //  else {
+        //    dbRef.child(authData.val().relationships.belongs_to_user).on('value', this.setUser);
+        //  }
+        //}.bind(this));
       }
       else {
-        this.setUser(auth);
+        // user is logged out, maybe we should log in?
+        //this.setUser(auth);
         //this.transitionTo('tasks', {viewContext: 'tommyvn'});
       }
     }, this);
   },
 
-  processGraph: function(node) {
+  processGraph: function(sbGraph, node) {
+    if ( node.properties.is_type == 'user' ) {
+      this.setUser(node);
+    }
+    else if ( node.properties.is_type == 'task' ) {
+      // do finding the top of the tree stuff here
+    }
+    else if ( node.properties.is_type == 'provider_id' ) {
+      // could set avatar pic here
+    }
+    // etc, etc
     console.log("in processGraph", node);
   },
 
@@ -59,7 +71,7 @@ var App = React.createClass({
 
   setUser: function (userData) {
     this.setState({
-      user: userData ? userData.val() : null
+      user: userData
     });
     this.forceUpdate();
   },

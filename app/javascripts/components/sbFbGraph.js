@@ -25,7 +25,7 @@ function SbFbGraph (fbRef, startNode, changeCallback) {
             });
           }
         });
-        changeCallback(self);
+        changeCallback(self, self[nodeKey]);
       }, function(error) {
         console.log(error);
       }, self);
