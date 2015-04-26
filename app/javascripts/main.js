@@ -30,10 +30,8 @@ var App = React.createClass({
 
   componentWillMount: function () {
     this.props.fbRef.onAuth(function(auth) {
-    console.log("here");
       if(auth) {
         this.sbFbGraph = new SbFbGraph(this.props.fbRef, auth.uid, this.processGraph);
-    console.log("here2");
         var dbRef = this.props.fbRef;
         dbRef.child(auth.uid).once('value', function(authData) {
           if( !authData.val() ) {
@@ -45,11 +43,9 @@ var App = React.createClass({
         }.bind(this));
       }
       else {
-    console.log("here3");
         this.setUser(auth);
         //this.transitionTo('tasks', {viewContext: 'tommyvn'});
       }
-      //console.log("here - ", this.sbFbGraph);
     }, this);
   },
 
