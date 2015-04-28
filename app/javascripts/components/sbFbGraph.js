@@ -7,6 +7,7 @@ function SbFbGraph (fbRef, startNode, changeCallback) {
       self[nodeKey] = {};
       fbRef.child(nodeKey).on('value', function(dataSnapshot) {
         var node = dataSnapshot.val();
+        if ( !node ) { return false; }
         self[nodeKey].key = dataSnapshot.key();
         self[nodeKey].properties = node.properties;
         self[nodeKey].relationships = node.relationships;
