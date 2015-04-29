@@ -10,6 +10,7 @@ var fb = require('firebase'),
     Login = require('./components/login'),
     Logout = require('./components/logout'),
     Profile = require('./components/profile'),
+    Report = require('./components/report'),
     AddTask = require('./components/task-form-add'),
     EditTask = require('./components/task-form-edit'),
     ViewContext = require('./components/view-context');
@@ -72,6 +73,7 @@ var routes = (
         <Route name="editTask" path=":taskId/edit" handler={EditTask}/>
       </Route>
       <Route name="profile" handler={Profile}/>
+      <Route name="report" handler={Report}/>
     </Route>
   </Route>
 );

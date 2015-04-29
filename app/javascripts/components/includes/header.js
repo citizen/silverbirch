@@ -74,6 +74,7 @@ var Header = React.createClass({
           <ul className="nav navbar-nav">
             {teamsDropdown}
 	    <li><Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link></li>
+      <li><Link to="report" params={{viewContext: viewContextName}}>Report</Link></li>
           </ul>
 
           <ul className="nav navbar-nav navbar-right">

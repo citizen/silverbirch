@@ -17,12 +17,11 @@ var TaskTreeItem = React.createClass({
       'comment-post': true
     });
 
-     var profileLink = "";
-     // var profileLink = (this.props.user) ?
-     //      <Link to="profile" className="thumbnail" params={{username: this.props.user.username}}>
-     //        <img className="img-responsive" src={this.props.user.avatar} />
-     //        <figcaption className="text-center">{this.props.user.username}</figcaption>
-     //      </Link> : '';
+      var profileLink = (this.props.user) ?
+           <div className="thumbnail">
+             <img className="img-responsive" src={this.props.user.avatar} />
+             <figcaption className="text-center">{this.props.user.username}</figcaption>
+           </div> : '';
 
     var time = moment(task.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
@@ -47,11 +46,11 @@ var TaskTreeItem = React.createClass({
                 </header>
 
                 <div className={classes}>
-            		  <h2>
+            		  <h4>
                     <Link to="task" params={{viewContext: viewContextName, taskId: task.uid}}>
                       {task.has_meta.title}
                     </Link>
-            		  </h2>
+            		  </h4>
                   <p>{task.has_meta.description}</p>
                 </div>
 

@@ -40,7 +40,7 @@ var Task = React.createClass({
         {editLink}
 
         <div className="panel-body">
-          <h3>{ title }</h3>
+          <h4>{ title }</h4>
 
           <blockquote>
             <p>{ description }</p>
