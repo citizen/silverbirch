@@ -12,44 +12,44 @@ var Login = React.createClass({
     attemptedTransition: null
   },
 
-  handleSubmit: function (event) {
+  handleSubmit: function(event) {
     event.preventDefault();
 
     this.props.fbRef.authWithOAuthPopup("github", function(err, authData) {
       if (err) {
         console.warn('error: ', err);
       } else if (authData) {
-	this.login(authData);
+        this.login(authData);
       }
     }.bind(this));
   },
 
-  login: function (userData) {
+  login: function(userData) {
     var uid = userData.auth.uid,
         dbRef = this.props.fbRef;
 
     dbRef.child('sb:' + userData[userData.provider].username).once('value', function(userSnapshot) {
-      if ( !userSnapshot.val() ) {
-	this.createUser(dbRef, userData);
+      if (!userSnapshot.val()) {
+        this.createUser(dbRef, userData);
       } else {
-	this.replaceWith('tasks', {
-	  viewContext: userSnapshot.val().properties.username
-	});
+        this.replaceWith('tasks', {
+          viewContext: userSnapshot.val().properties.username
+        });
       }
     }.bind(this), this.createUser(dbRef, userData));
   },
 
   createUser: function (dbRef, userData) {
     var userObj = {
-	  properties: {},
-	  relationships: {}
-	},
-	authObj = {
-	  properties: {},
-	  relationships: {}
-	},
-	githubUser = userData.github,
-	sbId = 'sb:' + githubUser.username;
+          properties: {},
+          relationships: {}
+        },
+        authObj = {
+          properties: {},
+          relationships: {}
+        },
+        githubUser = userData.github,
+        sbId = 'sb:' + githubUser.username;
 
     userObj.properties.is_type      = 'user';
     userObj.properties.sbid         = sbId;
@@ -64,13 +64,13 @@ var Login = React.createClass({
 
     dbRef.child(userData.auth.uid).set(authObj, function(error) {
       if (error) {
-	console.log("failed to create provider object: ", error)
+        console.log("failed to create auth provider object: ", error)
       } else {
-	dbRef.child(sbId).set(userObj, function(error) {
+        dbRef.child(sbId).set(userObj, function(error) {
           if (error) {
-	    console.log("failed to create user object: ", error)
+            console.log("failed to create user object: ", error)
           } else {
-	    this.userCreated(userObj.username, error);
+            this.userCreated(userObj.properties.username, error);
           }
         }.bind(this));
       }

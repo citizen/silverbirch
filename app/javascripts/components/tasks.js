@@ -35,12 +35,12 @@ var Tasks = React.createClass({
           top_tasks_list = [],
           nestedChildrenList = [],
           dbRef = this.props.fbRef,
-      	  userId = (viewContext) ? viewContext.sbid : "sb:"+this.getParams().viewContext;
+      	  userId = (viewContext) ? viewContext.properties.sbid : "sb:" + this.getParams().viewContext;
 
-      dbRef.child(userId + '/has_task_list').once('value', function(taskList) {
+      dbRef.child(userId + '/relationships/has_task_list').once('value', function(taskList) {
         if (!taskList.val()) { return false; }
 
-        dbRef.child(taskList.val() + '/has_tasks').on('child_added', function(userTask) {
+        dbRef.child(taskList.val() + '/relationships/has_tasks').on('child_added', function(userTask) {
           var taskId = userTask.key();
 
           dbRef.child(taskId).on('value', function(taskData) {
@@ -118,18 +118,20 @@ var Tasks = React.createClass({
       "anguspaterson"
     ];
 
-    var viewContextName = (this.props.viewContext) ? this.props.viewContext.sbid.split(":")[1] : "";
+    var viewContextName = (this.props.viewContext)
+          ? this.props.viewContext.properties.sbid.split(":")[1]
+          : "";
 
         // <Menu position="left" title="Teams" menuItems={leftMenuItems} />
         // <Menu position="right" title="Members" menuItems={rightMenuItems} />
+        // <div className="col-md-6">
+        //   <Link to="newTask" params={{viewContext: viewContextName}} className="btn btn-primary glyphicon glyphicon-plus"></Link>
+        // </div>
     return (
       <div className="container-fluid">
         <div className="col-md-6">
           <TaskTree tasks={this.state.taskTree} {...this.props} />
         </div>
-      	<div className="col-md-6">
-      	  <Link to="newTask" params={{viewContext: viewContextName}} className="btn btn-primary glyphicon glyphicon-plus"></Link>
-      	</div>
       	<RouteHandler {...this.props} task={this.state.currentTask} />
       </div>
     );

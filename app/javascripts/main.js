@@ -6,7 +6,7 @@ var fb = require('firebase'),
     { Route, RouteHandler, Link, NotFoundRoute } = Router,
     config = require('./config'),
     //Task = require('./components/task'),
-    //Tasks = require('./components/tasks'),
+    Tasks = require('./components/tasks'),
     Login = require('./components/login'),
     Logout = require('./components/logout'),
     Profile = require('./components/profile'),
@@ -29,7 +29,7 @@ var App = React.createClass({
   },
 
   componentWillMount: function () {
-    this.props.fbRef.onAuth(function(auth) {
+    this.props.fbRef.onAuth(function (auth) {
       if(auth) {
         // user is logged in, sync graph
         this.sbFbGraph = new SbFbGraph(this.props.fbRef, auth.uid, this.processGraph);
@@ -88,6 +88,8 @@ var routes = (
     <Route name="login" handler={Login}/>
     <Route name="logout" handler={Logout}/>
     <Route path=":viewContext" handler={ViewContext}>
+      <Route name="tasks" handler={Tasks}>
+      </Route>
       <Route name="profile" handler={Profile}/>
     </Route>
   </Route>

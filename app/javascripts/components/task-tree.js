@@ -13,7 +13,7 @@ var TaskTreeItem = React.createClass({
       	taskTree = (task.children) ? <TaskTree tasks={task.children} fbRef={this.props.fbRef} /> : '';
 
     var classes = cx({
-      'archived': task.has_state === 'archived',
+      'archived': task.properties.has_state === 'archived',
       'comment-post': true
     });
 
@@ -24,10 +24,10 @@ var TaskTreeItem = React.createClass({
      //        <figcaption className="text-center">{this.props.user.username}</figcaption>
      //      </Link> : '';
 
-    var time = moment(task.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
+    var time = moment(task.properties.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
     var viewContextName = (this.props.viewContext) ?
-          this.props.viewContext.sbid.split(":")[1] : "";
+          this.props.viewContext.properties.sbid.split(":")[1] : "";
 
     return (
       <section className="comment-list">
@@ -39,7 +39,7 @@ var TaskTreeItem = React.createClass({
           <div className="col-md-10 col-sm-10">
             <div className="task-panel panel panel-default arrow left">
               <div className="panel-body">
-                <TaskControls task={task} {...this.props} />
+                {/*<TaskControls task={task} {...this.props} />*/}
 
                 <header className="text-left">
                   <div className="comment-user"><i className="fa fa-user"></i> Assignee</div>
@@ -48,11 +48,11 @@ var TaskTreeItem = React.createClass({
 
                 <div className={classes}>
             		  <h2>
-                    <Link to="task" params={{viewContext: viewContextName, taskId: task.uid}}>
-                      {task.has_meta.title}
-                    </Link>
+                    {/*<Link to="task" params={{viewContext: viewContextName, taskId: task.uid}}>*/}
+                      {task.properties.has_meta.title}
+                    {/*</Link>*/}
             		  </h2>
-                  <p>{task.has_meta.description}</p>
+                  <p>{task.properties.has_meta.description}</p>
                 </div>
 
                 <p className="text-right"><a href="#" className="btn btn-default btn-sm"><i className="fa fa-reply"></i> reply</a></p>
@@ -76,7 +76,7 @@ var TaskTree = React.createClass({
     var tasks = Object.keys(this.props.tasks).map(function (taskId) {
       var task = this.props.tasks[taskId];
 
-      if (!Object.keys(task).length || task.archived) { return null; }
+      if (!Object.keys(task).length || task.properties.archived) { return null; }
       return <TaskTreeItem task={task} key={taskId} {...this.props} />;
     }.bind(this));
 
