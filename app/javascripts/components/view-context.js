@@ -3,11 +3,13 @@
 var React = require('react'),
     Router = require('react-router'),
     { RouteHandler } = Router,
+    PureRenderMixin = React.addons.PureRenderMixin,
     Header = require('./includes/header');
 
 var ViewContext = React.createClass({
   mixins: [
-    Router.State
+    Router.State,
+    PureRenderMixin
   ],
 
   getInitialState: function () {
@@ -26,28 +28,34 @@ var ViewContext = React.createClass({
 
   updateViewing: function () {
     if (this.props.user) {
-      this.props.fbRef.child(this.props.user.sbid + '/is_viewing').set('sb:' + this.getParams().viewContext);
+      var viewing = this.getParams().viewContext;
 
-      this.props.fbRef.child('sb:'+this.getParams().viewContext).once('value', function(viewContextSnapshot) {
-	this.setState({
-	  viewContextObject: viewContextSnapshot.val()
-	});
-      }.bind(this));
+      this.props.fbRef
+        .child(this.props.user.key + '/properties/is_viewing')
+        .set('sb:' + viewing);
+
+      this.props.fbRef
+        .child('sb:' + viewing)
+        .once('value', function(viewContextSnapshot) {
+        	this.setState({
+        	  viewContextObject: viewContextSnapshot.val()
+        	});
+        }.bind(this));
     }
   },
 
   render: function() {
     return (
       <div>
-        <Header
-	  viewContext={this.state.viewContextObject}
+         <Header
+          viewContext={this.state.viewContextObject}
           {...this.props}
         />
         <RouteHandler
-	  viewContext={this.state.viewContextObject}
+          viewContext={this.state.viewContextObject}
           {...this.props}
         />
-      </div>
+     </div>
     );
   }
 });

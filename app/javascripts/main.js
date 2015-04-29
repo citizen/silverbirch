@@ -9,7 +9,7 @@ var fb = require('firebase'),
     //Tasks = require('./components/tasks'),
     Login = require('./components/login'),
     Logout = require('./components/logout'),
-    //Profile = require('./components/profile'),
+    Profile = require('./components/profile'),
     //AddTask = require('./components/task-form-add'),
     //EditTask = require('./components/task-form-edit'),
     SbFbGraph = require('./components/sbFbGraph'),
@@ -87,6 +87,9 @@ var routes = (
   <Route handler={App}>
     <Route name="login" handler={Login}/>
     <Route name="logout" handler={Logout}/>
+    <Route path=":viewContext" handler={ViewContext}>
+      <Route name="profile" handler={Profile}/>
+    </Route>
   </Route>
 );
 
