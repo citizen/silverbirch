@@ -7,9 +7,39 @@ var React = require('react/addons'),
     moment = require('moment');
 
 var TaskTreeItem = React.createClass({
+  getInitialState: function () {
+    return {
+      userInfo: null
+    };
+  },
+
+  componentWillMount: function () {
+    this.setCreator();
+  },
+
+  componentWillReceiveProps: function () {
+    this.setCreator();
+  },
+
+  setCreator: function() {
+    if (!this.props.task.created_by) { return false; };
+
+    var user = this.props.task.created_by;
+
+    this.props.fbRef.child(user).once('value', function (userSnapshot) {
+      var userData = userSnapshot.val();
+
+      this.setState({
+        userInfo: userData
+      });
+    }.bind(this));
+  },
+
   render: function() {
     var task = this.props.task,
-      	cx = React.addons.classSet,
+        cx = React.addons.classSet,
+        title = (task.has_meta) ? task.has_meta.title : '',
+        description = (task.has_meta) ? task.has_meta.description : '',
       	taskTree = (task.children) ? <TaskTree tasks={task.children} fbRef={this.props.fbRef} /> : '';
 
     var classes = cx({
@@ -17,11 +47,11 @@ var TaskTreeItem = React.createClass({
       'comment-post': true
     });
 
-      var profileLink = (this.props.user) ?
-           <div className="thumbnail">
-             <img className="img-responsive" src={this.props.user.avatar} />
-             <figcaption className="text-center">{this.props.user.username}</figcaption>
-           </div> : '';
+    var profileLink = (this.state.userInfo) ?
+        <div className="thumbnail">
+          <img className="img-responsive" src={this.state.userInfo.avatar} />
+          <figcaption className="text-center">{this.state.userInfo.username}</figcaption>
+        </div> : '';
 
     var time = moment(task.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
@@ -31,7 +61,7 @@ var TaskTreeItem = React.createClass({
     return (
       <section className="comment-list">
         <article className="row">
-          <div className="col-md-2 col-sm-2 hidden-xs">
+          <div className="col-md-2 col-sm-2">
             {profileLink}
           </div>
 
@@ -48,10 +78,10 @@ var TaskTreeItem = React.createClass({
                 <div className={classes}>
             		  <h4>
                     <Link to="task" params={{viewContext: viewContextName, taskId: task.uid}}>
-                      {task.has_meta.title}
+                      {title}
                     </Link>
             		  </h4>
-                  <p>{task.has_meta.description}</p>
+                  <p>{description}</p>
                 </div>
 
                 <p className="text-right"><a href="#" className="btn btn-default btn-sm"><i className="fa fa-reply"></i> reply</a></p>
@@ -73,9 +103,9 @@ var TaskTree = React.createClass({
 
   render: function() {
     var tasks = Object.keys(this.props.tasks).map(function (taskId) {
-      var task = this.props.tasks[taskId];
+    var task = this.props.tasks[taskId];
 
-      if (!Object.keys(task).length || task.archived) { return null; }
+    if (!Object.keys(task).length || task.archived) { return null; }
       return <TaskTreeItem task={task} key={taskId} {...this.props} />;
     }.bind(this));
 

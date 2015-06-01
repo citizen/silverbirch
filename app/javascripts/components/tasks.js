@@ -56,7 +56,7 @@ var Tasks = React.createClass({
               }
             }
 
-            if ('has_children' in task) {
+            if (task && 'has_children' in task) {
               Object.keys(task.has_children).forEach(function(childId, idx) {
                 if (!(childId in tasks)) {
                   tasks[childId] = {};
