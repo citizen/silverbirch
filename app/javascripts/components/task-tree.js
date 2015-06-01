@@ -17,10 +17,6 @@ var TaskTreeItem = React.createClass({
     this.setCreator();
   },
 
-  componentWillReceiveProps: function () {
-    this.setCreator();
-  },
-
   setCreator: function() {
     if (!this.props.task.created_by) { return false; };
 
