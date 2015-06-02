@@ -19,13 +19,13 @@ var Header = React.createClass({
     userName = (this.props.user) ? this.props.user.username : "";
 
     profileLink = (this.props.user) ?
-      <li>
+
         <Link to="profile" params={{viewContext: this.props.user.username}}>
           <span>Logged in as </span>
           <img className="avatar" src={this.props.user.avatar} />
           <span>{this.props.user.username}</span>
         </Link>
-      </li> : '';
+      : '';
 
     loginOrOut = (this.props.user) ?
       <Link to="logout">Sign out</Link> :
@@ -69,20 +69,24 @@ var Header = React.createClass({
       </li>;
 
     return (
-      <nav className="navbar navbar-default">
-        <div className="container-fluid">
-          <ul className="nav navbar-nav">
-            {teamsDropdown}
-	    <li><Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link></li>
-      <li><Link to="report" params={{viewContext: viewContextName}}>Report</Link></li>
-          </ul>
 
-          <ul className="nav navbar-nav navbar-right">
+      <div id="header-wrap">
+      <nav className="">
+        <div className="">
+          <div className="header-left">
+            {teamsDropdown}
+	    <Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link>
+      <Link to="report" params={{viewContext: viewContextName}}>Report</Link>
+          </div>
+          <div className="header-right">
             {profileLink}
-            <li>{loginOrOut}</li>
-          </ul>
+            {loginOrOut}
+          </div>
         </div>
       </nav>
+      </div>
+
+
     );
   }
 });

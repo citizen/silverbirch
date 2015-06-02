@@ -74,7 +74,7 @@
     #BASE
 \*------------------------------------*/
 
-@import "vendor/bootstrap";
+// @import "vendor/bootstrap";
 @import "base/global";
 @import "base/typography";
 
@@ -106,6 +106,9 @@
 @import "objects/navbar";
 @import "objects/profile";
 @import "objects/comments-list-tasks";
+
+@import "main";
+@import "report";
 
 
 

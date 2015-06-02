@@ -25,7 +25,7 @@ var Task = React.createClass({
 	      taskId: this.props.task.uid,
 	      viewContext: this.getParams().viewContext
 	    }}
-	    className="glyphicon glyphicon-edit pull-right btn btn-default"
+	    className="btn-primary"
 	  ></Link> : '';
 
     var profileLink = "";
@@ -36,10 +36,10 @@ var Task = React.createClass({
     //       </Link> : '';
 
     return (
-      <div className="panel panel-default col-md-6">
+      <div className="add-task-box">
         {editLink}
 
-        <div className="panel-body">
+        <div className="task-body">
           <h4>{ title }</h4>
 
           <blockquote>

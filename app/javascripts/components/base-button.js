@@ -4,7 +4,7 @@ var React = require('react');
 var BaseButton = React.createClass({
   render: function() {
     return this.transferPropsTo(
-      <a href="javascript:;" role="button" className="btn">
+      <a href="javascript:;" role="button" className="btn-primary">
         {this.props.children}
       </a>
     );

@@ -36,7 +36,7 @@ var BaseModal = React.createClass({
 
     if (this.props.cancel) {
       cancelButton = (
-        <BaseButton onClick={this.handleCancel} className="btn-default">
+        <BaseButton onClick={this.handleCancel} className="btn-primary">
           {this.props.cancel}
         </BaseButton>
       );

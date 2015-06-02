@@ -44,9 +44,8 @@ var TaskTreeItem = React.createClass({
     });
 
     var profileLink = (this.state.userInfo) ?
-        <div className="thumbnail">
-          <img className="img-responsive" src={this.state.userInfo.avatar} />
-          <figcaption className="text-center">{this.state.userInfo.username}</figcaption>
+        <div className="round">
+          <img className="round" src={this.state.userInfo.avatar} />
         </div> : '';
 
     var time = moment(task.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
@@ -55,15 +54,13 @@ var TaskTreeItem = React.createClass({
           this.props.viewContext.sbid.split(":")[1] : "";
 
     return (
-      <section className="comment-list">
-        <article className="row">
-          <div className="col-md-2 col-sm-2">
-            {profileLink}
-          </div>
+<section className="wrap-left-column">
+    <article className="left-column">
 
-          <div className="col-md-10 col-sm-10">
-            <div className="task-panel panel panel-default arrow left">
-              <div className="panel-body">
+          <div className="task-box">
+          {profileLink}
+
+              <div className="task-box">
                 <TaskControls task={task} {...this.props} />
 
                 <header className="text-left">
@@ -84,7 +81,7 @@ var TaskTreeItem = React.createClass({
               </div>
 
               {taskTree}
-            </div>
+
           </div>
         </article>
       </section>
