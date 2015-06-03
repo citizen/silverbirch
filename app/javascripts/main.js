@@ -45,8 +45,7 @@ var App = React.createClass({
       }
       else {
         // user is logged out, maybe we should log in?
-        //this.setUser(auth);
-        //this.transitionTo('tasks', {viewContext: 'tommyvn'});
+        this.transitionTo('login');
       }
     }, this);
   },
@@ -63,10 +62,6 @@ var App = React.createClass({
     }
     // etc, etc
     console.log("in processGraph", node);
-  },
-
-  testAuth: function () {
-    return null;
   },
 
   setUser: function (userData) {
