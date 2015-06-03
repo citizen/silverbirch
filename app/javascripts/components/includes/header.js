@@ -7,11 +7,11 @@ var React = require('react'),
 var Header = React.createClass({
   render: function () {
     var userName,
-	teamsList,
+      	teamsList,
         loginOrOut,
         profileLink,
-	teamsDropdown,
-	viewContextName;
+      	teamsDropdown,
+      	viewContextName;
 
     viewContextName = (this.props.viewContext) ?
       this.props.viewContext.sbid.split(":")[1] : "";
@@ -19,7 +19,6 @@ var Header = React.createClass({
     userName = (this.props.user) ? this.props.user.username : "";
 
     profileLink = (this.props.user) ?
-
         <Link to="profile" params={{viewContext: this.props.user.username}}>
           <span>Logged in as </span>
           <img className="avatar" src={this.props.user.avatar} />
@@ -47,7 +46,7 @@ var Header = React.createClass({
 
     teamsDropdown = (this.props.user && this.props.user.in_teams) ?
       <li className="dropdown">
-	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{viewContextName} <span className="caret"></span></a>
+      	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{viewContextName} <span className="caret"></span></a>
         <ul className="dropdown-menu" role="menu">
           <li>
             <Link to="tasks" params={{viewContext: this.props.user.username}}>
@@ -57,36 +56,34 @@ var Header = React.createClass({
           {teamsList}
         </ul>
       </li> :
+
       <li className="dropdown">
-	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{userName} <span className="caret"></span></a>
-	<ul className="dropdown-menu" role="menu">
-	  <li>
-	    <Link to="tasks" params={{viewContext: userName}}>
-	      <span>{userName}</span>
-	    </Link>
-	  </li>
-	</ul>
+      	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{userName} <span className="caret"></span></a>
+      	<ul className="dropdown-menu" role="menu">
+      	  <li>
+      	    <Link to="tasks" params={{viewContext: userName}}>
+      	      <span>{userName}</span>
+      	    </Link>
+      	  </li>
+      	</ul>
       </li>;
 
     return (
-
       <div id="header-wrap">
-      <nav className="">
-        <div className="">
-          <div className="header-left">
-            {teamsDropdown}
-	    <Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link>
-      <Link to="report" params={{viewContext: viewContextName}}>Report</Link>
+        <nav className="">
+          <div className="">
+            <div className="header-left">
+              {teamsDropdown}
+        	    <Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link>
+              <Link to="report" params={{viewContext: viewContextName}}>Report</Link>
+            </div>
+            <div className="header-right">
+              {profileLink}
+              {loginOrOut}
+            </div>
           </div>
-          <div className="header-right">
-            {profileLink}
-            {loginOrOut}
-          </div>
-        </div>
-      </nav>
+        </nav>
       </div>
-
-
     );
   }
 });
