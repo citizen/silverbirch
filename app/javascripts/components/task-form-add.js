@@ -6,6 +6,12 @@ var React = require("react"),
 var TaskForm = React.createClass({
   mixins: [ Router.State ],
 
+  getInitialState: function () {
+    return {
+      visibleList: false
+    };
+  },
+
   handleSubmit: function(e) {
     e.preventDefault();
 
@@ -62,14 +68,40 @@ var TaskForm = React.createClass({
     return;
   },
 
+  toggleMembersList: function() {
+    var isVisible = this.state.visibleList;
+
+    this.setState({
+	visibleList: !isVisible
+    });
+  },
+
   render: function() {
     var formTitle = this.getParams().taskId ?
       'Add a task to ' + this.getParams().taskId :
       'Add a task';
 
+    var members = [];
+    if(this.props.viewContext && this.props.viewContext.has_users) {
+      members = Object.keys(this.props.viewContext.has_users).map(function (member) {
+	member = member.split(':')[1];
+	return ( <li>{ member }</li> );
+      });
+    }
+
+    var addMembersToggle = (this.props.viewContext && this.props.viewContext.has_users) ?
+      <span className="assign" onClick={this.toggleMembersList}>+ Add members</span> : '';
+
+    var membersList = (this.state.visibleList) ?
+      <ul>
+	{members}
+      </ul> : '';
+
     return (
       <form className="" onSubmit={this.handleSubmit}>
         <h4>{formTitle}</h4>
+	{addMembersToggle}
+	{membersList}
         <div className="form-group">
           <input
             id="title"
