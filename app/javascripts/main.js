@@ -50,18 +50,21 @@ var App = React.createClass({
     }, this);
   },
 
-  processGraph: function(sbGraph, node) {
-    if ( node.properties.is_type == 'user' ) {
-      this.setUser(node);
+  processGraph: function (sbGraph, node) {
+    switch (node.properties.is_type) {
+      case 'task':
+        console.log('Task node: ', node);
+        break;
+      case 'user':
+        console.log('User node: ', node);
+        this.setUser(node);
+        break;
+      case 'provider_id':
+        console.log('Auth provider node: ', node);
+        break;
+      default:
+        console.log('Unrecognised node type: ' + node.properties.is_type);
     }
-    else if ( node.properties.is_type == 'task' ) {
-      // do finding the top of the tree stuff here
-    }
-    else if ( node.properties.is_type == 'provider_id' ) {
-      // could set avatar pic here
-    }
-    // etc, etc
-    console.log("in processGraph", node);
   },
 
   setUser: function (userData) {
