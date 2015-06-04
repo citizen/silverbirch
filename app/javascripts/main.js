@@ -55,6 +55,9 @@ var App = React.createClass({
       case 'task':
         console.log('Task node: ', node);
         break;
+      case 'taskList':
+        console.log('TaskList node: ', node);
+        break;
       case 'user':
         console.log('User node: ', node);
         this.setUser(node);
