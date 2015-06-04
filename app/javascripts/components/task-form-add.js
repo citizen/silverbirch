@@ -50,12 +50,15 @@ var TaskForm = React.createClass({
       taskList = owner.relationships.has_task_list;
     } else {
       // Build taskList object for storage
+      var has_tasks = {};
+      has_tasks[newTaskId.key()] = true;
+
       taskList = dbRef.push({
         "properties": {
           "is_type": "taskList"
         },
         "relationships": {
-          "has_tasks": has_users
+          "has_tasks": has_tasks
         }
       });
       taskList = taskList.key();
