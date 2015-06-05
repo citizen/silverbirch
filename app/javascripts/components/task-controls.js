@@ -17,18 +17,18 @@ var TaskControls = React.createClass({
 
   render: function() {
     return (
-      <div className="task-controls">
+      <div className="bootstrap-frm">
         <Link
           to="newChildTask"
           params={{
             taskId: this.props.task.uid,
             viewContext: this.getParams().viewContext
           }}
-          className="glyphicon glyphicon-plus pull-left"
+          className="btn-primary"
         ></Link>
         <span
           onClick={this.archiveTask}
-          className="glyphicon glyphicon-remove pull-left"
+          className="btn-primary-archive"
         >
         </span>
       </div>

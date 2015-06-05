@@ -109,6 +109,7 @@ var Tasks = React.createClass({
       "SilverBirch",
       "WebOps"
     ];
+
     var rightMenuItems = [
       "rpowis",
       "jsuarez",
@@ -119,15 +120,17 @@ var Tasks = React.createClass({
 
     var viewContextName = (this.props.viewContext) ? this.props.viewContext.sbid.split(":")[1] : "";
 
-        // <Menu position="left" title="Teams" menuItems={leftMenuItems} />
-        // <Menu position="right" title="Members" menuItems={rightMenuItems} />
+         //<Menu position="left" title="Teams" menuItems={leftMenuItems} />
+         //<Menu position="right" title="Members" menuItems={rightMenuItems} />
+
+
     return (
       <div className="wrap-left-column">
         <div className="left-column">
           <TaskTree tasks={this.state.taskTree} {...this.props} />
         </div>
       	<div className="right-column">
-      	  <Link to="newTask" params={{viewContext: viewContextName}} className="btn-primary"></Link>
+      	  <Link to="newTask" params={{viewContext: viewContextName}} className="btn-primary">Add</Link>
       	</div>
       	<RouteHandler {...this.props} task={this.state.currentTask} />
       </div>

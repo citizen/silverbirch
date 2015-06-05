@@ -98,7 +98,8 @@ var TaskForm = React.createClass({
       </ul> : '';
 
     return (
-      <form className="" onSubmit={this.handleSubmit}>
+      <div className="right-column">
+      <form className="bootstrap-frm" onSubmit={this.handleSubmit}>
         <h4>{formTitle}</h4>
 	{addMembersToggle}
 	{membersList}
@@ -119,8 +120,9 @@ var TaskForm = React.createClass({
             className="form-control"
           />
         </div>
-        <button type="submit" className="btn-primary">Add</button>
+        <button type="submit" className="bootstrap-frm" src="/images/1433275634_circle_add_plus.png"></button>
       </form>
+      </div>
     );
   }
 });
