@@ -1,6 +1,7 @@
 'use strict';
 
-var fb = require('firebase'),
+var _ = require('lodash'),
+    fb = require('firebase'),
     React = require('react'),
     Router = require('react-router'),
     { Route, RouteHandler, Link, NotFoundRoute } = Router,
@@ -24,7 +25,7 @@ var App = React.createClass({
   getInitialState: function () {
     return {
       user: null,
-      sbGraph: {}
+      taskTree: {}
     };
   },
 
@@ -33,6 +34,7 @@ var App = React.createClass({
       if(auth) {
         // user is logged in, sync graph
         this.sbFbGraph = new SbFbGraph(this.props.fbRef, auth.uid, this.processGraph);
+
         //var dbRef = this.props.fbRef;
         //dbRef.child(auth.uid).once('value', function(authData) {
         //  if( !authData.val() ) {
@@ -53,20 +55,63 @@ var App = React.createClass({
   processGraph: function (sbGraph, node) {
     switch (node.properties.is_type) {
       case 'task':
-        console.log('Task node: ', node);
+        var taskTree = {},
+            tasksAll = [],
+            tasksWithChildren = [],
+            treeTops = this.state.taskTree;
+
+        treeTops[node.key] = node;
+
+        tasksAll = Object.keys(sbGraph)
+          .filter(function (task) {
+            if (
+              sbGraph[task].hasOwnProperty('properties')
+            ) {
+              return sbGraph[task].properties.is_type === 'task';
+            }
+          });
+
+        tasksWithChildren = _.flatten(tasksAll
+          .filter(function (task) {
+            if (sbGraph[task].hasOwnProperty('relationships')) {
+              return sbGraph[task].relationships.hasOwnProperty('has_children');
+            }
+          })
+          .map(function (taskId) {
+            if (
+              sbGraph[taskId].relationships &&
+              sbGraph[taskId].relationships.hasOwnProperty('has_children')
+            ) {
+              return Object.keys(sbGraph[taskId].relationships.has_children);
+            }
+          })
+        );
+
+        treeTops = _.difference(tasksAll, tasksWithChildren);
+
+        treeTops.forEach(function (taskId) {
+          taskTree[taskId] = sbGraph[taskId];
+        });
+
+        this.setState({
+          taskTree: taskTree
+        });
         break;
+
       case 'taskList':
-        console.log('TaskList node: ', node);
+        // console.log('TaskList node: ', node);
         break;
+
       case 'user':
-        console.log('User node: ', node);
+        // console.log('User node: ', node);
         this.setUser(node);
         break;
+
       case 'provider_id':
-        console.log('Auth provider node: ', node);
+        // console.log('Auth provider node: ', node);
         break;
       default:
-        console.log('Unrecognised node type: ' + node.properties.is_type);
+        console.warn('Unrecognised node type: ' + node.properties.is_type);
     }
   },
 
@@ -79,7 +124,7 @@ var App = React.createClass({
 
   render: function () {
     return (
-      <RouteHandler user={this.state.user} {...this.props} />
+      <RouteHandler user={this.state.user} tasks={this.state.taskTree} {...this.props} />
     );
   }
 });

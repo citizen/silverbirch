@@ -25,9 +25,9 @@ function SbFbGraph (fbRef, startNode, changeCallback) {
           } else if (typeof relative_key === "object") {
             // One to many
             var relative_keys = relative_key;
-            node.relationships[relationship_type] = _.map(relative_keys, function(value, relative_key, collection) {
+            _.forOwn(relative_keys, function(value, relative_key) {
               walkGraph(relative_key);
-              return self[relative_key];
+              node.relationships[relationship_type][relative_key] = self[relative_key];
             });
           }
         });

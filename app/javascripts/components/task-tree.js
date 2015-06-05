@@ -10,7 +10,9 @@ var TaskTreeItem = React.createClass({
   render: function() {
     var task = this.props.task,
       	cx = React.addons.classSet,
-      	taskTree = (task.children) ? <TaskTree tasks={task.children} fbRef={this.props.fbRef} /> : '';
+      	taskTree = (task.relationships.has_children) ?
+          <TaskTree tasks={task.relationships.has_children} fbRef={this.props.fbRef} /> :
+          '';
 
     var classes = cx({
       'archived': task.properties.has_state === 'archived',
@@ -77,6 +79,7 @@ var TaskTree = React.createClass({
       var task = this.props.tasks[taskId];
 
       if (!Object.keys(task).length || task.properties.archived) { return null; }
+
       return <TaskTreeItem task={task} key={taskId} {...this.props} />;
     }.bind(this));
 
