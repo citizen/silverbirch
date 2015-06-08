@@ -19,11 +19,19 @@ var Task = React.createClass({
   },
 
   componentWillMount: function () {
+    this.loadTask();
+  },
+
+  componentWillReceiveProps: function () {
+    this.loadTask();
+  },
+
+  loadTask: function () {
     var taskId = this.getParams().taskId;
 
     this.props.fbRef.child(taskId).on('value', function (taskData) {
       this.setState({
-	task: taskData.val()
+        task: taskData.val()
       })
     }, this);
   },
@@ -32,7 +40,7 @@ var Task = React.createClass({
     console.log('this.state.task ' , this.state.task);
 
     var task = this.state.task,
-	taskMeta = (task.properties && task.properties.has_meta) ? task.properties.has_meta : null,
+      	taskMeta = (task.properties && task.properties.has_meta) ? task.properties.has_meta : null,
         title = taskMeta ? taskMeta.title : '',
         description = taskMeta ? taskMeta.description : '';
 
