@@ -78,7 +78,7 @@ var Header = React.createClass({
         <nav className="">
           <div className="">
             <div className="header-left">
-            <img src="/images/sb_logo.jpg" alt=""/>
+
               {teamsDropdown}
             </div>
             <div className="header-right">
