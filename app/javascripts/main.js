@@ -130,7 +130,7 @@ var routes = (
     <Route path=":viewContext" handler={ViewContext}>
       <Route name="tasks" handler={Tasks}>
         <Route name="newTask" path="new" handler={AddTask}/>
-	<Route name="task" path=":taskId" handler={Task}/>
+      	<Route name="task" path=":taskId" handler={Task}/>
       </Route>
       <Route name="profile" handler={Profile}/>
       <Route name="report" handler={Report}/>

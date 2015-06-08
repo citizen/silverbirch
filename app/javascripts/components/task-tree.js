@@ -69,9 +69,9 @@ var TaskTreeItem = React.createClass({
 
               <div className={classes}>
           		  <h4>
-		  <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
+            		  <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
                     {task.properties.has_meta.title}
-		  </Link>
+            		  </Link>
           		  </h4>
 
                 <p>{task.properties.has_meta.description}</p>
