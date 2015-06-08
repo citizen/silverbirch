@@ -42,8 +42,7 @@ var Tasks = React.createClass({
         </div>
 
       	<div className="right-column">
-          <img src="/images/circle_add_plus.png" alt=""/>
-          <Link to="newTask" params={{viewContext: viewContextName}} className="btn-primary">Add</Link>
+          <Link to="newTask" params={{viewContext: viewContextName}} className="btn-primary"><img src="/images/circle_add_plus.png" width="50" height="50" alt=""/></Link>
           <RouteHandler {...this.props} />
         </div>
     	</div>
