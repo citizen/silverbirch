@@ -74,10 +74,11 @@ var Header = React.createClass({
 
     return (
       <div id="header-wrap">
-        <img src="/images/sb_logo.jpg" alt=""/>
+
         <nav className="">
           <div className="">
             <div className="header-left">
+            <img src="/images/sb_logo.jpg" alt=""/>
               {teamsDropdown}
             </div>
             <div className="header-right">

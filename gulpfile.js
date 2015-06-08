@@ -6,6 +6,7 @@ var del = require('del');
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
+var pngquant = require('imagemin-pngquant');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var CacheBuster = require('gulp-cachebust');
@@ -108,7 +109,8 @@ gulp.task('images', function() {
     .pipe($.cache($.imagemin({
       optimizationLevel: 3,
       progressive: true,
-      interlaced: true
+      interlaced: true,
+      use: [pngquant()]
     })))
     .pipe(gulp.dest(dist + '/images'))
     .pipe($.size());
