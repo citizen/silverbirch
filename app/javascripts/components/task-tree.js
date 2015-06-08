@@ -33,13 +33,13 @@ var TaskTreeItem = React.createClass({
 
   render: function() {
     var task = this.props.task,
-        cx = React.addons.classSet,
-        title = (task.has_meta) ? task.has_meta.title : '',
-        description = (task.has_meta) ? task.has_meta.description : '',
-      	taskTree = (task.children) ? <TaskTree tasks={task.children} fbRef={this.props.fbRef} /> : '';
+      	cx = React.addons.classSet,
+      	taskTree = (task.relationships.has_children) ?
+          <TaskTree tasks={task.relationships.has_children} fbRef={this.props.fbRef} /> :
+          '';
 
     var classes = cx({
-      'archived': task.has_state === 'archived',
+      'archived': task.properties.has_state === 'archived',
       'comment-post': true
     });
 
@@ -48,40 +48,39 @@ var TaskTreeItem = React.createClass({
           <img className="round" src={this.state.userInfo.avatar} />
         </div> : '';
 
-    var time = moment(task.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
+    var time = moment(task.properties.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
     var viewContextName = (this.props.viewContext) ?
-          this.props.viewContext.sbid.split(":")[1] : "";
+          this.props.viewContext.properties.sbid.split(":")[1] : "";
 
     return (
-<section className="wrap-left-column">
-    <article className="left-column">
-
+      <section className="wrap-left-column">
+        <article className="left-column">
           <div className="task-box">
-          {profileLink}
+            {profileLink}
 
-              <div className="task-box">
-                <TaskControls task={task} {...this.props} />
+            <div className="task-box">
+              {/*<TaskControls task={task} {...this.props} />*/}
 
-                <header className="text-left">
-                  <div className="comment-user"><i className="fa fa-user"></i> Assignee</div>
-                  <time className="comment-date" dateTime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> {time}</time>
-                </header>
+              <header className="text-left">
+                <div className="comment-user"><i className="fa fa-user"></i> Assignee</div>
+                <time className="comment-date" dateTime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> {time}</time>
+              </header>
 
-                <div className={classes}>
-            		  <h4>
-                    <Link to="task" params={{viewContext: viewContextName, taskId: task.uid}}>
-                      {title}
-                    </Link>
-            		  </h4>
-                  <p>{description}</p>
-                </div>
+              <div className={classes}>
+          		  <h4>
+                  {/*<Link to="task" params={{viewContext: viewContextName, taskId: task.uid}}>*/}
+                    {task.properties.has_meta.title}
+                  {/*</Link>*/}
+          		  </h4>
 
-                <p className="text-right"><a href="#" className="btn btn-default btn-sm"><i className="fa fa-reply"></i> reply</a></p>
+                <p>{task.properties.has_meta.description}</p>
               </div>
 
-              {taskTree}
+              <p className="text-right"><a href="#" className="btn btn-default btn-sm"><i className="fa fa-reply"></i> reply</a></p>
+            </div>
 
+            {taskTree}
           </div>
         </article>
       </section>
@@ -96,9 +95,10 @@ var TaskTree = React.createClass({
 
   render: function() {
     var tasks = Object.keys(this.props.tasks).map(function (taskId) {
-    var task = this.props.tasks[taskId];
+      var task = this.props.tasks[taskId];
 
-    if (!Object.keys(task).length || task.archived) { return null; }
+      if (!Object.keys(task).length || task.properties.archived) { return null; }
+
       return <TaskTreeItem task={task} key={taskId} {...this.props} />;
     }.bind(this));
 

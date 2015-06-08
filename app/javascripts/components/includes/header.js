@@ -14,26 +14,27 @@ var Header = React.createClass({
       	viewContextName;
 
     viewContextName = (this.props.viewContext) ?
-      this.props.viewContext.sbid.split(":")[1] : "";
+      this.props.viewContext.properties.sbid.split(":")[1] : "";
 
-    userName = (this.props.user) ? this.props.user.username : "";
+    userName = (this.props.user) ? this.props.user.properties.username : "";
 
     profileLink = (this.props.user) ?
-        <Link to="profile" params={{viewContext: this.props.user.username}}>
-          <span>Logged in as </span>
-          <img className="avatar" src={this.props.user.avatar} />
-          <span>{this.props.user.username}</span>
-        </Link>
+      <Link to="profile" params={{viewContext: this.props.user.properties.username}}>
+        <span>Logged in as </span>
+        <img className="avatar" src={this.props.user.properties.avatar} />
+        <span>{this.props.user.properties.username}</span>
+      </Link>
       : '';
 
     loginOrOut = (this.props.user) ?
       <Link to="logout">Sign out</Link> :
       <Link to="login">Sign in</Link>;
 
-    teamsList = (this.props.user && this.props.user.in_teams) ?
-      Object.keys(this.props.user.in_teams).map(function(team, index) {
+    teamsList = (this.props.user && this.props.user.properties.in_teams) ?
+      Object.keys(this.props.user.properties.in_teams).map(function(team, index) {
         // TODO: request team data from DB for logo etc.
         var teamName = team.split(":")[1];
+
         return (
           <li key={index}>
             <Link to="tasks" params={{viewContext: teamName}}>
@@ -44,19 +45,18 @@ var Header = React.createClass({
       }) :
       "";
 
-    teamsDropdown = (this.props.user && this.props.user.in_teams) ?
+    teamsDropdown = (this.props.user && this.props.user.properties.in_teams) ?
       <li className="dropdown">
       	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{viewContextName} <span className="caret"></span></a>
         <ul className="dropdown-menu" role="menu">
           <li>
-            <Link to="tasks" params={{viewContext: this.props.user.username}}>
-              <span>{this.props.user.username}</span>
+            <Link to="tasks" params={{viewContext: this.props.user.properties.username}}>
+              <span>{this.props.user.properties.username}</span>
             </Link>
           </li>
           {teamsList}
         </ul>
       </li> :
-
       <li className="dropdown">
       	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{userName} <span className="caret"></span></a>
       	<ul className="dropdown-menu" role="menu">
