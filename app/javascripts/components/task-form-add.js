@@ -139,7 +139,7 @@ var TaskForm = React.createClass({
             className="form-control"
           />
         </div>
-        <button type="submit" className="bootstrap-frm" src="/images/circle_add_plus.png"></button>
+        <button type="submit" className="bootstrap-frm" src="/images/circle_add_plus.png"><img src="/images/circle_add_plus.png" width="50" height="50" alt=""/></button>
       </form>
       </div>
     );

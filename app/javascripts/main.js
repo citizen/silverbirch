@@ -6,7 +6,7 @@ var _ = require('lodash'),
     Router = require('react-router'),
     { Route, RouteHandler, Link, NotFoundRoute } = Router,
     config = require('./config'),
-    //Task = require('./components/task'),
+    Task = require('./components/task'),
     Tasks = require('./components/tasks'),
     Login = require('./components/login'),
     Logout = require('./components/logout'),
@@ -115,7 +115,10 @@ var App = React.createClass({
 
   render: function () {
     return (
-      <RouteHandler user={this.state.user} tasks={this.state.taskTree} {...this.props} />
+      <RouteHandler
+	user={this.state.user}
+	tasks={this.state.taskTree}
+	{...this.props} />
     );
   }
 });
@@ -127,7 +130,7 @@ var routes = (
     <Route path=":viewContext" handler={ViewContext}>
       <Route name="tasks" handler={Tasks}>
         <Route name="newTask" path="new" handler={AddTask}/>
-        {/*<Route name="task" path=":taskId" handler={Task}/>*/}
+	<Route name="task" path=":taskId" handler={Task}/>
       </Route>
       <Route name="profile" handler={Profile}/>
       <Route name="report" handler={Report}/>
