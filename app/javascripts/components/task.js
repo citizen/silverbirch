@@ -12,21 +12,39 @@ var Task = React.createClass({
     React.PureRenderMixin
   ],
 
+  getInitialState: function () {
+    return {
+      task: {}
+    };
+  },
+
+  componentWillMount: function () {
+    var taskId = this.getParams().taskId;
+
+    this.props.fbRef.child(taskId).on('value', function (taskData) {
+      this.setState({
+	task: taskData.val()
+      })
+    }, this);
+  },
+
   render: function () {
-    var task = this.props.task,
-        taskMeta = task.has_meta ? task.has_meta : null,
+    console.log('this.state.task ' , this.state.task);
+
+    var task = this.state.task,
+	taskMeta = (task.properties && task.properties.has_meta) ? task.properties.has_meta : null,
         title = taskMeta ? taskMeta.title : '',
         description = taskMeta ? taskMeta.description : '';
 
-    var editLink = task.uid ?
-	  <Link
-	    to="editTask"
-	    params={{
-	      taskId: this.props.task.uid,
-	      viewContext: this.getParams().viewContext
-	    }}
-	    className="btn-primary"
-	  >Edit</Link> : '';
+    var editLink = "";
+   //  var editLink = <Link
+	  //   to="editTask"
+	  //   params={{
+	  //     taskId: this.getParams().taskId,
+	  //     viewContext: this.getParams().viewContext
+	  //   }}
+	  //   className="btn-primary"
+	  // >Edit</Link>;
 
     var profileLink = "";
     // var profileLink = (this.props.user) ?
