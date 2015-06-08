@@ -117,7 +117,7 @@ var TaskForm = React.createClass({
       </ul> : '';
 
     return (
-      <div className="right-column">
+      <div className="right-column-task">
       <form className="bootstrap-frm" onSubmit={this.handleSubmit}>
         <h4>{formTitle}</h4>
       	{addMembersToggle}
