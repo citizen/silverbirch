@@ -70,7 +70,8 @@ var TaskForm = React.createClass({
 
   render: function() {
     return (
-      <form className="right-column" onSubmit={this.handleSubmit}>
+      <div className="right-column">
+      <form className="bootstrap-frm" onSubmit={this.handleSubmit}>
         <h4>Edit task {this.getParams().taskId}</h4>
 
         <div className="form-group">
@@ -97,7 +98,7 @@ var TaskForm = React.createClass({
         </div>
 
         <div className="form-group pull-right">
-          <button type="submit" className="btn-primary">Save</button>
+          <button type="submit" className="bootstrap-frm">Save</button>
 
           <Link
             to="task"
@@ -105,10 +106,11 @@ var TaskForm = React.createClass({
               taskId: this.getParams().taskId,
               viewContext: this.getParams().viewContext
             }}
-            className="btn-primary"
+            className="bootstrap-frm"
           >Cancel</Link>
         </div>
       </form>
+      </div>
     );
   }
 });

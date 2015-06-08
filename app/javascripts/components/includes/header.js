@@ -46,20 +46,24 @@ var Header = React.createClass({
       "";
 
     teamsDropdown = (this.props.user && this.props.user.properties.in_teams) ?
-      <li className="dropdown">
-      	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{viewContextName} <span className="caret"></span></a>
-        <ul className="dropdown-menu" role="menu">
-          <li>
-            <Link to="tasks" params={{viewContext: this.props.user.properties.username}}>
-              <span>{this.props.user.properties.username}</span>
-            </Link>
-          </li>
-          {teamsList}
-        </ul>
+      <li className="bootstrap-frm">
+        <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          {viewContextName} <span className="caret"></span>
+        </a>
+
+        <li>
+          <Link to="tasks" params={{viewContext: this.props.user.properties.username}}>
+            <span>{this.props.user.properties.username}</span>
+          </Link>
+        </li>
+
+        {teamsList}
       </li> :
-      <li className="dropdown">
-      	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{userName} <span className="caret"></span></a>
-      	<ul className="dropdown-menu" role="menu">
+      <li className="bootstrap-frm">
+      	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          {userName} <span className="caret"></span>
+        </a>
+        <ul className="dropdown-menu" role="menu">
       	  <li>
       	    <Link to="tasks" params={{viewContext: userName}}>
       	      <span>{userName}</span>
@@ -75,10 +79,10 @@ var Header = React.createClass({
           <div className="">
             <div className="header-left">
               {teamsDropdown}
-        	    <Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link>
-              <Link to="report" params={{viewContext: viewContextName}}>Report</Link>
             </div>
             <div className="header-right">
+              <Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link> |
+              <Link to="report" params={{viewContext: viewContextName}}>Report</Link> |
               {profileLink}
               {loginOrOut}
             </div>

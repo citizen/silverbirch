@@ -26,7 +26,7 @@ var Task = React.createClass({
 	      viewContext: this.getParams().viewContext
 	    }}
 	    className="btn-primary"
-	  ></Link> : '';
+	  >Edit</Link> : '';
 
     var profileLink = "";
     // var profileLink = (this.props.user) ?
