@@ -34,19 +34,9 @@ var App = React.createClass({
       if(auth) {
         // user is logged in, sync graph
         this.sbFbGraph = new SbFbGraph(this.props.fbRef, auth.uid, this.processGraph);
-
-        //var dbRef = this.props.fbRef;
-        //dbRef.child(auth.uid).once('value', function(authData) {
-        //  if( !authData.val() ) {
-        //    this.setUser(false);
-        //  }
-        //  else {
-        //    dbRef.child(authData.val().relationships.belongs_to_user).on('value', this.setUser);
-        //  }
-        //}.bind(this));
       }
       else {
-        // user is logged out, maybe we should log in?
+        // user is logged out, redirect to login
         this.transitionTo('login');
       }
     }, this);
@@ -136,6 +126,7 @@ var routes = (
     <Route path=":viewContext" handler={ViewContext}>
       <Route name="tasks" handler={Tasks}>
         <Route name="newTask" path="new" handler={AddTask}/>
+        {/*<Route name="task" path=":taskId" handler={Task}/>*/}
       </Route>
       <Route name="profile" handler={Profile}/>
     </Route>
