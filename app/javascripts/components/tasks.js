@@ -34,6 +34,7 @@ var Tasks = React.createClass({
 
     var path = this.getPathname().split('/').pop();
     var toggleRoute = (path === 'new') ? 'tasks' : 'newTask';
+
          //<Menu position="left" title="Teams" menuItems={leftMenuItems} />
          //<Menu position="right" title="Members" menuItems={rightMenuItems} />
 
@@ -44,7 +45,7 @@ var Tasks = React.createClass({
         </div>
 
       	<div className="right-column">
-          <Link to={toggleRoute} params={{viewContext: viewContextName}} className="btn-primary">
+          <Link to={toggleRoute} params={{viewContext: viewContextName}} className="btn-primary new-task-btn">
             <img src="/images/circle_add_plus.png" width="50" height="50" alt=""/>
           </Link>
           <RouteHandler {...this.props} />

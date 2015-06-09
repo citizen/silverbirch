@@ -9,7 +9,8 @@ var React = require('react/addons'),
 var TaskTreeItem = React.createClass({
   getInitialState: function () {
     return {
-      userInfo: null
+      userInfo: null,
+      taskExpanded: false
     };
   },
 
@@ -31,6 +32,12 @@ var TaskTreeItem = React.createClass({
     }.bind(this));
   },
 
+  expandToggle: function (event) {
+    this.setState({
+      taskExpanded: !this.state.taskExpanded
+    })
+  },
+
   render: function() {
     var task = this.props.task,
       	cx = React.addons.classSet,
@@ -50,48 +57,43 @@ var TaskTreeItem = React.createClass({
 
     var time = moment(task.properties.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
+    var description = (this.state.taskExpanded) ?
+        <p>{task.properties.has_meta.description}</p> : '';
+
     var viewContextName = (this.props.viewContext) ?
           this.props.viewContext.properties.sbid.split(":")[1] : "";
+
+    var metaData = (this.state.taskExpanded) ?
+      <header className="text-left">
+        <time className="comment-date" dateTime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> {time}</time>
+      </header> : '';
 
     return (
       <section className="wrap-left-column">
         <article className="left-column">
-
-        <div id="container">
-    <div id="overlay">
-        {profileLink}
-    </div>
-    <div id="base">
-
-            <div className="task-box-info">
-              {/*<TaskControls task={task} {...this.props} />*/}
-
-              <header className="text-left">
-                <div className="comment-user"><i className="fa fa-user"></i> Assignee</div>
-                <time className="comment-date" dateTime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> {time}</time>
-              </header>
-
-              <div className={classes}>
-                <h4>
-                  <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
-                    {task.properties.has_meta.title}
-                  </Link>
-                </h4>
-
-                <p>{task.properties.has_meta.description}</p>
-              </div>
-
-              <p className="text-right"><a href="#" className="btn btn-default btn-sm"><i className="fa fa-reply"></i> reply</a></p>
-
-
+          {/*<Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>*/}
+          <div className="container" onClick={this.expandToggle}>
+            <div id="overlay">
+              {profileLink}
             </div>
+            <div id="base">
+              <div className="task-box-info">
+                <div className="assignees">
+                  <i className="fa fa-user"></i>
+                </div>
+                {/*<TaskControls task={task} {...this.props} />*/}
 
-            {taskTree}
+                <div className={classes}>
+                  <h4>{task.properties.has_meta.title}</h4>
+                  {description}
+                </div>
 
-    </div>
-  </div>
-
-
+                {metaData}
+              </div>
+              {taskTree}
+            </div>
+          </div>
+          {/*</Link>*/}
         </article>
       </section>
     );
