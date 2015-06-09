@@ -73,23 +73,26 @@ var Header = React.createClass({
       </li>;
 
     return (
-      <div id="header-wrap">
 
-        <nav className="">
-          <div className="">
+
+        <nav className="navigation">
+
             <div className="header-left">
 
               {teamsDropdown}
             </div>
             <div className="header-right">
-              <Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link> |
-              <Link to="report" params={{viewContext: viewContextName}}>Report</Link> |
-              {profileLink}
-              {loginOrOut}
+            <ul>
+
+              <li><Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link></li>
+              <li><Link to="report" params={{viewContext: viewContextName}}>Report</Link></li>
+              <li>{profileLink}</li>
+              <li>{loginOrOut}</li>
+              </ul>
             </div>
-          </div>
+
         </nav>
-      </div>
+
     );
   }
 });
