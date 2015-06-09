@@ -44,12 +44,11 @@ var Tasks = React.createClass({
           <TaskTree {...this.props} />
         </div>
 
-      	<div className="right-column">
-          <Link to={toggleRoute} params={{viewContext: viewContextName}} className="btn-primary new-task-btn">
-            <img src="/images/circle_add_plus.png" width="50" height="50" alt=""/>
-          </Link>
-          <RouteHandler {...this.props} />
-        </div>
+        <Link to={toggleRoute} params={{viewContext: viewContextName}} className="btn-primary new-task-btn">
+          <img src="/images/circle_add_plus.png" width="50" height="50" alt=""/>
+        </Link>
+
+        <RouteHandler {...this.props} />
     	</div>
     );
   }

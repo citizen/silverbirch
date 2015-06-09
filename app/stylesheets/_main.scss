@@ -54,6 +54,12 @@
     height: 20px
 }
 
+.new-task-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
 .new-task-btn.active {
   display: inline-block;
   transform: rotateZ(45deg);
@@ -82,7 +88,8 @@
 
 
 .container {
-    margin-top: 50px;
+  cursor: pointer;
+  margin-top: 50px;
 }
 
 body {}
@@ -95,8 +102,9 @@ body {}
 
 .right-column-task {
     width: 450px;
-    float: right;
-
+    position: absolute;
+    bottom: 0;
+    right: 100px;
 }
 
 .left-column {
