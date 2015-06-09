@@ -82,6 +82,8 @@ var TaskTreeItem = React.createClass({
               </div>
 
               <p className="text-right"><a href="#" className="btn btn-default btn-sm"><i className="fa fa-reply"></i> reply</a></p>
+
+
             </div>
 
             {taskTree}

@@ -47,6 +47,9 @@ var Header = React.createClass({
 
     teamsDropdown = (this.props.user && this.props.user.properties.in_teams) ?
       <div className="dropdown">
+
+
+
         <a href="#" >
           {viewContextName} <span className="caret"></span>
         </a>
