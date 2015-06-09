@@ -51,25 +51,28 @@ var Header = React.createClass({
           {viewContextName} <span className="caret"></span>
         </a>
 
-        <li>
+
           <Link to="tasks" params={{viewContext: this.props.user.properties.username}}>
             <span>{this.props.user.properties.username}</span>
           </Link>
-        </li>
+
 
         {teamsList}
-      </li> :
+      </li>
+
+      :
+
       <li className="bootstrap-frm">
       	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
           {userName} <span className="caret"></span>
         </a>
-        <ul className="dropdown-menu" role="menu">
-      	  <li>
+
+
       	    <Link to="tasks" params={{viewContext: userName}}>
       	      <span>{userName}</span>
       	    </Link>
-      	  </li>
-      	</ul>
+
+
       </li>;
 
     return (
