@@ -1,6 +1,5 @@
 # Generated files and folders
-*/bower_components/
-
+npm-debug.log
 node_modules/
 .sass-cache/
 dist/
