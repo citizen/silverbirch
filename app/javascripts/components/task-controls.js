@@ -17,7 +17,7 @@ var TaskControls = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="contr">
         {/*<Link
                   to="newChildTask"
                   params={{
@@ -29,7 +29,7 @@ var TaskControls = React.createClass({
         <span
           onClick={this.archiveTask}
           className="btn-primary-archive"
-        >
+        >X
         </span>
       </div>
     );

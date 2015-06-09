@@ -1,23 +1,6 @@
 .round {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    position: relative;
-    top: 0px;
-    left: 0px
-}
-
-.round img {
-    display: block;
-    /* Stretch
-                  height: 100%;
-                  width: 100%; */
-
-    min-width: 100%;
-    min-height: 100%;
-    position: relative;
-    top: -10px;
-    left: -10px
+    width: 25%;
+    float: left;
 }
 
 .avatar {
@@ -48,10 +31,13 @@
 }
 
 .btn-primary-archive {
-    display: block;
-    background: red;
-    width: 50px;
-    height: 20px
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: #F00;
+  width: 25px;
+  display: block;
+  height: 25px;
 }
 
 .new-task-btn {
@@ -88,11 +74,11 @@
 
 
 .container {
+  @include clearfix();
+  width: 100%;
   cursor: pointer;
   margin-top: 50px;
 }
-
-body {}
 
 .right-column {
     width: 450px;
@@ -160,16 +146,9 @@ body {}
 }
 
 .task-box-info {
-
     padding: 20px;
-    border-radius: 10%;
-    overflow: hidden;
     font-size: 10px;
     background-color: rgb(198, 239, 236);
-    border-bottom-color: black;
-    position: relative;
-    margin-bottom: 10px;
-
 }
 
 .image {
@@ -414,7 +393,9 @@ ol, ul { list-style: none; }
 }
 
 #base {
-  width: 100%;
+  width: 75%;
+  float: left;
+  position: relative;
 }
 
 .grow {

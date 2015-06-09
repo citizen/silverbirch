@@ -11,3 +11,13 @@
     line-height: 1.5em;
 }
 
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}

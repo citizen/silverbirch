@@ -54,9 +54,7 @@ var TaskTreeItem = React.createClass({
     });
 
     var profileLink = (this.props.user.properties.avatar) ?
-        <div className="round">
-          <img className="round" src={this.props.user.properties.avatar} />
-        </div> : '';
+        <img className="round" src={this.props.user.properties.avatar} /> : '';
 
     var time = moment(task.properties.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
@@ -76,15 +74,13 @@ var TaskTreeItem = React.createClass({
         <article className="left-column">
           {/*<Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>*/}
           <div className="container" onClick={this.expandToggle}>
-            <div id="overlay">
-              {profileLink}
-            </div>
+            {profileLink}
+
             <div id="base">
               <div className="task-box-info">
                 <div className="assignees">
                   <i className="fa fa-user"></i>
                 </div>
-                <TaskControls task={task} {...this.props} />
 
                 <div className={classes}>
                   <h4>{task.properties.has_meta.title}</h4>
@@ -93,6 +89,9 @@ var TaskTreeItem = React.createClass({
 
                 {metaData}
               </div>
+
+              <TaskControls task={task} {...this.props} />
+
               {taskTree}
             </div>
           </div>
