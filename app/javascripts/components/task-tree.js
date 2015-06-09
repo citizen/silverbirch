@@ -56,10 +56,14 @@ var TaskTreeItem = React.createClass({
     return (
       <section className="wrap-left-column">
         <article className="left-column">
-          <div className="task-box">
-            {profileLink}
 
-            <div className="task-box">
+        <div id="container">
+    <div id="overlay">
+        {profileLink}
+    </div>
+    <div id="base">
+
+            <div className="task-box-info">
               {/*<TaskControls task={task} {...this.props} />*/}
 
               <header className="text-left">
@@ -68,11 +72,11 @@ var TaskTreeItem = React.createClass({
               </header>
 
               <div className={classes}>
-          		  <h4>
-            		  <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
+                <h4>
+                  <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
                     {task.properties.has_meta.title}
-            		  </Link>
-          		  </h4>
+                  </Link>
+                </h4>
 
                 <p>{task.properties.has_meta.description}</p>
               </div>
@@ -81,7 +85,11 @@ var TaskTreeItem = React.createClass({
             </div>
 
             {taskTree}
-          </div>
+
+    </div>
+  </div>
+
+
         </article>
       </section>
     );
