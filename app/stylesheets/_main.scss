@@ -54,6 +54,11 @@
     height: 20px
 }
 
+.new-task-btn.active {
+  display: inline-block;
+  transform: rotateZ(45deg);
+}
+
 .task-whole {
     background: #eeeeff
 }
