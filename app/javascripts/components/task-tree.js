@@ -43,9 +43,9 @@ var TaskTreeItem = React.createClass({
       'comment-post': true
     });
 
-    var profileLink = (this.state.userInfo) ?
+    var profileLink = (this.props.user.properties.avatar) ?
         <div className="round">
-          <img className="round" src={this.state.userInfo.avatar} />
+          <img className="round" src={this.props.user.properties.avatar} />
         </div> : '';
 
     var time = moment(task.properties.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
