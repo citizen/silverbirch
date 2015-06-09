@@ -56,7 +56,9 @@ var App = React.createClass({
         tasksAll = Object.keys(sbGraph)
           .filter(function (task) {
             if (
-              sbGraph[task].hasOwnProperty('properties')
+              sbGraph[task].hasOwnProperty('properties') &&
+              sbGraph[task].properties.hasOwnProperty('has_state') &&
+              sbGraph[task].properties.has_state !== 'archived'
             ) {
               return sbGraph[task].properties.is_type === 'task';
             }

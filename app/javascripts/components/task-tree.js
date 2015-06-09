@@ -1,6 +1,7 @@
 'use strict';
 
-var React = require('react/addons'),
+var $ = require('jquery'),
+    React = require('react/addons'),
     Router = require('react-router'),
     { Link } = Router,
     TaskControls = require('./task-controls'),
@@ -33,9 +34,11 @@ var TaskTreeItem = React.createClass({
   },
 
   expandToggle: function (event) {
-    this.setState({
-      taskExpanded: !this.state.taskExpanded
-    })
+    if ( !$(event.target).hasClass('btn-primary-archive') ) {
+      this.setState({
+        taskExpanded: !this.state.taskExpanded
+      })
+    };
   },
 
   render: function() {
@@ -81,7 +84,7 @@ var TaskTreeItem = React.createClass({
                 <div className="assignees">
                   <i className="fa fa-user"></i>
                 </div>
-                {/*<TaskControls task={task} {...this.props} />*/}
+                <TaskControls task={task} {...this.props} />
 
                 <div className={classes}>
                   <h4>{task.properties.has_meta.title}</h4>

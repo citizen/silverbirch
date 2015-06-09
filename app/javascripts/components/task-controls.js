@@ -10,22 +10,22 @@ var TaskControls = React.createClass({
   ],
 
   archiveTask: function () {
-    this.props.fbRef.child(this.props.task.uid).update({
+    this.props.fbRef.child(this.props.task.key + '/properties').update({
       'has_state': 'archived'
     });
   },
 
   render: function() {
     return (
-      <div className="bootstrap-frm">
-        <Link
-          to="newChildTask"
-          params={{
-            taskId: this.props.task.uid,
-            viewContext: this.getParams().viewContext
-          }}
-          className="btn-primary"
-        ></Link>
+      <div>
+        {/*<Link
+                  to="newChildTask"
+                  params={{
+                    taskId: this.props.task.uid,
+                    viewContext: this.getParams().viewContext
+                  }}
+                  className="btn-primary"
+                ></Link>*/}
         <span
           onClick={this.archiveTask}
           className="btn-primary-archive"
