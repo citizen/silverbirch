@@ -46,8 +46,8 @@ var Header = React.createClass({
       "";
 
     teamsDropdown = (this.props.user && this.props.user.properties.in_teams) ?
-      <li className="bootstrap-frm">
-        <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+      <div className="dropdown">
+        <a href="#" >
           {viewContextName} <span className="caret"></span>
         </a>
 
@@ -58,12 +58,12 @@ var Header = React.createClass({
 
 
         {teamsList}
-      </li>
+      </div>
 
       :
 
-      <li className="bootstrap-frm">
-      	<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+      <div className="dropdown">
+      	<a href="#">
           {userName} <span className="caret"></span>
         </a>
 
@@ -73,7 +73,7 @@ var Header = React.createClass({
       	    </Link>
 
 
-      </li>;
+      </div>;
 
     return (
 
