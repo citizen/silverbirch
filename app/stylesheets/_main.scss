@@ -381,7 +381,15 @@ ol, ul { list-style: none; }
     width: 428px;
     height: 200px;
     position: relative;
+    transition:height 0.5s; /* Animation time */
+    -webkit-transition:height 0.5s; /* For Safari */
 }
+
+#container:hover {
+    height: 500px; /* This is the height on hover */
+    width: 500px
+}
+
 
 #overlay {
 
@@ -399,4 +407,19 @@ ol, ul { list-style: none; }
     position: absolute;
     top: 0px;
     left: 0px;
+}
+
+.grow {
+  background-color:#2A75A9;
+    height: 100px; /* Origional height */
+    width: 100px; /* Origional width */
+    margin: 5px 1% 5px 1%; /* Just for presentation (Not required) */
+    float: left; /* Just for presentation (Not required) */
+    position: relative; /* Just for presentation (Not required) */
+    transition:height 0.5s; /* Animation time */
+    -webkit-transition:height 0.5s; /* For Safari */
+}
+.grow:hover {
+    height: 500px; /* This is the height on hover */
+    width: 500px
 }
