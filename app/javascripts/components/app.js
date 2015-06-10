@@ -15,6 +15,7 @@ var App = React.createClass({
   getInitialState: function () {
     return {
       user: null,
+      task: {},
       taskTree: {}
     };
   },
@@ -32,7 +33,23 @@ var App = React.createClass({
     }, this);
   },
 
+  componentWillReceiveProps: function () {
+    if (this.getParams().taskId) {
+      this.setTask(this.getParams().taskId);
+    };
+  },
+
+  setTask: function () {
+    this.setState({
+      task: this.sbFbGraph[this.getParams().taskId]
+    });
+  },
+
   processGraph: function (sbGraph, node) {
+    if (node.key === this.getParams().taskId) {
+      this.setTask(this.getParams().taskId);
+    };
+
     switch (node.properties.is_type) {
       case 'task':
         var taskTree = {},
@@ -108,6 +125,7 @@ var App = React.createClass({
     return (
       <RouteHandler
         user={this.state.user}
+        task={this.state.task}
         tasks={this.state.taskTree}
         {...this.props} />
     );
