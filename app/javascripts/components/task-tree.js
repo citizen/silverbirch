@@ -20,9 +20,9 @@ var TaskTreeItem = React.createClass({
   },
 
   setCreator: function() {
-    if (!this.props.task.created_by) { return false; };
+    if (!this.props.treeItem.properties.created_by) { return false; };
 
-    var user = this.props.task.created_by;
+    var user = this.props.treeItem.properties.created_by;
 
     this.props.fbRef.child(user).once('value', function (userSnapshot) {
       var userData = userSnapshot.val();
@@ -42,7 +42,7 @@ var TaskTreeItem = React.createClass({
   },
 
   render: function() {
-    var task = this.props.task,
+    var task = this.props.treeItem,
       	cx = React.addons.classSet,
       	taskTree = (task.relationships.has_children) ?
           <TaskTree tasks={task.relationships.has_children} fbRef={this.props.fbRef} /> :
@@ -72,30 +72,30 @@ var TaskTreeItem = React.createClass({
     return (
       <section className="wrap-left-column">
         <article className="left-column">
-          {/*<Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>*/}
-          <div className="container" onClick={this.expandToggle}>
-            {profileLink}
+          <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
+            <div className="container" onClick={this.expandToggle}>
+              {profileLink}
 
-            <div id="base">
-              <div className="task-box-info">
-                <div className="assignees">
-                  <i className="fa fa-user"></i>
+              <div id="base">
+                <div className="task-box-info">
+                  <div className="assignees">
+                    <i className="fa fa-user"></i>
+                  </div>
+
+                  <div className={classes}>
+                    <h4>{task.properties.has_meta.title}</h4>
+                    {description}
+                  </div>
+
+                  {metaData}
                 </div>
 
-                <div className={classes}>
-                  <h4>{task.properties.has_meta.title}</h4>
-                  {description}
-                </div>
+                <TaskControls task={task} {...this.props} />
 
-                {metaData}
+                {taskTree}
               </div>
-
-              <TaskControls task={task} {...this.props} />
-
-              {taskTree}
             </div>
-          </div>
-          {/*</Link>*/}
+          </Link>
         </article>
       </section>
     );
@@ -113,7 +113,7 @@ var TaskTree = React.createClass({
 
       if (!Object.keys(task).length || task.properties.archived) { return null; }
 
-      return <TaskTreeItem task={task} key={taskId} {...this.props} />;
+      return <TaskTreeItem treeItem={task} key={taskId} {...this.props} />;
     }.bind(this));
 
     return (
