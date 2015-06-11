@@ -24,7 +24,7 @@ var App = React.createClass({
     this.props.fbRef.onAuth(function (auth) {
       if(auth) {
         // user is logged in, sync graph
-        this.sbFbGraph = new SbFbGraph(this.props.fbRef, auth.uid, this.processGraph);
+        SbFbGraph(this.props.fbRef, auth.uid, this.processGraph);
       }
       else {
         // user is logged out, redirect to login
