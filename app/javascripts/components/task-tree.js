@@ -80,7 +80,6 @@ var TaskTree = React.createClass({
 
   componentWillReceiveProps: function () {
     var graph = this.props.graph;
-    console.log('graph ' , graph);
 
     var tasksAll = Object.keys(graph).filter(function (task) {
       if (
@@ -92,7 +91,6 @@ var TaskTree = React.createClass({
       }
     });
 
-    console.log('tasksAll ' , tasksAll);
     this.processGraph(tasksAll, graph);
   },
 

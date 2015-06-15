@@ -47,58 +47,39 @@ var Header = React.createClass({
 
     teamsDropdown = (this.props.user && this.props.user.properties.in_teams) ?
       <div className="dropdown">
-
-
-
-        <a href="#" >
+        <span>
           {viewContextName} <span className="caret"></span>
-        </a>
-
-
-          <Link to="tasks" params={{viewContext: this.props.user.properties.username}}>
-            <span>{this.props.user.properties.username}</span>
-          </Link>
-
-
+        </span>
+        <Link to="tasks" params={{viewContext: this.props.user.properties.username}}>
+          <span>{this.props.user.properties.username}</span>
+        </Link>
         {teamsList}
       </div>
-
       :
-
       <div className="dropdown">
-      	<a href="#">
+      	<span>
           {userName} <span className="caret"></span>
-        </a>
-
-
-      	    <Link to="tasks" params={{viewContext: userName}}>
-      	      <span>{userName}</span>
-      	    </Link>
-
-
+        </span>
+  	    <Link to="tasks" params={{viewContext: userName}}>
+  	      <span>{userName}</span>
+  	    </Link>
       </div>;
 
     return (
+      <nav className="navigation">
+        <div className="header-left">
+          {teamsDropdown}
+        </div>
 
-
-        <nav className="navigation">
-
-            <div className="header-left">
-
-              {teamsDropdown}
-            </div>
-            <div className="header-right">
-            <ul>
-
-              <li><Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link></li>
-              <li><Link to="report" params={{viewContext: viewContextName}}>Report</Link></li>
-              <li>{profileLink}</li>
-              <li>{loginOrOut}</li>
-              </ul>
-            </div>
-
-        </nav>
-
+        <div className="header-right">
+          <ul>
+            <li><Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link></li>
+            <li><Link to="report" params={{viewContext: viewContextName}}>Report</Link></li>
+            <li>{profileLink}</li>
+            <li>{loginOrOut}</li>
+          </ul>
+        </div>
+      </nav>
     );
   }
 });
