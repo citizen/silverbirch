@@ -8,6 +8,6 @@ var fb = require('firebase'),
 
 Router.run(routes, (Handler, State) => {
   var fbRef = new fb(config.db);
-  React.render(<Handler fbRef={fbRef} />, document.getElementById('app'));
+  React.render(<Handler fbRef={fbRef} />, document.body);
 });
 
