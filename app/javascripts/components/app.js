@@ -15,8 +15,7 @@ var App = React.createClass({
   getInitialState: function () {
     return {
       user: null,
-      task: {},
-      taskTree: {}
+      graph: {}
     };
   },
 
@@ -24,7 +23,7 @@ var App = React.createClass({
     this.props.fbRef.onAuth(function (auth) {
       if(auth) {
         // user is logged in, sync graph
-        SbFbGraph(this.props.fbRef, auth.uid, this.processGraph);
+        SbFbGraph(this.props.fbRef, auth.uid, this.setGraph);
       }
       else {
         // user is logged out, redirect to login
@@ -33,100 +32,30 @@ var App = React.createClass({
     }, this);
   },
 
-  componentWillReceiveProps: function () {
-    if (this.getParams().taskId) {
-      this.setTask(this.getParams().taskId);
-    };
-  },
-
-  setTask: function () {
-    this.setState({
-      task: this.sbFbGraph[this.getParams().taskId]
-    });
-  },
-
-  processGraph: function (sbGraph, node) {
-    if (node.key === this.getParams().taskId) {
-      this.setTask(this.getParams().taskId);
-    };
-
-    switch (node.properties.is_type) {
-      case 'task':
-        var taskTree = {},
-            tasksAll = [],
-            tasksWithChildren = [],
-            treeTops = this.state.taskTree;
-
-        treeTops[node.key] = node;
-
-        tasksAll = Object.keys(sbGraph)
-          .filter(function (task) {
-            if (
-              sbGraph[task].hasOwnProperty('properties') &&
-              sbGraph[task].properties.hasOwnProperty('has_state') &&
-              sbGraph[task].properties.has_state !== 'archived'
-            ) {
-              return sbGraph[task].properties.is_type === 'task';
-            }
-          });
-
-        tasksWithChildren = _.flatten(tasksAll
-          .filter(function (task) {
-            if (sbGraph[task].hasOwnProperty('relationships')) {
-              return sbGraph[task].relationships.hasOwnProperty('has_children');
-            }
-          })
-          .map(function (taskId) {
-            if (
-              sbGraph[taskId].relationships &&
-              sbGraph[taskId].relationships.hasOwnProperty('has_children')
-            ) {
-              return Object.keys(sbGraph[taskId].relationships.has_children);
-            }
-          })
-        );
-
-        treeTops = _.difference(tasksAll, tasksWithChildren);
-
-        treeTops.forEach(function (taskId) {
-          taskTree[taskId] = sbGraph[taskId];
-        });
-
-        this.setState({
-          taskTree: taskTree
-        });
-        break;
-
-      case 'taskList':
-        // console.log('TaskList node: ', node);
-        break;
-
-      case 'user':
-        // console.log('User node: ', node);
-        this.setUser(node);
-        break;
-
-      case 'provider_id':
-        // console.log('Auth provider node: ', node);
-        break;
-      default:
-        console.warn('Unrecognised node type: ' + node.properties.is_type);
+  setGraph: function (sbGraph, node) {
+    if (node.properties.is_type === 'user') {
+      this.setUser(node);
     }
+
+    this.setState({
+      graph: sbGraph
+    });
+
+    this.forceUpdate();
+
   },
 
   setUser: function (userData) {
     this.setState({
       user: userData
     });
-    this.forceUpdate();
   },
 
   render: function () {
     return (
       <RouteHandler
         user={this.state.user}
-        task={this.state.task}
-        tasks={this.state.taskTree}
+        graph={this.state.graph}
         {...this.props} />
     );
   }

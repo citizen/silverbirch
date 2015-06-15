@@ -53,7 +53,7 @@ var TaskForm = React.createClass({
 
     // find owner's task list (or create it if it doesn't exist)
     if (owner.relationships && owner.relationships.has_task_list) {
-      taskList = owner.relationships.has_task_list;
+      taskList = owner.relationships.has_task_list.key;
     } else {
       // Build taskList object for storage
       var has_tasks = {};
@@ -70,7 +70,7 @@ var TaskForm = React.createClass({
       taskList = taskList.key();
 
       // Store taskList
-      dbRef.child(owner.properties.sbid + '/relationships/has_task_list').set(taskList);
+      dbRef.child(owner.key + '/relationships/has_task_list').set(taskList);
     }
 
     // Add new task to task list

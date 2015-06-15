@@ -8,8 +8,7 @@ var React = require('react'),
 var Task = React.createClass({
   mixins: [
     Router.State,
-    Authentication,
-    React.PureRenderMixin
+    Authentication
   ],
 
   render: function () {

@@ -3,13 +3,11 @@
 var React = require('react'),
     Router = require('react-router'),
     { RouteHandler } = Router,
-    PureRenderMixin = React.addons.PureRenderMixin,
     Header = require('./includes/header');
 
 var ViewContext = React.createClass({
   mixins: [
-    Router.State,
-    PureRenderMixin
+    Router.State
   ],
 
   getInitialState: function () {
@@ -27,35 +25,31 @@ var ViewContext = React.createClass({
   },
 
   updateViewing: function () {
+    // TODO: only do this if the view context changes
     if (this.props.user) {
       var viewing = this.getParams().viewContext;
 
+      // persist viewing context change to firebase
       this.props.fbRef
         .child(this.props.user.key + '/properties/is_viewing')
         .set('sb:' + viewing);
 
-      this.props.fbRef
-        .child('sb:' + viewing)
-        .once('value', function(viewContextSnapshot) {
-        	this.setState({
-        	  viewContextObject: viewContextSnapshot.val()
-        	});
-        }.bind(this));
+    	this.setState({
+    	  viewContextObject: this.props.graph['sb:' + viewing]
+    	});
     }
   },
 
   render: function() {
     return (
       <div>
-         <Header
+        <Header
           viewContext={this.state.viewContextObject}
-          {...this.props}
-        />
+          {...this.props} />
         <RouteHandler
           viewContext={this.state.viewContextObject}
-          {...this.props}
-        />
-     </div>
+          {...this.props} />
+      </div>
     );
   }
 });

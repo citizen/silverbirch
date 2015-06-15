@@ -1,11 +1,12 @@
 'use strict';
 
-var $ = require('jquery'),
+var _ = require('lodash'),
+    $ = require('jquery'),
+    moment = require('moment'),
     React = require('react/addons'),
     Router = require('react-router'),
     { Link } = Router,
-    TaskControls = require('./task-controls'),
-    moment = require('moment');
+    TaskControls = require('./task-controls');
 
 var TaskTreeItem = React.createClass({
   getInitialState: function () {
@@ -103,13 +104,67 @@ var TaskTreeItem = React.createClass({
 });
 
 var TaskTree = React.createClass({
-  mixins: [
-    React.PureRenderMixin
-  ],
+  getInitialState: function () {
+    return {
+      taskTree: {}
+    };
+  },
+
+  componentWillReceiveProps: function () {
+    var graph = this.props.graph;
+
+    var tasksAll = Object.keys(graph).filter(function (task) {
+      if (
+        graph[task].hasOwnProperty('properties') &&
+        graph[task].properties.hasOwnProperty('has_state') &&
+        graph[task].properties.has_state !== 'archived'
+      ) {
+        return graph[task].properties.is_type === 'task';
+      }
+    });
+
+    this.processGraph(tasksAll, graph);
+  },
+
+  processGraph: function (tasksAll, graph) {
+    Object.keys(graph).forEach(function (node) {
+      var taskTree = {},
+          tasksWithChildren = [],
+          treeTops = this.state.taskTree;
+
+      treeTops[node.key] = node;
+
+      tasksWithChildren = _.flatten(tasksAll
+        .filter(function (task) {
+          if (graph[task].hasOwnProperty('relationships')) {
+            return graph[task].relationships.hasOwnProperty('has_children');
+          }
+        })
+        .map(function (taskId) {
+          if (
+            graph[taskId].relationships &&
+            graph[taskId].relationships.hasOwnProperty('has_children')
+          ) {
+            return Object.keys(graph[taskId].relationships.has_children);
+          }
+        })
+      );
+
+      treeTops = _.difference(tasksAll, tasksWithChildren);
+
+      treeTops.forEach(function (taskId) {
+        taskTree[taskId] = graph[taskId];
+      });
+
+      this.setState({
+        taskTree: taskTree
+      });
+    }.bind(this));
+  },
 
   render: function() {
-    var tasks = Object.keys(this.props.tasks).map(function (taskId) {
-      var task = this.props.tasks[taskId];
+    var tasks = Object.keys(this.state.taskTree).map(function (taskId) {
+      var task = this.props.graph[taskId];
 
       if (!Object.keys(task).length || task.properties.archived) { return null; }
 
