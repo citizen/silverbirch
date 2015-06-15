@@ -11,7 +11,7 @@ var React = require('react'),
     Profile = require('./components/profile'),
     Report = require('./components/report'),
     AddTask = require('./components/task-form-add'),
-    //EditTask = require('./components/task-form-edit'),
+    // EditTask = require('./components/task-form-edit'),
     ViewContext = require('./components/view-context');
 
 
@@ -22,7 +22,9 @@ var routes = (
     <Route path=":viewContext" handler={ViewContext}>
       <Route name="tasks" handler={Tasks}>
         <Route name="newTask" path="new" handler={AddTask}/>
-        <Route name="task" path=":taskId" handler={Task}/>
+        <Route name="task" path=":taskId" handler={Task}>
+          <Route name="editTask" path="edit" handler={Task}/>
+        </Route>
       </Route>
       <Route name="profile" handler={Profile}/>
       <Route name="report" handler={Report}/>

@@ -2,7 +2,6 @@
 
 var _ = require('lodash'),
     $ = require('jquery'),
-    moment = require('moment'),
     React = require('react/addons'),
     Router = require('react-router'),
     { Link } = Router,
@@ -11,8 +10,7 @@ var _ = require('lodash'),
 var TaskTreeItem = React.createClass({
   getInitialState: function () {
     return {
-      userInfo: null,
-      taskExpanded: false
+      userInfo: null
     };
   },
 
@@ -34,47 +32,23 @@ var TaskTreeItem = React.createClass({
     }.bind(this));
   },
 
-  expandToggle: function (event) {
-    if ( !$(event.target).hasClass('btn-primary-archive') ) {
-      this.setState({
-        taskExpanded: !this.state.taskExpanded
-      })
-    };
-  },
-
   render: function() {
     var task = this.props.treeItem,
-      	cx = React.addons.classSet,
       	taskTree = (task.relationships.has_children) ?
           <TaskTree tasks={task.relationships.has_children} fbRef={this.props.fbRef} /> :
           '';
 
-    var classes = cx({
-      'archived': task.properties.has_state === 'archived',
-      'comment-post': true
-    });
-
     var profileLink = (this.props.user.properties.avatar) ?
         <img className="round" src={this.props.user.properties.avatar} /> : '';
 
-    var time = moment(task.properties.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
-
-    var description = (this.state.taskExpanded) ?
-        <p>{task.properties.has_meta.description}</p> : '';
-
     var viewContextName = (this.props.viewContext) ?
           this.props.viewContext.properties.sbid.split(":")[1] : "";
-
-    var metaData = (this.state.taskExpanded) ?
-      <header className="text-left">
-        <time className="comment-date" dateTime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> {time}</time>
-      </header> : '';
 
     return (
       <section className="wrap-left-column">
         <article className="left-column">
           <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
-            <div className="container" onClick={this.expandToggle}>
+            <div className="container">
               {profileLink}
 
               <div id="base">
@@ -82,13 +56,7 @@ var TaskTreeItem = React.createClass({
                   <div className="assignees">
                     <i className="fa fa-user"></i>
                   </div>
-
-                  <div className={classes}>
-                    <h4>{task.properties.has_meta.title}</h4>
-                    {description}
-                  </div>
-
-                  {metaData}
+                  <h4>{task.properties.has_meta.title}</h4>
                 </div>
 
                 <TaskControls task={task} {...this.props} />
@@ -112,6 +80,7 @@ var TaskTree = React.createClass({
 
   componentWillReceiveProps: function () {
     var graph = this.props.graph;
+    console.log('graph ' , graph);
 
     var tasksAll = Object.keys(graph).filter(function (task) {
       if (
@@ -123,6 +92,7 @@ var TaskTree = React.createClass({
       }
     });
 
+    console.log('tasksAll ' , tasksAll);
     this.processGraph(tasksAll, graph);
   },
 

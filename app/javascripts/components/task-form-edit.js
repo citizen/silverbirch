@@ -69,6 +69,7 @@ var TaskForm = React.createClass({
   },
 
   render: function() {
+    console.log('this.props ' , this.props);
     return (
       <div className="right-column">
       <form className="bootstrap-frm" onSubmit={this.handleSubmit}>
