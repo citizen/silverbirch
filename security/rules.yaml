@@ -1,7 +1,7 @@
 functions:
   - isLoggedIn(): auth.uid !== null
 
-  - providerIdOwnsUser(): root[root[auth.uid].relationships.belongs_to_user].properties.uid == auth.uid
+  - providerIdOwnsUser(): root[root[auth.uid].relationships.belongs_to_user].relationships.has_provider_id == auth.uid
 
   - contextIsUser(): root[root[auth.uid].relationships.belongs_to_user].properties.is_viewing == root[auth.uid].relationships.belongs_to_user
   - contextIsTeam(): root[root[root[auth.uid].relationships.belongs_to_user].properties.is_viewing].relationships.has_members[root[auth.uid].relationships.belongs_to_user] == true
@@ -19,14 +19,14 @@ functions:
   # the user node's has_provider_id object must contain the auth.uid and the provider node's belongs_to_user must be equal to the user node's key
   # every other node's has_users must
   - writeNode(nodeId): (
-                         ( next.is_type == "provider_id" && auth.uid == nodeId ) ||
-                         ( next.is_type == "user" && ( ( !prev.exists() || prev.uid == auth.uid && root[auth.uid].relationships.belongs_to_user == nodeId ) && next.uid == auth.uid && root[auth.uid].relationships.belongs_to_user == nodeId ) ) ||
+                         ( next.properties.is_type == "provider_id" && auth.uid == nodeId ) ||
+                         ( next.properties.is_type == "user" && ( ( !prev.exists() || prev.relationships.has_provider_id == auth.uid && root[auth.uid].relationships.belongs_to_user == nodeId ) && next.relationships.has_provider_id == auth.uid && root[auth.uid].relationships.belongs_to_user == nodeId ) ) ||
                          ( userIsWhoTheySayTheyAre() && userOrTeamIsOrWillBeInNodesHasUser() )
                        )
 
   - readNode(nodeId): userIsWhoTheySayTheyAre() && (
-                        ( prev.is_type == "provider_id" && auth.uid == nodeId ) ||
-                        ( prev.is_type == "user" && prev.uid == auth.uid && root[auth.uid].relationships.belongs_to_user == nodeId ) ||
+                        ( prev.properties.is_type == "provider_id" && auth.uid == nodeId ) ||
+                        ( prev.properties.is_type == "user" && prev.relationships.has_provider_id == auth.uid && root[auth.uid].relationships.belongs_to_user == nodeId ) ||
                         userOrTeamIsInNodesHasUser()
                       )
 
@@ -49,10 +49,9 @@ schema:
                 - team
                 - provider_id
                 - taskList
-              #enum: [task, user, team, auth_provider, event, taskList, eventList]
           required:
             - is_type
-          constraint: (!prev.exists() || prev.is_type == next.is_type)
+          constraint: (!prev.exists() || prev.properties.is_type == next.properties.is_type)
           examples:
             - is_type: "task"
               has_dependancy: "something"
