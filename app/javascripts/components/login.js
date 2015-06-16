@@ -36,7 +36,7 @@ var Login = React.createClass({
           viewContext: userSnapshot.val().properties.username
         });
       }
-    }.bind(this));
+    }.bind(this), this.createUser(dbRef, userData));
   },
 
   createUser: function (dbRef, userData) {
@@ -58,6 +58,7 @@ var Login = React.createClass({
     userObj.properties.username     = githubUser.username;
     userObj.properties.is_viewing   = sbId;
     userObj.properties.displayName  = (githubUser.displayName) ? githubUser.displayName : null;
+    userObj.relationships.has_provider_id  = userData.auth.uid;
 
     authObj.properties.is_type = "provider_id";
     authObj.relationships.belongs_to_user = sbId;
