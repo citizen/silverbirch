@@ -36,7 +36,9 @@ var Login = React.createClass({
           viewContext: userSnapshot.val().properties.username
         });
       }
-    }.bind(this), this.createUser(dbRef, userData));
+    }.bind(this), function (Error) {
+      this.createUser(dbRef, userData);
+    }.bind(this));
   },
 
   createUser: function (dbRef, userData) {

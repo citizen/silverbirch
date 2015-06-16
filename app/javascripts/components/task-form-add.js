@@ -64,7 +64,8 @@ var TaskForm = React.createClass({
           "is_type": "taskList"
         },
         "relationships": {
-          "has_tasks": has_tasks
+	  "has_tasks": has_tasks,
+	  "has_users": has_users
         }
       });
       taskList = taskList.key();
