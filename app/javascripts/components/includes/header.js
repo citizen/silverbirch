@@ -45,8 +45,8 @@ var Header = React.createClass({
       <Link to="logout">Sign out</Link> :
       <Link to="login">Sign in</Link>;
 
-    teamsList = (this.props.user && this.props.user.properties.in_teams) ?
-      Object.keys(this.props.user.properties.in_teams).map(function(team, index) {
+    teamsList = (this.props.user && this.props.user.relationships.in_teams) ?
+      Object.keys(this.props.user.relationships.in_teams).map(function(team, index) {
         // TODO: request team data from DB for logo etc.
         var teamName = team.split(":")[1];
 
@@ -60,7 +60,7 @@ var Header = React.createClass({
       }) :
       "";
 
-    teamsDropdown = (this.props.user && this.props.user.properties.in_teams) ?
+    teamsDropdown = (this.props.user && this.props.user.relationships.in_teams) ?
       <div className="dropdown">
         <span>
           {viewContextName} <span className="caret"></span>
