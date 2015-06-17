@@ -12,13 +12,19 @@ var React = require('react'),
     Report = require('./components/report'),
     AddTask = require('./components/task-form-add'),
     // EditTask = require('./components/task-form-edit'),
-    ViewContext = require('./components/view-context');
+    ViewContext = require('./components/view-context'),
+    NewTeam = require('./pages/teams/new');
 
 
 var routes = (
   <Route handler={App}>
     <Route name="login" handler={Login}/>
     <Route name="logout" handler={Logout}/>
+
+    <Route name="teams" handler={NewTeam}>
+      <Route name="newTeam" path="new" handler={NewTeam}/>
+    </Route>
+
     <Route path=":viewContext" handler={ViewContext}>
       <Route name="tasks" handler={Tasks}>
         <Route name="newTask" path="new" handler={AddTask}/>
