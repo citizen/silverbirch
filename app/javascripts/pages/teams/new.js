@@ -36,7 +36,7 @@ var NewTeam = React.createClass({
     teamObj.relationships.has_users['sb:' + teamName] = true;
     teamObj.relationships.has_users[this.props.user.key] = true;
 
-    // TODO: validation and dupe detection
+    // TODO: input validation and dupe team detection
     dbRef.child('sb:' + teamName).set(teamObj, function (error) {
       if(error) {
         console.error(error);
@@ -44,9 +44,17 @@ var NewTeam = React.createClass({
 
       this.refs.teamName.getDOMNode().value = "";
 
-      this.replaceWith('tasks', {
-        viewContext: teamName
-      });
+      dbRef
+        .child(this.props.user.key + '/relationships/in_teams/sb:' + teamName)
+        .set(true, function (error) {
+          if (error) {
+            console.error(error);
+          }
+
+          this.replaceWith('tasks', {
+            viewContext: teamName
+          });
+        }.bind(this));
     }.bind(this));
   },
 

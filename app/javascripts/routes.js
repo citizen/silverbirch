@@ -15,7 +15,6 @@ var React = require('react'),
     ViewContext = require('./components/view-context'),
     NewTeam = require('./pages/teams/new');
 
-
 var routes = (
   <Route handler={App}>
     <Route name="login" handler={Login}/>
