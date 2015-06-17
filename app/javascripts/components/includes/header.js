@@ -5,16 +5,31 @@ var React = require('react'),
     { Link } = Router;
 
 var Header = React.createClass({
+  mixins: [
+    Router.State
+  ],
+
+  getViewContext: function () {
+    if (this.props.user && this.props.user.properties.is_viewing) {
+      return this.props.graph[this.props.user.properties.is_viewing];
+    }
+
+    return null;
+  },
+
   render: function () {
     var userName,
       	teamsList,
         loginOrOut,
         profileLink,
+        viewContext,
       	teamsDropdown,
       	viewContextName;
 
-    viewContextName = (this.props.viewContext) ?
-      this.props.viewContext.properties.sbid.split(":")[1] : "";
+    viewContext = this.getViewContext();
+
+    viewContextName = (viewContext && viewContext.hasOwnProperty('properties')) ?
+      viewContext.properties.sbid.split(":")[1] : "";
 
     userName = (this.props.user) ? this.props.user.properties.username : "";
 

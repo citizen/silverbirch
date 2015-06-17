@@ -2,8 +2,7 @@
 
 var React = require('react'),
     Router = require('react-router'),
-    { RouteHandler } = Router,
-    Header = require('./includes/header');
+    { RouteHandler } = Router;
 
 var ViewContext = React.createClass({
   mixins: [
@@ -42,14 +41,9 @@ var ViewContext = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <Header
-          viewContext={this.state.viewContextObject}
-          {...this.props} />
-        <RouteHandler
-          viewContext={this.state.viewContextObject}
-          {...this.props} />
-      </div>
+      <RouteHandler
+        viewContext={this.state.viewContextObject}
+        {...this.props} />
     );
   }
 });

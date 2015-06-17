@@ -4,7 +4,8 @@ var _ = require('lodash'),
     React = require('react'),
     Router = require('react-router'),
     { RouteHandler } = Router,
-    SbFbGraph = require('./sbFbGraph');
+    SbFbGraph = require('./sbFbGraph'),
+    Header = require('./includes/header');
 
 var App = React.createClass({
   mixins: [
@@ -53,10 +54,16 @@ var App = React.createClass({
 
   render: function () {
     return (
-      <RouteHandler
-        user={this.state.user}
-        graph={this.state.graph}
-        {...this.props} />
+      <div>
+        <Header
+          user={this.state.user}
+          graph={this.state.graph}
+          {...this.props} />
+        <RouteHandler
+          user={this.state.user}
+          graph={this.state.graph}
+          {...this.props} />
+      </div>
     );
   }
 });
