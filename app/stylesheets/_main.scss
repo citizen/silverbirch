@@ -31,24 +31,41 @@
 }
 
 .btn-primary-archive {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  background-color: #F00;
-  width: 25px;
-  display: block;
-  height: 25px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background-color: $grey-4;
+      display: block;
+      color: $white;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      border-radius: 50%;
+    &:hover {
+        background:$red;
+    }
 }
 
 .new-task-btn {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  padding: 10px 20px;
+  bottom: 0;
+  right: 0;
+  width: 30%;
+  text-align: right;
 }
 
 .new-task-btn.active {
   display: inline-block;
-  transform: rotateZ(45deg);
+  background: $grey-4;
+  width: 30%;
+  &:hover {
+    background:$red;
+  }
+    img {
+        transform: rotateZ(45deg);
+    }
 }
 
 .task-whole {
@@ -61,6 +78,8 @@
 
 .header-left {
     float: left;
+    line-height: 35px!important;
+    padding-left: 10px;
 }
 
 #header-wrap {
@@ -106,16 +125,20 @@
 
 .add-task-box {
     float: right;
-    margin-top: 10px;
-    padding: 20px;
-    border-radius: 10%;
+    // margin-top: 10px;
+    // padding: 20px;
+    // border-radius: 10%;
     overflow: hidden;
-    width: 450px;
-    background-color: rgb(250, 235, 158);
-    border-bottom-color: black;
-    position: relative;
-    top: -10px;
-    left: -10px
+    width: 30%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    background-color: red;
+    // padding: 1.5em 1.5em 0 1.5em;
+    // border-bottom-color: black;
+    position: absolute;
+    // top: -10px;
+    // left: -10px
 }
 
 .edit-task-box {
@@ -137,7 +160,7 @@
     border-radius: 10%;
     overflow: hidden;
     width: 560px;
-    background-color: rgb(198, 239, 236);
+
     border-bottom-color: black;
     position: relative;
     margin-bottom: 10px;
@@ -148,7 +171,7 @@
 .task-box-info {
     padding: 20px;
     font-size: 10px;
-    background-color: rgb(198, 239, 236);
+
 }
 
 .image {
@@ -167,7 +190,7 @@
 
 a,
 a:visited {
-    color: #93291b;
+    color: $grey-3;
     text-decoration: none;
 }
 
@@ -357,16 +380,27 @@ ol, ul { list-style: none; }
 .dropdown {
     margin-left:auto;
     margin-right:auto;
-
     max-width: 500px;
-
-    /*background: #FFF;*/
+    height: 100%;
     padding: 10px 20px 20px 30px;
     font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #888;
-
+    height: 35px;
+    overflow: hidden;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
+    position: absolute;
+    left: 70px;
+
+    li {
+      line-height: 35px;
+    }
+
+    &:hover {
+      height: auto;
+      background: $grey-4;
+      z-index: 9999;
+    }
 }
 
 .container {

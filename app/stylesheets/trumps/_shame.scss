@@ -2,6 +2,79 @@
     #SHAME
 \*------------------------------------*/
 
+body {
+  background: $grey-5;
+}
+
+.container {
+  background: $white;
+  padding: 1em;
+  border-radius: 0.15em;
+}
+
+
+.right-column-task {
+  top: 35px;
+  height: 100%;
+  width: 30%;
+  right: 0;
+  background-color: $grey-1;
+
+  input, textarea {
+    width: 100%!important;
+    background: $white;
+    border: 0!important;
+  }
+
+}
+
+.panel-title {
+  text-align: center;
+  color: $white;
+  @include adjust-font-size-to($h1-fz);
+  border-bottom: 1px solid $grey-4;
+  padding: 0!important;
+  margin: 0!important;
+  line-height: 3em!important;
+  color: $grey-3;
+}
+
+.well {
+  text-align: center;
+  color: $white;
+  @include adjust-font-size-to($h1-fz);
+  border-bottom: 1px solid $grey-4;
+  line-height: 2em!important;
+  padding: 0!important;
+  margin: 0!important;
+  &:hover {
+    background: $green;
+  }
+}
+
+.bootstrap-frm {
+  background: transparent;
+  border: 0;
+}
+
+.new-task-btn {
+  z-index: 9999;
+}
+
+.new-task-btn {
+  background: $green;
+  width: auto;
+}
+
+button[type=submit] {
+  background-color: $green;
+  width: 100%;
+}
+
+/*------------------------------------*\
+    #ORIGINAL SHAME
+\*------------------------------------*/
+
 .avatar {
   margin: 0 10px;
   width: 24px;
