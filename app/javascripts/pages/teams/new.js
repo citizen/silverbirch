@@ -14,7 +14,7 @@ var NewTeam = React.createClass({
 
     var teamObj = {},
         dbRef = this.props.fbRef,
-	rawTeamName = this.refs.teamName.getDOMNode().value.trim();
+      	rawTeamName = this.refs.teamName.getDOMNode().value.trim();
 
     // Require at least a team name
     if (!rawTeamName) {
@@ -28,7 +28,7 @@ var NewTeam = React.createClass({
     teamObj = {
       properties: {
         "is_type": "team",
-	"username": rawTeamName,
+      	"username": rawTeamName,
         "sbid": "sb:" + teamName
       },
       "relationships": {

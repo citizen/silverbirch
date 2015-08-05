@@ -23,9 +23,9 @@ var Header = React.createClass({
       	teamsList,
         loginOrOut,
         viewContext,
-	profileLink,
+      	profileLink,
       	teamsDropdown,
-	viewContextName;
+      	viewContextName;
 
     userName = (this.props.user) ? this.props.user.properties.username : "";
 
@@ -50,7 +50,7 @@ var Header = React.createClass({
     return (
       <nav className="navigation">
         <div className="header-left">
-	  <TeamDropdown {...this.props}/>
+      	  <TeamDropdown {...this.props}/>
           <Link to="newTeam">
             <span>New Team</span>
           </Link>

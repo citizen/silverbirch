@@ -24,14 +24,14 @@ var Dropdown = React.createClass({
       var teams = this.props.user.relationships.in_teams;
 
       Object.keys(teams).forEach(function(team) {
-	if (this.props.graph[team].properties) {
-	  if (currentView === team) {
-	    teamsList.unshift(this.props.graph[team]);
-	  }
-	  else {
-	    teamsList.push(this.props.graph[team]);
-	  }
-	}
+      	if (this.props.graph[team].properties) {
+      	  if (currentView === team) {
+      	    teamsList.unshift(this.props.graph[team]);
+      	  }
+      	  else {
+      	    teamsList.push(this.props.graph[team]);
+      	  }
+      	}
       }.bind(this));
     }
 
@@ -39,15 +39,15 @@ var Dropdown = React.createClass({
       var teamUrl = team.properties.sbid.replace(/sb:/, '');
 
       return (
-	<Link to="tasks" params={{viewContext: teamUrl}} key={index}>
-	  <span>{team.properties.username}</span>
-	</Link>
+      	<Link to="tasks" params={{viewContext: teamUrl}} key={index}>
+      	  <span>{team.properties.username}</span>
+      	</Link>
       )
     });
 
     return (
       <div className="dropdown">
-	{dropdownList}
+      	{dropdownList}
       </div>
     )
   }
