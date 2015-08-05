@@ -6,6 +6,11 @@ body {
   background: $grey-5;
 }
 
+.form-group #title {
+  margin-top:12px;
+  float: left;
+}
+
 
 #title, #description {
   width: 100%!important;
@@ -67,7 +72,8 @@ a.btn-primary {
 
 
 .right-column-task {
-  top: 35px;
+  top: 0;
+  padding-top: 40px;
   height: 100%;
   width: 30%;
   right: 0;
