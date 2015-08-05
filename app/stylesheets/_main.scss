@@ -113,9 +113,9 @@
 }
 
 .left-column {
-    width: 350px;
+    width: 450px;
     float: left;
-    margin-left: 100px;
+    margin-left: 50px;
 }
 
 .wrap-left-column {
@@ -125,35 +125,29 @@
 
 .add-task-box {
     float: right;
-    // margin-top: 10px;
-    // padding: 20px;
-    // border-radius: 10%;
     overflow: hidden;
     width: 30%;
     height: 100%;
     right: 0;
-    top: 35px;
-    padding: 1em;
-    background-color: $grey-1;
-    // padding: 1.5em 1.5em 0 1.5em;
-    // border-bottom-color: black;
+    padding-top: 35px;
+    top: 0;
     position: absolute;
-    // top: -10px;
-    // left: -10px
 }
 
-.edit-task-box {
-    float: right;
-    padding: 20px;
-    border-radius: 10%;
-    overflow: hidden;
-    width: 450px;
-    background-color: rgb(243, 171, 134);
-    border-bottom-color: black;
-    position: relative;
-    top: -10px;
-    left: -10px
-}
+// .edit-task-box {
+//     padding: 1em;
+//     background-color: red;
+//     float: right;
+//     padding: 20px;
+//     border-radius: 10%;
+//     overflow: hidden;
+//     width: 450px;
+//     background-color: rgb(243, 171, 134);
+//     border-bottom-color: black;
+//     position: relative;
+//     top: -10px;
+//     left: -10px
+// }
 
 .task-box {
     float: left;
@@ -161,7 +155,6 @@
     border-radius: 10%;
     overflow: hidden;
     width: 560px;
-
     border-bottom-color: black;
     position: relative;
     margin-bottom: 10px;
@@ -241,23 +234,11 @@ a.read-more:hover {
     text-decoration: none;
 }
 
-
-
-
-
-
-
-
-
 /* #### bootstrap Form #### */
 .bootstrap-frm {
     margin-left:auto;
     margin-right:auto;
-
     max-width: 500px;
-    background-color: rgb(250, 235, 158);
-    /*background: #FFF;*/
-    padding: 20px 30px 20px 30px;
     font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #888;
     text-shadow: 1px 1px 1px #FFF;

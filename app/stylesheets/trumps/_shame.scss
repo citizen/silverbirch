@@ -6,6 +6,55 @@ body {
   background: $grey-5;
 }
 
+
+#title, #description {
+  width: 100%!important;
+  padding: 1em;
+  border: 0;
+  border-radius: 5px;
+  background: $white;
+}
+
+.fa-clock-o {
+  color: $grey-3;
+}
+
+#description {
+  min-height: 300px;
+}
+
+.comment-date {
+  font-size: 11px;
+   color: $grey-3;
+}
+
+
+.right-column-task, .add-task-box {
+    background-color: $grey-1;
+}
+
+.btn-primary {
+  background-color: $gray;
+  padding: 1em;
+  text-align: right;
+  &:hover {
+    background: $green;
+    font-weight: bold;
+    text-decoration: none;
+    color: $black;
+  }
+}
+
+a.btn-primary {
+  color: $white;
+}
+
+.task-body, .right-column-task {
+  padding: 1em;
+}
+
+
+
 .container {
   background: $white;
   padding: 1em;
@@ -13,12 +62,15 @@ body {
 }
 
 
+
+
+
+
 .right-column-task {
   top: 35px;
   height: 100%;
   width: 30%;
   right: 0;
-  background-color: $grey-1;
 
   input, textarea {
     width: 100%!important;
