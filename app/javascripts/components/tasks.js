@@ -28,9 +28,7 @@ var Tasks = React.createClass({
       "anguspaterson"
     ];
 
-    var viewContextName = (this.props.viewContext)
-          ? this.props.viewContext.properties.sbid.split(":")[1]
-          : "";
+    var viewContextName = this.getParams().viewContext;
 
     var path = this.getPathname().split('/').pop();
     var toggleRoute = (path === 'new') ? 'tasks' : 'newTask';

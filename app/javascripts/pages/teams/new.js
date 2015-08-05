@@ -14,18 +14,21 @@ var NewTeam = React.createClass({
 
     var teamObj = {},
         dbRef = this.props.fbRef,
-        teamName = this.refs.teamName.getDOMNode().value.trim();
+	rawTeamName = this.refs.teamName.getDOMNode().value.trim();
 
     // Require at least a team name
-    if (!teamName) {
+    if (!rawTeamName) {
       window.alert('Enter a team name!');
       return;
     }
+
+    var teamName = rawTeamName.toLowerCase().replace(/ /g, '_');
 
     // Create the object to be sotored
     teamObj = {
       properties: {
         "is_type": "team",
+	"username": rawTeamName,
         "sbid": "sb:" + teamName
       },
       "relationships": {
