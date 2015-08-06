@@ -79,9 +79,25 @@ var TaskTree = React.createClass({
   },
 
   componentWillReceiveProps: function () {
-    var graph = this.props.graph;
+    var taskList = {},
+        graph = this.props.graph;
 
-    var tasksAll = Object.keys(graph).filter(function (task) {
+    // TODO: clean up this horrid hacky mess
+    if (this.props.user) {
+      var isViewing = graph[this.props.user.properties.is_viewing];
+
+      if (
+      	isViewing.relationships &&
+      	isViewing.relationships.hasOwnProperty('has_task_list')
+      ) {
+      	if (graph[isViewing.relationships.has_task_list.key]) {
+      	  taskList = graph[isViewing.relationships.has_task_list.key].relationships.has_tasks;
+      	};
+      };
+
+    };
+
+    var tasksAll = Object.keys(taskList).filter(function (task) {
       if (
         graph[task].hasOwnProperty('properties') &&
         graph[task].properties.hasOwnProperty('has_state') &&
