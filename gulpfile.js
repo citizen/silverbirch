@@ -28,7 +28,14 @@ gulp.task('clean', function(cb) {
 });
 
 // Styles
-gulp.task('styles:dev', ['fonts'], function() {
+gulp.task('styles:copy', function() {
+  return gulp.src([
+    './node_modules/jquery-sidr/lib/jquery.sidr.light.css'
+  ])
+    .pipe(gulp.dest(dist + '/stylesheets'));
+});
+
+gulp.task('styles:dev', ['fonts', 'styles:copy'], function() {
   return gulp.src(files.scss + '/**/*.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
@@ -58,7 +65,7 @@ gulp.task('styles:build', ['fonts'], function() {
 });
 
 // Scripts
-gulp.task('scripts:dev', function() {
+gulp.task('scripts:copy', function() {
   return browserify({
       entries: files.js + '/main.js',
       debug: true
@@ -66,6 +73,14 @@ gulp.task('scripts:dev', function() {
     .bundle()
     .pipe(source('main.js'))
     .pipe(gulp.dest(dist + '/javascripts'));
+});
+
+gulp.task('scripts:dev', ['scripts:copy'], function() {
+  return gulp.src([
+    './node_modules/jquery/dist/jquery.js',
+    './node_modules/jquery-sidr/lib/jquery.sidr.min.js'
+  ])
+  .pipe(gulp.dest(dist + '/javascripts'));
 });
 
 gulp.task('scripts:build', function() {
