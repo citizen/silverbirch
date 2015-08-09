@@ -25,6 +25,20 @@
     left: -10px
 }
 
+.menu-btn {
+  color: $grey-4;
+  cursor: pointer;
+  background: white;
+
+  &.left {
+    float: left;
+  }
+
+  &.right {
+    float: right;
+  }
+}
+
 .btn-primary {
     display: block;
 

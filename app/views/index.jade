@@ -8,6 +8,20 @@ html(class='no-js')
     title SilverBirch
 
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/jquery.sidr.light.css')
 
   body
     script(src='/javascripts/main.js')
+    script(src='/javascripts/jquery.js')
+    script(src='/javascripts/jquery.sidr.min.js')
+    script.
+      $(document).ready(function() {
+	$('#left-menu').sidr({
+	  name: 'sidr-left',
+	  side: 'left' // By default
+	});
+	$('#right-menu').sidr({
+	  name: 'sidr-right',
+	  side: 'right'
+	});
+      });
