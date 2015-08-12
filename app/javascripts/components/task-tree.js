@@ -14,7 +14,7 @@ var TaskTreeItem = React.createClass({
     };
   },
 
-  componentWillMount: function () {
+  componentDidMount: function () {
     this.setCreator();
   },
 
@@ -23,13 +23,9 @@ var TaskTreeItem = React.createClass({
 
     var user = this.props.treeItem.properties.created_by;
 
-    this.props.fbRef.child(user).once('value', function (userSnapshot) {
-      var userData = userSnapshot.val();
-
-      this.setState({
-        userInfo: userData
-      });
-    }.bind(this));
+    this.setState({
+      userInfo: this.props.graph[user]
+    });
   },
 
   render: function() {
@@ -38,8 +34,11 @@ var TaskTreeItem = React.createClass({
           <TaskTree tasks={task.relationships.has_children} fbRef={this.props.fbRef} /> :
           '';
 
-    var profileLink = (this.props.user.properties.avatar) ?
-        <img className="round" src={this.props.user.properties.avatar} /> : '';
+    var profileLink = (
+      this.state.userInfo &&
+      this.state.userInfo.properties
+    ) ? <img className="round" src={this.state.userInfo.properties.avatar} />
+      : '';
 
     var viewContextName = (this.props.viewContext) ?
           this.props.viewContext.properties.sbid.split(":")[1] : "";
