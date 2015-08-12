@@ -3,7 +3,7 @@
 var React = require('react'),
     Router = require('react-router'),
     { Link } = Router,
-    TeamDropdown = require('./dropdown.js');
+    TeamDropdown = require('./dropdown');
 
 var Header = React.createClass({
   mixins: [

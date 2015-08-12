@@ -33,9 +33,6 @@ var Tasks = React.createClass({
     var path = this.getPathname().split('/').pop();
     var toggleRoute = (path === 'new') ? 'tasks' : 'newTask';
 
-         //<Menu position="left" title="Teams" menuItems={leftMenuItems} />
-         //<Menu position="right" title="Members" menuItems={rightMenuItems} />
-
     return (
       <div className="wrap-left-column">
         <div className="left-column">

@@ -2,7 +2,8 @@
 
 var React = require('react'),
     Router = require('react-router'),
-    { RouteHandler } = Router;
+    { RouteHandler } = Router,
+    SubHeader = require('./includes/subheader');
 
 var ViewContext = React.createClass({
   mixins: [
@@ -40,10 +41,26 @@ var ViewContext = React.createClass({
   },
 
   render: function() {
+    var teamMembersList = '';
+
+    if (
+      this.state.viewContextObject &&
+      this.state.viewContextObject.properties &&
+      this.state.viewContextObject.properties.is_type === 'team'
+    ) {
+      var team = this.state.viewContextObject.key,
+          teamMembers = this.props.graph[team].relationships.has_users;
+
+      teamMembersList = <SubHeader members={teamMembers} {...this.props}/>;
+    }
+
     return (
-      <RouteHandler
-        viewContext={this.state.viewContextObject}
-        {...this.props} />
+      <div>
+        { teamMembersList }
+        <RouteHandler
+          viewContext={this.state.viewContextObject}
+          {...this.props} />
+      </div>
     );
   }
 });

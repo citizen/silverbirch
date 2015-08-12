@@ -198,3 +198,27 @@ button[type=submit] {
 
 /*font Awesome http://fontawesome.io*/
 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+
+.teamList {
+  @include clearfix();
+  background-color: #FFF;
+}
+
+.teamList__member {
+  max-width: 150px;
+  margin: 10px;
+  float: left;
+}
+
+.teamList__member__img {
+  width: 60px;
+  margin: 0 45px;
+}
+
+.teamList__member__display-name,
+.teamList__member__username {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
