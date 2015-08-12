@@ -24,7 +24,7 @@ var App = React.createClass({
     this.props.fbRef.onAuth(function (auth) {
       if(auth) {
         // user is logged in, sync graph
-        SbFbGraph(this.props.fbRef, auth.uid, this.setGraph);
+        SbFbGraph(this.props.fbRef, auth.uid, this.setGraph.bind(this, auth));
       }
       else {
         // user is logged out, redirect to login
@@ -33,8 +33,12 @@ var App = React.createClass({
     }, this);
   },
 
-  setGraph: function (sbGraph, node) {
-    if (node.properties.is_type === 'user') {
+  setGraph: function (auth, sbGraph, node) {
+    // TODO: should store auth id in user object for bulletproof matching
+    if (
+      node.properties.is_type === 'user' &&
+      node.properties.sbid === 'sb:' + auth[auth.provider].username
+    ) {
       this.setUser(node);
     }
 
@@ -59,8 +63,8 @@ var App = React.createClass({
           user={this.state.user}
           graph={this.state.graph}
           {...this.props} />
-	<span className="menu-btn left" id="left-menu">Left Menu</span>
-	<span className="menu-btn right" id="right-menu">Right Menu</span>
+      	{/*<span className="menu-btn left" id="left-menu">Left Menu</span>*/}
+      	{/*<span className="menu-btn right" id="right-menu">Right Menu</span>*/}
         <RouteHandler
           user={this.state.user}
           graph={this.state.graph}
