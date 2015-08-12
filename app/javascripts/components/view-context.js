@@ -31,11 +31,11 @@ var ViewContext = React.createClass({
       // persist viewing context change to firebase
       this.props.fbRef
         .child(this.props.user.key + '/properties/is_viewing')
-        .set('sb:' + viewing);
-
-    	this.setState({
-    	  viewContextObject: this.props.graph['sb:' + viewing]
-    	});
+        .set('sb:' + viewing, function() {
+        	this.setState({
+        	  viewContextObject: this.props.graph['sb:' + viewing]
+        	});
+        }.bind(this));
     }
   },
 
