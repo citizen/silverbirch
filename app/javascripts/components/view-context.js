@@ -51,7 +51,10 @@ var ViewContext = React.createClass({
       var team = this.state.viewContextObject.key,
           teamMembers = this.props.graph[team].relationships.has_users;
 
-      teamMembersList = <SubHeader members={teamMembers} {...this.props}/>;
+      teamMembersList = <SubHeader
+                          viewContext={this.state.viewContextObject}
+                          members={teamMembers}
+                          {...this.props}/>;
     }
 
     return (

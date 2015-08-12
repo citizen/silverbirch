@@ -117,11 +117,12 @@ a.btn-primary {
 
 .new-task-btn {
   z-index: 9999;
-}
-
-.new-task-btn {
   background: $green;
   width: auto;
+}
+
+.new-member-btn {
+  cursor: pointer;
 }
 
 button[type=submit] {
@@ -205,12 +206,14 @@ button[type=submit] {
   background-color: #FFF;
 }
 
+.new-member-btn,
 .teamList__member {
   max-width: 150px;
   margin: 10px;
   float: left;
 }
 
+.new-member-btn img,
 .teamList__member__img {
   width: 60px;
   margin: 0 45px;
