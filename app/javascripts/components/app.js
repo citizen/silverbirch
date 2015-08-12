@@ -20,7 +20,7 @@ var App = React.createClass({
     };
   },
 
-  componentWillMount: function () {
+  componentDidMount: function () {
     this.props.fbRef.onAuth(function (auth) {
       if(auth) {
         // user is logged in, sync graph
