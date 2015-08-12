@@ -115,7 +115,9 @@ var Login = React.createClass({
             </div>
 
             <div className="well">
-              <span className="btn btn-primary btn-lg btn-block">Github</span>
+              <span className="btn btn-primary btn-lg btn-block">
+                <img src="/images/git_hub.png"/> Github
+              </span>
             </div>
           </div>
         </div>
