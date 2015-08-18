@@ -37,6 +37,35 @@ var Profile = React.createClass({
         <div className="row">
           <div className="col-md-6 no-pad">
             <div className="user-pad">
+
+            <h1>Simple Pure CSS Drop Down Menu</h1>
+<nav id="primary_nav_wrap">
+<ul>
+  <li class="current-menu-item"><a href="#">Home</a></li>
+  <li><a href="#">Menu 1</a>
+    <ul>
+      <li><a href="#">Sub Menu 1</a></li>
+      <li><a href="#">Sub Menu 2</a></li>
+      <li><a href="#">Sub Menu 3</a></li>
+      <li><a href="#">Sub Menu 4</a>
+        <ul>
+          <li><a href="#">Deep Menu 1</a>
+            <ul>
+              <li><a href="#">Sub Deep 1</a></li>
+              <li><a href="#">Sub Deep 2</a></li>
+              <li><a href="#">Sub Deep 3</a></li>
+                <li><a href="#">Sub Deep 4</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Deep Menu 2</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Sub Menu 5</a></li>
+    </ul>
+  </li>
+  <li><a href="#">Contact Us</a></li>
+</ul>
+</nav>
                 <h3>Welcome back, {this.state.user.displayName}</h3>
                 <h4 className="white"><i className="fa fa-check-circle-o"></i> London, UK</h4>
                 <h4 className="white"><i className="fa fa-twitter"></i> jeremyjsuarez</h4>
@@ -55,42 +84,6 @@ var Profile = React.createClass({
           </div>
         </div>
 
-        <div className="row overview">
-          <div className="col-md-4 user-pad text-center">
-            <h3>FOLLOWERS</h3>
-            <h4>2,784</h4>
-          </div>
-
-          <div className="col-md-4 user-pad text-center">
-            <h3>FOLLOWING</h3>
-            <h4>456</h4>
-          </div>
-
-          <div className="col-md-4 user-pad text-center">
-            <h3>APPRECIATIONS</h3>
-            <h4>4,901</h4>
-          </div>
-        </div>
-
-        <div className="col-md-1 user-menu-btns">
-          <div className="btn-group-vertical square" id="responsive">
-            <a href="#" className="btn btn-block btn-default active">
-              <i className="fa fa-bell-o fa-3x"></i>
-            </a>
-
-            <a href="#" className="btn btn-default">
-              <i className="fa fa-envelope-o fa-3x"></i>
-            </a>
-
-            <a href="#" className="btn btn-default">
-              <i className="fa fa-laptop fa-3x"></i>
-            </a>
-
-            <a href="#" className="btn btn-default">
-              <i className="fa fa-cloud-upload fa-3x"></i>
-            </a>
-          </div>
-        </div>
       </div>
     );
   }

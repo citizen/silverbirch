@@ -50,10 +50,22 @@ var Header = React.createClass({
     return (
       <nav className="navigation">
         <div className="header-left">
-      	  <TeamDropdown {...this.props}/>
-          <Link to="newTeam">
+
+        <ul>
+
+      <li><a href="#"><TeamDropdown {...this.props}/></a></li>
+
+</ul>
+
+        <Link to="newTeam">
             <span>New Team</span>
           </Link>
+
+
+
+
+
+
         </div>
 
         <div className="header-right">
