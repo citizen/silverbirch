@@ -4,6 +4,8 @@
 
 body {
   background: $grey-5;
+  background-image: url("http://www.lancefarrow.ca/wp-content/uploads/2014/06/triangle-background-17.png");
+  background-size: 150% auto;
 }
 
 .form-group #title {
@@ -216,7 +218,6 @@ button[type=submit] {
 .new-member-btn img,
 .teamList__member__img {
   width: 60px;
-  margin: 0 45px;
 }
 
 .teamList__member__display-name,
