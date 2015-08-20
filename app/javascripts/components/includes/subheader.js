@@ -26,7 +26,7 @@ var SubHeader = React.createClass({
 
     return (
       <div className="teamList__member" key={memberData.username}>
-        <img className="teamList__member__img" src={memberData.avatar}/>
+        <img alt="@jsa" className="teamList_avatar" src={memberData.avatar}/>
         <span className="teamList__member__display-name">{memberData.displayName}</span>
         <span className="teamList__member__username">({memberData.username})</span>
       </div>
