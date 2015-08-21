@@ -37,7 +37,7 @@ var TaskTreeItem = React.createClass({
     var profileLink = (
       this.state.userInfo &&
       this.state.userInfo.properties
-    ) ? <img className="round" src={this.state.userInfo.properties.avatar} />
+    ) ? <img className="task-avatar" src={this.state.userInfo.properties.avatar} />
       : '';
 
     var viewContextName = (this.props.viewContext) ?

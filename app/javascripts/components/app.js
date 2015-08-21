@@ -64,7 +64,7 @@ var App = React.createClass({
           graph={this.state.graph}
           {...this.props} />
       	{/*<span className="menu-btn left" id="left-menu">Left Menu</span>*/}
-      	{/*<span className="menu-btn right" id="right-menu">Right Menu</span>*/}
+      	{<span className="menu-btn right" id="right-menu">Right Menu</span>}
         <RouteHandler
           user={this.state.user}
           graph={this.state.graph}

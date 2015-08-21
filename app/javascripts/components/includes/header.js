@@ -38,7 +38,7 @@ var Header = React.createClass({
     profileLink = (this.props.user) ?
       <Link to="profile" params={{viewContext: this.props.user.properties.username}}>
         <span>Logged in as </span>
-        <img className="avatar" src={this.props.user.properties.avatar} />
+        <img className="header-avatar" src={this.props.user.properties.avatar} />
         <span>{this.props.user.properties.username}</span>
       </Link>
       : '';
@@ -60,11 +60,6 @@ var Header = React.createClass({
         <Link to="newTeam">
             <span>New Team</span>
           </Link>
-
-
-
-
-
 
         </div>
 
