@@ -3,7 +3,7 @@
 var React = require('react'),
     Router = require('react-router'),
     { Link } = Router,
-    TeamDropdown = require('./dropdown.js');
+    TeamDropdown = require('./dropdown');
 
 var Header = React.createClass({
   mixins: [
@@ -38,7 +38,7 @@ var Header = React.createClass({
     profileLink = (this.props.user) ?
       <Link to="profile" params={{viewContext: this.props.user.properties.username}}>
         <span>Logged in as </span>
-        <img className="avatar" src={this.props.user.properties.avatar} />
+        <img className="header-avatar" src={this.props.user.properties.avatar} />
         <span>{this.props.user.properties.username}</span>
       </Link>
       : '';
@@ -50,10 +50,17 @@ var Header = React.createClass({
     return (
       <nav className="navigation">
         <div className="header-left">
-      	  <TeamDropdown {...this.props}/>
-          <Link to="newTeam">
+
+        <ul>
+
+      <li><a href="#"><TeamDropdown {...this.props}/></a></li>
+
+</ul>
+
+        <Link to="newTeam">
             <span>New Team</span>
           </Link>
+
         </div>
 
         <div className="header-right">

@@ -40,7 +40,7 @@ var Dropdown = React.createClass({
 
       return (
       	<Link to="tasks" params={{viewContext: teamUrl}} key={index}>
-      	  <span>{team.properties.username}</span>
+      	 {team.properties.username}
       	</Link>
       )
     });

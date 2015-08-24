@@ -26,7 +26,7 @@ var Login = React.createClass({
 
   login: function(userData) {
     var uid = userData.auth.uid,
-      dbRef = this.props.fbRef;
+        dbRef = this.props.fbRef;
 
     dbRef.child('sb:' + userData[userData.provider].username).once('value', function(userSnapshot) {
       if (!userSnapshot.val()) {
@@ -43,15 +43,15 @@ var Login = React.createClass({
 
   createUser: function(dbRef, userData) {
     var userObj = {
-        properties: {},
-        relationships: {}
-      },
-      authObj = {
-        properties: {},
-        relationships: {}
-      },
-      githubUser = userData.github,
-      sbId = 'sb:' + githubUser.username;
+          properties: {},
+          relationships: {}
+        },
+        authObj = {
+          properties: {},
+          relationships: {}
+        },
+        githubUser = userData.github,
+        sbId = 'sb:' + githubUser.username;
 
     userObj.properties.is_type = 'user';
     userObj.properties.sbid = sbId;
@@ -73,19 +73,33 @@ var Login = React.createClass({
           if (error) {
             console.log("failed to create user object: ", error)
           } else {
-            this.userCreated(userObj.properties.username, error);
+            this.userCreated(userObj, error);
           }
         }.bind(this));
       }
     }.bind(this));
   },
 
-  userCreated: function(username, error) {
+  userCreated: function(user, error) {
+    var username = user.properties.username,
+        displayName = user.properties.hasOwnProperty('displayName')
+                        ? user.properties.displayName
+                        : username;
+
     if (error) {
-      console.info('error creating' + username + ': ', error);
+      console.warn('error creating' + username + ': ', error);
     } else {
-      console.info('Successfully created ' + username);
+      var dbRef = this.props.fbRef;
+
+      dbRef.child('all_users/sb:' + username).set(displayName, function(error) {
+        if (error) {
+          console.warn('error creating' + username + ': ', error);
+        } else {
+          console.info('Successfully created ' + username);
+        }
+      });
     }
+
     this.replaceWith('tasks', {
       viewContext: username
     });
@@ -99,6 +113,7 @@ var Login = React.createClass({
             <div className="panel-heading">
               <h3 className="panel-title">Log in with...</h3>
             </div>
+
             <div className="well">
               <span className="btn btn-primary btn-lg btn-block">
                 <img src="/images/git_hub.png"/> Github
