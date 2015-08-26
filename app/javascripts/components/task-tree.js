@@ -89,22 +89,28 @@ var TaskTree = React.createClass({
       	isViewing.relationships &&
       	isViewing.relationships.hasOwnProperty('has_task_list')
       ) {
-      	if (graph[isViewing.relationships.has_task_list.key]) {
+      	if (
+          graph[isViewing.relationships.has_task_list.key] &&
+          graph[isViewing.relationships.has_task_list.key].relationships
+        ) {
       	  taskList = graph[isViewing.relationships.has_task_list.key].relationships.has_tasks;
       	};
       };
 
     };
 
-    var tasksAll = Object.keys(taskList).filter(function (task) {
-      if (
-        graph[task].hasOwnProperty('properties') &&
-        graph[task].properties.hasOwnProperty('has_state') &&
-        graph[task].properties.has_state !== 'archived'
-      ) {
-        return graph[task].properties.is_type === 'task';
-      }
-    });
+    var tasksAll = [];
+    if (taskList) {
+      tasksAll = Object.keys(taskList).filter(function (task) {
+        if (
+          graph[task].hasOwnProperty('properties') &&
+          graph[task].properties.hasOwnProperty('has_state') &&
+          graph[task].properties.has_state !== 'archived'
+        ) {
+          return graph[task].properties.is_type === 'task';
+        }
+      });
+    };
 
     this.processGraph(tasksAll, graph);
   },
