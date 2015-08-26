@@ -44,28 +44,26 @@ var TaskTreeItem = React.createClass({
           this.props.viewContext.properties.sbid.split(":")[1] : "";
 
     return (
-      <section className="wrap-left-column">
-        <article className="left-column">
-          <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
-            <div className="container">
-              {profileLink}
+      <article className="task">
+        <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
+          <div className="container">
+            {profileLink}
 
-              <div id="base">
-                <div className="task-box-info">
-                  <div className="assignees">
-                    <i className="fa fa-user"></i>
-                  </div>
-                  <h4>{task.properties.has_meta.title}</h4>
+            <div id="base">
+              <div className="task-box-info">
+                <div className="assignees">
+                  <i className="fa fa-user"></i>
                 </div>
-
-                <TaskControls task={task} {...this.props} />
-
-                {taskTree}
+                <h4>{task.properties.has_meta.title}</h4>
               </div>
+
+              <TaskControls task={task} {...this.props} />
+
+              {taskTree}
             </div>
-          </Link>
-        </article>
-      </section>
+          </div>
+        </Link>
+      </article>
     );
   }
 });

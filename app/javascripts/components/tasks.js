@@ -34,8 +34,8 @@ var Tasks = React.createClass({
     var toggleRoute = (path === 'new') ? 'tasks' : 'newTask';
 
     return (
-      <div className="wrap-left-column">
-        <div className="left-column">
+      <div>
+        <div className="task-list scroll">
           <TaskTree {...this.props} />
         </div>
 
