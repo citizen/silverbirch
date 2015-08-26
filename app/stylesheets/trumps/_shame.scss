@@ -238,9 +238,13 @@ button[type=submit] {
 }
 
 .task-list {
-  margin: 35px 0 35px 150px;
+  margin: 35px 0 0 150px;
 
   .task {
     width: 300px;
+
+    &:last-child {
+      margin-bottom: 35px;
+    }
   }
 }
