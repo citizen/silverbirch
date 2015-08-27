@@ -16,17 +16,17 @@ $black : 			#000000;
 $dark : 			rgb(30,30,30);
 $light : 			rgb(242,242,242);
 
-$grey-1 :     rgb(239,229,225);
-$grey-2 :			rgb(224,211,206);
-$grey-3 :			rgb(204,190,176);
-$grey-4 :			rgb(165,150,140);
-$grey-5 :			rgb(054,054,054);
+$grey-1 :     rgb(224,230,229);
+$grey-2 :			rgb(195,198,197);
+$grey-3 :			rgb(132,140,139);
+$grey-4 :			rgb(082,088,087);
+$grey-5 :			rgb(044,045,045);
 
 $red : 				rgb(249,89,33);
-$yellow : 			rgb(255,243,105);
-$orange : 			rgb(242,174,20);
+$yellow : 		rgb(255,243,105);
+$orange : 		rgb(242,174,20);
 $blue : 			rgb(56,132,180);
-$green : 			rgb(54,163,031);
+$green : 			rgb(71,166,144);
 
 $brand-facebook : 	#03539e;
 $brand-twitter : 	#35ccff;
@@ -60,9 +60,12 @@ $brand-linkedin : 	#217bc1;
     #TYPOGRAPHY
 \*------------------------------------*/
 
-$font : 'Muli', sans-serif;
-$font-secondary : serif;
-$font-titling : 'Varela Round', sans-serif;
+// $font : 'Muli', sans-serif;
+// $font-secondary : serif;
+// $font-titling : 'Varela Round', sans-serif;
+$font : font-family: avenir, helvetica, sans-serif;
+$font-secondary : font-family: avenir, helvetica, sans-serif;
+$font-titling : font-family: avenir, helvetica, sans-serif;
 
 /**
  * Our typography uses Perfect Fourth Scaling - do not play with these values
