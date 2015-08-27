@@ -45,24 +45,22 @@ var TaskTreeItem = React.createClass({
 
     return (
       <article className="task">
-        <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
-          <div className="container">
+        <div className="container">
+          <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
             {profileLink}
+            <h4>{task.properties.has_meta.title}</h4>
+          </Link>
 
-            <div id="base">
-              <div className="task-box-info">
-                <div className="assignees">
-                  <i className="fa fa-user"></i>
-                </div>
-                <h4>{task.properties.has_meta.title}</h4>
-              </div>
-
-              <TaskControls task={task} {...this.props} />
-
-              {taskTree}
+          <div className="task__meta">
+            <div className="assignees">
+              <i className="fa fa-user"></i>
             </div>
+
+            <TaskControls task={task} {...this.props} />
+
+            {taskTree}
           </div>
-        </Link>
+        </div>
       </article>
     );
   }
