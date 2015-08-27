@@ -44,28 +44,24 @@ var TaskTreeItem = React.createClass({
           this.props.viewContext.properties.sbid.split(":")[1] : "";
 
     return (
-      <section className="wrap-left-column">
-        <article className="left-column">
+      <article className="task">
+        <div className="container">
           <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
-            <div className="container">
-              {profileLink}
-
-              <div id="base">
-                <div className="task-box-info">
-                  <div className="assignees">
-                    <i className="fa fa-user"></i>
-                  </div>
-                  <h4>{task.properties.has_meta.title}</h4>
-                </div>
-
-                <TaskControls task={task} {...this.props} />
-
-                {taskTree}
-              </div>
-            </div>
+            {profileLink}
+            <h4>{task.properties.has_meta.title}</h4>
           </Link>
-        </article>
-      </section>
+
+          <div className="task__meta">
+            <div className="assignees">
+              <i className="fa fa-user"></i>
+            </div>
+
+            <TaskControls task={task} {...this.props} />
+
+            {taskTree}
+          </div>
+        </div>
+      </article>
     );
   }
 });
@@ -89,22 +85,28 @@ var TaskTree = React.createClass({
       	isViewing.relationships &&
       	isViewing.relationships.hasOwnProperty('has_task_list')
       ) {
-      	if (graph[isViewing.relationships.has_task_list.key]) {
+      	if (
+          graph[isViewing.relationships.has_task_list.key] &&
+          graph[isViewing.relationships.has_task_list.key].relationships
+        ) {
       	  taskList = graph[isViewing.relationships.has_task_list.key].relationships.has_tasks;
       	};
       };
 
     };
 
-    var tasksAll = Object.keys(taskList).filter(function (task) {
-      if (
-        graph[task].hasOwnProperty('properties') &&
-        graph[task].properties.hasOwnProperty('has_state') &&
-        graph[task].properties.has_state !== 'archived'
-      ) {
-        return graph[task].properties.is_type === 'task';
-      }
-    });
+    var tasksAll = [];
+    if (taskList) {
+      tasksAll = Object.keys(taskList).filter(function (task) {
+        if (
+          graph[task].hasOwnProperty('properties') &&
+          graph[task].properties.hasOwnProperty('has_state') &&
+          graph[task].properties.has_state !== 'archived'
+        ) {
+          return graph[task].properties.is_type === 'task';
+        }
+      });
+    };
 
     this.processGraph(tasksAll, graph);
   },

@@ -3,7 +3,8 @@
 \*------------------------------------*/
 
 body {
-  background: $grey-2;
+  background-image: url("http://www.lancefarrow.ca/wp-content/uploads/2014/06/triangle-background-17.png");
+  background-size: 150% auto;
 }
 
 .form-group #title {
@@ -64,6 +65,7 @@ a.btn-primary {
   background: $white;
   padding: 1em;
   border-radius: 0.15em;
+  margin-top: 18px;
 }
 
 
@@ -117,11 +119,12 @@ a.btn-primary {
 
 .new-task-btn {
   z-index: 9999;
-}
-
-.new-task-btn {
   background: $green;
   width: auto;
+}
+
+.new-member-btn {
+  cursor: pointer;
 }
 
 button[type=submit] {
@@ -198,3 +201,49 @@ button[type=submit] {
 
 /*font Awesome http://fontawesome.io*/
 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+
+.teamList {
+  @include clearfix();
+  background-color: #FFF;
+}
+
+.new-member-btn,
+.teamList__member {
+  max-width: 150px;
+  margin: 10px;
+  float: left;
+}
+
+.new-member-btn img,
+.teamList__member__img {
+  width: 60px;
+}
+
+.teamList__member__display-name,
+.teamList__member__username {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.scroll {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+}
+
+.task-list {
+  margin: 35px 0 0 150px;
+
+  .task {
+    width: 300px;
+
+    &:last-child {
+      margin-bottom: 35px;
+    }
+  }
+}
