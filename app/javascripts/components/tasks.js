@@ -34,10 +34,24 @@ var Tasks = React.createClass({
     var toggleRoute = (path === 'new') ? 'tasks' : 'newTask';
 
     return (
-      <div className="wrap-left-column">
+
+
+
+      <div className="wrap-task">
+
+            <div id="sidr">
+              /*-- Your content --*/
+              <ul>
+                <li><a href="#">List 1</a></li>
+                <li class="active"><a href="#">List 2</a></li>
+                <li><a href="#">List 3</a></li>
+              </ul>
+            </div>
+
         <div className="left-column">
           <TaskTree {...this.props} />
         </div>
+
 
         <Link to={toggleRoute} params={{viewContext: viewContextName}} className="btn-primary new-task-btn">
           <img src="/images/circle_add_plus.png" width="50" height="50" alt=""/>

@@ -111,12 +111,12 @@ var Login = React.createClass({
         <div className="row">
           <div className="panel col-md-6 col-md-offset-3">
             <div className="panel-heading">
-              <h3 className="panel-title">Log in with...</h3>
+              <h1 className="panel-title">Log in with...</h1>
             </div>
 
             <div className="well">
               <span className="btn btn-primary btn-lg btn-block">
-                <img src="/images/git_hub.png"/> Github
+                <img src="/images/git_hub.png" className="teamList_avatar"/> Github
               </span>
             </div>
           </div>

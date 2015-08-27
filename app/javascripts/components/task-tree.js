@@ -46,6 +46,8 @@ var TaskTreeItem = React.createClass({
     return (
       <section className="wrap-left-column">
         <article className="left-column">
+
+
           <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
             <div className="container">
               {profileLink}
