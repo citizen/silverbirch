@@ -36,6 +36,7 @@ var App = React.createClass({
   setGraph: function (auth, sbGraph, node) {
     // TODO: should store auth id in user object for bulletproof matching
     if (
+      node.properties &&
       node.properties.is_type === 'user' &&
       node.properties.sbid === 'sb:' + auth[auth.provider].username
     ) {
