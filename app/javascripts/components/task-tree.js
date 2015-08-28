@@ -5,12 +5,15 @@ var _ = require('lodash'),
     React = require('react/addons'),
     Router = require('react-router'),
     { Link } = Router,
+    MembersDropdown = require('./includes/assign-dropdown'),
     TaskControls = require('./task-controls');
 
 var TaskTreeItem = React.createClass({
   getInitialState: function () {
     return {
-      userInfo: null
+      userInfo: null,
+      assignTask: null,
+      isAssignDropdownViewable: false
     };
   },
 
@@ -25,6 +28,14 @@ var TaskTreeItem = React.createClass({
 
     this.setState({
       userInfo: this.props.graph[user]
+    });
+  },
+
+  assignMemberDropdown: function(e) {
+    e.preventDefault();
+
+    this.setState({
+      isAssignDropdownViewable: !this.state.isAssignDropdownViewable
     });
   },
 
@@ -43,6 +54,21 @@ var TaskTreeItem = React.createClass({
     var viewContextName = (this.props.viewContext) ?
           this.props.viewContext.properties.sbid.split(":")[1] : "";
 
+    var assignees = (this.state.isAssignDropdownViewable)
+      ? <MembersDropdown assignTask={this.state.assignTask} {...this.props}/>
+      : false;
+
+    var assignedMembers = [];
+
+    if (
+      this.props.treeItem.relationships &&
+      this.props.treeItem.relationships.has_assigned_members
+    ) {
+      assignedMembers = Object.keys(this.props.treeItem.relationships.has_assigned_members).map(function (member) {
+	return <span>{member.split(":")[1]}</span>;
+      });
+    }
+
     return (
       <article className="task">
         <div className="container">
@@ -52,8 +78,10 @@ var TaskTreeItem = React.createClass({
           </Link>
 
           <div className="task__meta">
-            <div className="assignees">
+	    {assignedMembers}
+	    <div className="assignees" onClick={this.assignMemberDropdown}>
               <i className="fa fa-user"></i>
+	      {assignees}
             </div>
 
             <TaskControls task={task} {...this.props} />
