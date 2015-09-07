@@ -19,27 +19,26 @@ var AssignDropdown = React.createClass({
     var teamMembers = Object.keys(this.props.graph[team].relationships.has_users);
 
     var assignList = teamMembers.filter(function (member) {
-      if (
-	member !== 'undefined' &&
-	member !== team &&
-	this.props.treeItem.relationships.has_assigned_members &&
-	!this.props.treeItem.relationships.has_assigned_members.hasOwnProperty(member)
-      ) {
-	return member;
-      }
-    }.bind(this));
+    	return member !== 'undefined' && member !== team;
+    });
+
+    if (this.props.treeItem.relationships.has_assigned_members) {
+      assignList = assignList.filter(function (assignee) {
+        return !this.props.treeItem.relationships.has_assigned_members.hasOwnProperty(assignee);
+      }.bind(this));
+    };
 
     var dropdownList = assignList.map(function(member, index) {
       var memberName = member.replace(/sb:/, '');
 
       return (
-	<span key={index} ref={member} onClick={this.assignMember}>{memberName}</span>
+      	<span key={index} ref={member} onClick={this.assignMember}>{memberName}</span>
       )
     }.bind(this));
 
     return (
       <div className="dropdown">
-	{dropdownList}
+      	{dropdownList}
       </div>
     )
   }

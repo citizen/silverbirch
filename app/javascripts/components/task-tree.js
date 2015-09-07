@@ -65,7 +65,7 @@ var TaskTreeItem = React.createClass({
       this.props.treeItem.relationships.has_assigned_members
     ) {
       assignedMembers = Object.keys(this.props.treeItem.relationships.has_assigned_members).map(function (member) {
-	return <span>{member.split(":")[1]}</span>;
+      	return <span key={member}>{member.split(":")[1]}</span>;
       });
     }
 
@@ -78,10 +78,10 @@ var TaskTreeItem = React.createClass({
           </Link>
 
           <div className="task__meta">
-	    {assignedMembers}
-	    <div className="assignees" onClick={this.assignMemberDropdown}>
+      	    {assignedMembers}
+      	    <div className="assignees" onClick={this.assignMemberDropdown}>
               <i className="fa fa-user"></i>
-	      {assignees}
+      	      {assignees}
             </div>
 
             <TaskControls task={task} {...this.props} />
