@@ -46,9 +46,6 @@ var App = React.createClass({
     this.setState({
       graph: sbGraph
     });
-
-    this.forceUpdate();
-
   },
 
   setUser: function (userData) {
