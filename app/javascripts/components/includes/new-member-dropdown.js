@@ -60,7 +60,7 @@ var MemberDropdown = React.createClass({
                           .map(this.displayUsers);
 
     return (
-      <div className="dropdown">
+      <div className="dropdown active">
       	{dropdownList}
       </div>
     )

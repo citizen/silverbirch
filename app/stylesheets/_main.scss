@@ -334,46 +334,44 @@ a.read-more:hover {
 .navigation ul { list-style: none; padding: 0px 7px; }
 
 .navigation ul li { display: inline; float: left; }
+
+.dropdown a,
 .navigation ul li a {
   display: block;
   padding: 0 8px;
   color: #fff;
-
   text-decoration: none;
   line-height: 35px;
-
   margin-right: 6px;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
+
 .navigation ul li a:hover { color: #a8d6e7; }
 
 ol, ul { list-style: none; }
 
-
 .dropdown {
-    margin-left:335px;
-    margin-right:auto;
-    max-width: 500px;
     height: 100%;
     padding: 10px 20px 20px 30px;
-    color: #888;
     height: 35px;
     overflow: hidden;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     position: absolute;
     left: 70px;
+    z-index: 9999;
+    white-space: nowrap;
 
     li {
       line-height: 35px;
     }
 
-    &:hover {
+    &:hover,
+    &.active {
       height: auto;
       background: $grey-4;
-      z-index: 9999;
     }
 }
 
