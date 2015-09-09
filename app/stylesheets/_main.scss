@@ -13,26 +13,26 @@
 }
 
 .btn-primary {
-    display: block;
-
+  display: block;
 }
 
 .btn-primary-archive {
-      position: absolute;
-      right: 0;
-      top: 54;
-      // bottom: 0;
-      background-color: $grey-4;
-      display: block;
-      color: $white;
-      width: 25px;
-      height: 25px;
-      line-height: 25px;
-      text-align: center;
-      border-radius: 50%;
-    &:hover {
-        background:$red;
-    }
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  background-color: $grey-4;
+  display: block;
+  color: $white;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 50%;
+
+  &:hover {
+    cursor: pointer;
+    background: $red;
+  }
 }
 
 .new-task-btn {

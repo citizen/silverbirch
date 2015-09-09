@@ -48,13 +48,16 @@ var TaskTreeItem = React.createClass({
     var profileLink = (
       this.state.userInfo &&
       this.state.userInfo.properties
-    ) ? <img className="task-avatar" src={this.state.userInfo.properties.avatar} />
+    ) ? <img className="avatar-img" src={this.state.userInfo.properties.avatar} />
       : '';
 
     var viewContextName = (this.props.viewContext) ?
           this.props.viewContext.properties.sbid.split(":")[1] : "";
 
-    var assignees = (this.state.isAssignDropdownViewable)
+    var assigneeDropdown = (
+      !this.props.closeDropdowns &&
+      this.state.isAssignDropdownViewable
+    )
       ? <MembersDropdown assignTask={this.state.assignTask} {...this.props}/>
       : false;
 
@@ -65,31 +68,41 @@ var TaskTreeItem = React.createClass({
       this.props.treeItem.relationships.has_assigned_members
     ) {
       assignedMembers = Object.keys(this.props.treeItem.relationships.has_assigned_members).map(function (member) {
-      	return <span key={member}>{member.split(":")[1]}</span>;
-      });
+        var memberObj = this.props.graph[member];
+
+      	return (
+          <div className="assignee" key={memberObj.key}>
+            <img src={memberObj.properties.avatar} className="assignee-img"/>
+          </div>
+        );
+      }.bind(this));
     }
 
     return (
-      <article className="task">
-        <div className="container">
+      <div className="task-wrapper">
+        {profileLink}
+
+        <div className="task-text">
           <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
-            {profileLink}
-            <h4>{task.properties.has_meta.title}</h4>
+            <h5 className="task-text__title">{task.properties.has_meta.title}</h5>
           </Link>
 
-          <div className="task__meta">
-      	    {assignedMembers}
-      	    <div className="assignees" onClick={this.assignMemberDropdown}>
-              <i className="fa fa-user"></i>
-      	      {assignees}
-            </div>
+          <span className="task-text__roles">Labels to go here</span>
+        </div>
 
-            <TaskControls task={task} {...this.props} />
+        <div className="assignee-list">
+          {assignedMembers}
 
-            {taskTree}
+          <div className="assignee" onClick={this.assignMemberDropdown}>
+            <i className="fa fa-user"></i>
+            {assigneeDropdown}
           </div>
         </div>
-      </article>
+
+        <TaskControls task={task} {...this.props} />
+
+        {/* taskTree */}
+      </div>
     );
   }
 });

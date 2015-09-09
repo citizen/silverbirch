@@ -32,12 +32,17 @@ var AssignDropdown = React.createClass({
       var memberName = member.replace(/sb:/, '');
 
       return (
-      	<span key={index} ref={member} onClick={this.assignMember}>{memberName}</span>
+        <a
+          href="#"
+          key={index}
+          ref={member}
+          onClick={this.assignMember}
+        >{memberName}</a>
       )
     }.bind(this));
 
     return (
-      <div className="dropdown">
+      <div className="dropdown active">
       	{dropdownList}
       </div>
     )
