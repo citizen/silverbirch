@@ -40,7 +40,7 @@ var Tasks = React.createClass({
         </div>
 
         <Link to={toggleRoute} params={{viewContext: viewContextName}} className="btn-primary new-task-btn">
-          <img src="/images/circle_add_plus.png" width="50" height="50" alt=""/>
+          <img src="/images/circle_add_plus.png" width="50" height="50" />
         </Link>
 
         <RouteHandler {...this.props} />

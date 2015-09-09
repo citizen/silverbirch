@@ -69,48 +69,47 @@ var TaskForm = React.createClass({
   },
 
   render: function() {
-    console.log('this.props ' , this.props);
     return (
       <div className="right-column">
-      <form className="bootstrap-frm" onSubmit={this.handleSubmit}>
-        <h4>Edit task {this.getParams().taskId}</h4>
+        <form className="bootstrap-frm" onSubmit={this.handleSubmit}>
+          <h4>Edit task {this.getParams().taskId}</h4>
 
-        <div className="form-group">
-          <input
-            id="title"
-            ref="title"
-            type="text"
-            placeholder="Title"
-            className="form-control"
-            onChange={this.handleChange}
-            value={this.state.titleValue}
-          />
-        </div>
+          <div className="form-group">
+            <input
+              id="title"
+              ref="title"
+              type="text"
+              placeholder="Title"
+              className="form-control"
+              onChange={this.handleChange}
+              value={this.state.titleValue}
+            />
+          </div>
 
-        <div className="form-group">
-          <textarea
-            id="description"
-            ref="description"
-            className="form-control"
-            placeholder="Description..."
-            onChange={this.handleChange}
-            value={this.state.descriptionValue}
-          />
-        </div>
+          <div className="form-group">
+            <textarea
+              id="description"
+              ref="description"
+              className="form-control"
+              placeholder="Description..."
+              onChange={this.handleChange}
+              value={this.state.descriptionValue}
+            />
+          </div>
 
-        <div className="form-group pull-right">
-          <button type="submit" className="bootstrap-frm">Save</button>
+          <div className="form-group pull-right">
+            <button type="submit" className="bootstrap-frm">Save</button>
 
-          <Link
-            to="task"
-            params={{
-              taskId: this.getParams().taskId,
-              viewContext: this.getParams().viewContext
-            }}
-            className="bootstrap-frm"
-          >Cancel</Link>
-        </div>
-      </form>
+            <Link
+              to="task"
+              params={{
+                taskId: this.getParams().taskId,
+                viewContext: this.getParams().viewContext
+              }}
+              className="bootstrap-frm"
+            >Cancel</Link>
+          </div>
+        </form>
       </div>
     );
   }

@@ -44,16 +44,32 @@
   text-align: right;
 }
 
+.close-task-btn {
+  float: left;
+  padding: 0.5em 1em 0em;
+
+  img {
+    width: 2.5em;
+    height: 2.5em;
+  }
+}
+
 .new-task-btn.active {
+  width: 30%;
+}
+
+.new-task-btn.active,
+.close-task-btn.active {
   display: inline-block;
   background: $grey-4;
-  width: 30%;
+
   &:hover {
     background:$red;
   }
-    img {
-        transform: rotateZ(45deg);
-    }
+
+  img {
+    transform: rotateZ(45deg);
+  }
 }
 
 .task-whole {

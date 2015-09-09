@@ -11,7 +11,6 @@ var React = require('react'),
     Profile = require('./components/profile'),
     Report = require('./components/report'),
     AddTask = require('./components/task-form-add'),
-    // EditTask = require('./components/task-form-edit'),
     ViewContext = require('./components/view-context'),
     NewTeam = require('./pages/teams/new');
 

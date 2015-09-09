@@ -123,6 +123,8 @@ var Task = React.createClass({
 
       var time = moment(task.properties.created_on).format("dddd, MMMM Do YYYY, h:mm:ss a");
 
+      var viewContextName = this.getParams().viewContext;
+
       var profileLink = "";
       // var profileLink = (this.props.user) ?
       //       <Link to="profile" params={{username: this.props.user.username}}>
@@ -132,7 +134,13 @@ var Task = React.createClass({
 
       return (
         <div className="add-task-box">
-          {editLink}
+          <div>
+            <Link to="tasks" params={{viewContext: viewContextName}} className="close-task-btn">
+              <img src="/images/circle_add_plus.png" width="50" height="50" />
+            </Link>
+
+            {editLink}
+          </div>
 
           <div className="task-body">
             <time className="comment-date" dateTime="16-12-2014 01:05">
