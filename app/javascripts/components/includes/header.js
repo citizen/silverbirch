@@ -37,7 +37,6 @@ var Header = React.createClass({
 
     profileLink = (this.props.user) ?
       <Link to="profile" params={{viewContext: this.props.user.properties.username}}>
-        <span>Logged in as </span>
         <img className="header-avatar" src={this.props.user.properties.avatar} />
         <span>{this.props.user.properties.username}</span>
       </Link>
@@ -48,31 +47,35 @@ var Header = React.createClass({
       <Link to="login">Sign in</Link>;
 
     return (
-      <nav className="navigation">
-        <div className="header-left">
-	  <ul>
-	    <li>
-	      <a href="#">
-		<TeamDropdown {...this.props}/>
-	      </a>
-	    </li>
-	  </ul>
 
-        <Link to="newTeam">
-            <span>New Team</span>
-          </Link>
+<div className="navigation">
 
-        </div>
+<div className=""></div>
 
-        <div className="header-right">
+
+<div className="navigation-list">
+    <h5 className="">{profileLink}</h5>
+    <Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link> |
+    <Link to="report" params={{viewContext: viewContextName}}>Report</Link>
+
+    <h5 className="">{loginOrOut}</h5>
+    <Link to="newTeam"><span>New Team</span></Link>
+</div>
+
+<div className="header-left">
           <ul>
-            <li><Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link></li>
-            <li><Link to="report" params={{viewContext: viewContextName}}>Report</Link></li>
-            <li>{profileLink}</li>
-            <li>{loginOrOut}</li>
+            <li>
+              <a href="#">
+                <TeamDropdown {...this.props}/>
+              </a>
+            </li>
           </ul>
-        </div>
-      </nav>
+</div>
+
+</div>
+
+
+
     );
   }
 });

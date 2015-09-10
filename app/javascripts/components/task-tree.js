@@ -71,7 +71,7 @@ var TaskTreeItem = React.createClass({
         var memberObj = this.props.graph[member];
 
       	return (
-          <div className="assignee" key={memberObj.key}>
+          <div className="assignee_1" key={memberObj.key}>
             <img src={memberObj.properties.avatar} className="assignee-img"/>
           </div>
         );
@@ -80,29 +80,43 @@ var TaskTreeItem = React.createClass({
 
     return (
       <div className="task-wrapper">
+      <div className="task">
         {profileLink}
+
+        <div className="delete"></div>
+        <div className="menu"></div>
 
         <div className="task-text">
           <Link to="task" params={{viewContext: viewContextName, taskId: task.key}}>
-            <h5 className="task-text__title">{task.properties.has_meta.title}</h5>
+            <h5 className="">{task.properties.has_meta.title}</h5>
           </Link>
 
-          <span className="task-text__roles">Labels to go here</span>
+          <span className="">Labels to go here</span>
         </div>
 
-        <div className="assignee-list">
+
+        <div className="assignee">
           {assignedMembers}
 
-          <div className="assignee" onClick={this.assignMemberDropdown}>
-            <i className="fa fa-user"></i>
+          <div className="add_assignee" onClick={this.assignMemberDropdown}>
+            <img
+          src="https://cdn4.iconfinder.com/data/icons/online-menu/64/plus_add_additional_circle-128.png" className="add_assignee-img"/>
             {assigneeDropdown}
           </div>
+        </div>
+
+
+        <div className="status">
+            <span className="profile-title">80% Complete</span>
+        </div>
+        <div className="cycle-time">
+            <span className="profile-title">Cycle Time: 3 days</span>
         </div>
 
         <TaskControls task={task} {...this.props} />
 
         {/* taskTree */}
-      </div>
+      </div></div>
     );
   }
 });
