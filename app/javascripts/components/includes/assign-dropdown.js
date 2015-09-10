@@ -43,6 +43,7 @@ var AssignDropdown = React.createClass({
 
     return (
       <div className="dropdown active">
+
       	{dropdownList}
       </div>
     )

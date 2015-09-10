@@ -33,56 +33,43 @@ var Profile = React.createClass({
 
   render: function() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6 no-pad">
-            <div className="user-pad">
+      <div className="board">
 
-            <h1>Simple Pure CSS Drop Down Menu</h1>
-<nav id="primary_nav_wrap">
-<ul>
-  <li class="current-menu-item"><a href="#">Home</a></li>
-  <li><a href="#">Menu 1</a>
-    <ul>
-      <li><a href="#">Sub Menu 1</a></li>
-      <li><a href="#">Sub Menu 2</a></li>
-      <li><a href="#">Sub Menu 3</a></li>
-      <li><a href="#">Sub Menu 4</a>
-        <ul>
-          <li><a href="#">Deep Menu 1</a>
-            <ul>
-              <li><a href="#">Sub Deep 1</a></li>
-              <li><a href="#">Sub Deep 2</a></li>
-              <li><a href="#">Sub Deep 3</a></li>
-                <li><a href="#">Sub Deep 4</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Deep Menu 2</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Sub Menu 5</a></li>
-    </ul>
-  </li>
-  <li><a href="#">Contact Us</a></li>
-</ul>
-</nav>
-                <h3>Welcome back, {this.state.user.displayName}</h3>
-                <h4 className="white"><i className="fa fa-check-circle-o"></i> London, UK</h4>
-                <h4 className="white"><i className="fa fa-twitter"></i> jeremyjsuarez</h4>
-                <h4>Email: {this.state.user.email}</h4>
-
-                <button type="button" className="btn btn-labeled btn-info" href="#">
-                  <span className="btn-label"><i className="fa fa-pencil"></i></span>Update
-                </button>
+      <div className="to-do">
+      <div className="title">To Do</div>
+      <div className="">
+            <div className="">
+                Learn more about React
             </div>
-          </div>
+      </div>
+      </div>
 
-          <div className="col-md-6 no-pad">
-            <div className="user-image">
-              <img className="img-responsive img-rounded" src={this.state.user.avatar} />
+      <div className="in-progress">
+      <div className="title">In Progress</div>
+      <div className="">
+            <div className="">
+                Learn more about React
             </div>
-          </div>
-        </div>
+      </div>
+      </div>
+
+      <div className="done">
+      <div className="title">Done</div>
+      <div className="">
+            <div className="">
+                Learn more about React
+            </div>
+      </div>
+      </div>
+
+      <div className="qa">
+      <div className="title">QA</div>
+      <div className="">
+            <div className="">
+                Learn more about React
+            </div>
+      </div>
+      </div>
 
       </div>
     );
