@@ -37,9 +37,17 @@ var Profile = React.createClass({
 
       <div className="to-do">
       <div className="title">To Do</div>
-      <div className="">
-            <div className="">
-                Learn more about React
+      <div className="title">Average Complete Time</div>
+      <div className="title">Overhang</div>
+      <div className="box">
+            <div className="small-box-item">
+                Small (80%)
+            </div>
+            <div className="medium-box-item">
+                Medium (30%)
+            </div>
+            <div className="large-box-item">
+                Large (50%)
             </div>
       </div>
       </div>
