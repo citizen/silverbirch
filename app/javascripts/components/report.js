@@ -142,7 +142,7 @@ var Profile = React.createClass({
                                                                                 <li className="col n-6">
                                 <div className="content">
                                     <figure>
-                                                                                    <a href="/jury/judge/ines-gamler/"><img src="http://www.awwwards.com/media/cache/thumb_image_user_68/awards/avatar/67433/ines-maria-gamier.jpg" width="68" height="68" alt="Ines Maria Gamler"/></a>
+                                                                                    <a href="/jury/judge/ines-gamler/"><img src="http://www.awwwards.com/media/cache/thumb_image_user_68/awards/avatar/183/marcus-stenbeck.jpg" width="68" height="68" alt="Ines Maria Gamler"/></a>
                                                                             </figure>
                                     <div className="info">
                                         <h5>Ines Maria Gamler</h5>
