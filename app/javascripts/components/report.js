@@ -327,7 +327,7 @@ var Profile = React.createClass({
                                                 <li className="col n-12">
                             <div className="content">
                                 <figure>
-                                    <a href="/Adwyse/"><img src="http://www.awwwards.com/media/cache/thumb_image_user_68/awards/avatar/266860/54b3d1238e6c5.png" width="68" height="68" alt="Jury Name"/></a>
+                                    <a href="/Adwyse/"><img src="http://www.awwwards.com/media/cache/thumb_image_user_68/awards/avatar/169163/546be0e9d4ccd.jpeg" width="68" height="68" alt="Jury Name"/></a>
                                 </figure>
                                 <div className="info">
                                     <h5>Adwyse &amp; Co.</h5>
