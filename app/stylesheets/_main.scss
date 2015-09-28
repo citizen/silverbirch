@@ -333,6 +333,8 @@ a.read-more:hover {
 /* top navigation */
 .navigation {
   float: right;
+  position: relative;
+  z-index: 9999;
   // display: block;
   // height: 35px;
   // background-color: #131313;
