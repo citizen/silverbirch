@@ -4,8 +4,7 @@ var _ = require('lodash'),
     React = require('react'),
     Router = require('react-router'),
     { RouteHandler } = Router,
-    SbFbGraph = require('./sbFbGraph'),
-    Header = require('./includes/header');
+    SbFbGraph = require('./sbFbGraph');
 
 var App = React.createClass({
   mixins: [
@@ -55,16 +54,8 @@ var App = React.createClass({
   },
 
   render: function () {
-    var header = (this.state.user) ?
-      <Header
-        user={this.state.user}
-        graph={this.state.graph}
-        {...this.props} /> : null;
-
     return (
       <div>
-        {header}
-      	{/*<span className="menu-btn left" id="left-menu">Left Menu</span>*/}
       	{/*<span className="menu-btn right" id="right-menu">Right Menu</span>*/}
         <RouteHandler
           user={this.state.user}

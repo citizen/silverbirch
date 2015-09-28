@@ -19,6 +19,10 @@ var Header = React.createClass({
   },
 
   render: function () {
+    if (!this.props.user) {
+      return false;
+    }
+
     var userName,
       	teamsList,
         viewContext,
@@ -44,7 +48,7 @@ var Header = React.createClass({
           </h5>
           <Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link> |
           <Link to="report" params={{viewContext: viewContextName}}>Report</Link>
-          <h5 className="">
+          <h5>
             <Link to="logout">Sign out</Link>
           </h5>
           <Link to="newTeam"><span>New Team</span></Link>
@@ -53,9 +57,7 @@ var Header = React.createClass({
         <div className="header-left">
           <ul>
             <li>
-              <a href="#">
-                <TeamDropdown {...this.props}/>
-              </a>
+              <TeamDropdown {...this.props}/>
             </li>
           </ul>
         </div>

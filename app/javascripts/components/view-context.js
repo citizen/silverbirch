@@ -3,6 +3,7 @@
 var React = require('react'),
     Router = require('react-router'),
     { RouteHandler } = Router,
+    Header = require('./includes/header'),
     SubHeader = require('./includes/subheader');
 
 var ViewContext = React.createClass({
@@ -59,6 +60,7 @@ var ViewContext = React.createClass({
 
     return (
       <div>
+        <Header {...this.props} />
         { teamMembersList }
         <RouteHandler
           viewContext={this.state.viewContextObject}
