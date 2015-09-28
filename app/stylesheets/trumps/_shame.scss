@@ -1,6 +1,8 @@
 /*------------------------------------*\
     #SHAME
 \*------------------------------------*/
+/*font Awesome http://fontawesome.io*/
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
 
 body {
   background-image: url("http://www.lancefarrow.ca/wp-content/uploads/2014/06/triangle-background-17.png");
@@ -198,10 +200,6 @@ button[type=submit] {
 .archived.comment-post > * {
   text-decoration: line-through;
 }
-
-/*font Awesome http://fontawesome.io*/
-@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
-
 
 .teamList {
   @include clearfix();
