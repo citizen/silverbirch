@@ -55,14 +55,17 @@ var App = React.createClass({
   },
 
   render: function () {
+    var header = (this.state.user) ?
+      <Header
+        user={this.state.user}
+        graph={this.state.graph}
+        {...this.props} /> : null;
+
     return (
       <div>
-        <Header
-          user={this.state.user}
-          graph={this.state.graph}
-          {...this.props} />
+        {header}
       	{/*<span className="menu-btn left" id="left-menu">Left Menu</span>*/}
-      	{<span className="menu-btn right" id="right-menu">Right Menu</span>}
+      	{/*<span className="menu-btn right" id="right-menu">Right Menu</span>*/}
         <RouteHandler
           user={this.state.user}
           graph={this.state.graph}

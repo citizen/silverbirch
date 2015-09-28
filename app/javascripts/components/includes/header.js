@@ -21,9 +21,7 @@ var Header = React.createClass({
   render: function () {
     var userName,
       	teamsList,
-        loginOrOut,
         viewContext,
-      	profileLink,
       	teamsDropdown,
       	viewContextName;
 
@@ -35,34 +33,24 @@ var Header = React.createClass({
 			? viewContext.properties.sbid.split(":")[1]
 			: "";
 
-    profileLink = (this.props.user) ?
-      <Link to="profile" params={{viewContext: this.props.user.properties.username}}>
-        <img className="header-avatar" src={this.props.user.properties.avatar} />
-        <span>{this.props.user.properties.username}</span>
-      </Link>
-      : '';
-
-    loginOrOut = (this.props.user) ?
-      <Link to="logout">Sign out</Link> :
-      <Link to="login">Sign in</Link>;
-
     return (
+      <div className="navigation">
+        <div className="navigation-list">
+          <h5>
+            <Link to="profile" params={{viewContext: this.props.user.properties.username}}>
+              <img className="header-avatar" src={this.props.user.properties.avatar} />
+              <span>{this.props.user.properties.username}</span>
+            </Link>
+          </h5>
+          <Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link> |
+          <Link to="report" params={{viewContext: viewContextName}}>Report</Link>
+          <h5 className="">
+            <Link to="logout">Sign out</Link>
+          </h5>
+          <Link to="newTeam"><span>New Team</span></Link>
+        </div>
 
-<div className="navigation">
-
-<div className=""></div>
-
-
-<div className="navigation-list">
-    <h5 className="">{profileLink}</h5>
-    <Link to="tasks" params={{viewContext: viewContextName}}>Tasks</Link> |
-    <Link to="report" params={{viewContext: viewContextName}}>Report</Link>
-
-    <h5 className="">{loginOrOut}</h5>
-    <Link to="newTeam"><span>New Team</span></Link>
-</div>
-
-<div className="header-left">
+        <div className="header-left">
           <ul>
             <li>
               <a href="#">
@@ -70,12 +58,8 @@ var Header = React.createClass({
               </a>
             </li>
           </ul>
-</div>
-
-</div>
-
-
-
+        </div>
+      </div>
     );
   }
 });
