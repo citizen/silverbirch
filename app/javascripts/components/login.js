@@ -82,7 +82,7 @@ var Login = React.createClass({
 
   userCreated: function(user, error) {
     var username = user.properties.username,
-        displayName = user.properties.hasOwnProperty('displayName')
+        displayName = user.properties.displayName
                         ? user.properties.displayName
                         : username;
 
