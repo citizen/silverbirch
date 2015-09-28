@@ -119,29 +119,31 @@ var TaskForm = React.createClass({
 
     return (
       <div className="right-column-task">
-      <form className="bootstrap-frm" onSubmit={this.handleSubmit}>
-        <h4>{formTitle}</h4>
-      	{addMembersToggle}
-      	{membersList}
-        <div className="form-group">
-          <input
-            id="title"
-            ref="title"
-            type="text"
-            placeholder="Title"
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <textarea
-            id="description"
-            ref="description"
-            placeholder="Description..."
-            className="form-control"
-          />
-        </div>
-        <button type="submit" className="bootstrap-frm" src="/images/circle_add_plus.png"><img src="/images/circle_add_plus.png" width="50" height="50" alt=""/></button>
-      </form>
+        <form className="bootstrap-frm" onSubmit={this.handleSubmit}>
+          <h4>{formTitle}</h4>
+        	{addMembersToggle}
+        	{membersList}
+          <div className="form-group">
+            <input
+              id="title"
+              ref="title"
+              type="text"
+              placeholder="Title"
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <textarea
+              id="description"
+              ref="description"
+              placeholder="Description..."
+              className="form-control"
+            />
+          </div>
+          <button type="submit" className="bootstrap-frm" src="/images/circle_add_plus.png">
+            <img src="/images/circle_add_plus.png" width="50" height="50" alt=""/>
+          </button>
+        </form>
       </div>
     );
   }
