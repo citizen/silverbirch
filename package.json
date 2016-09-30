@@ -6,7 +6,7 @@
     "url": "https://bitbucket.org/jkillas/jkilla"
   },
   "scripts": {
-
+    "start": "node server.js"
   },
   "dependencies": {
     "bootstrap-sass": "^3.3.3",
