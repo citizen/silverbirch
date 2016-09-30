@@ -7,6 +7,10 @@
   },
   "scripts": {
     "start": "gulp watch"
+
+  "scripts": {
+    “start”: “node app”, 
+    “postinstall”: “gulp default”
   },
   "dependencies": {
     "bootstrap-sass": "^3.3.3",
