@@ -22,17 +22,6 @@ var files = {
   fonts: src + '/fonts'
 };
 
-var serve = require('gulp-serve');
-// ...
-gulp.task('watch', ['sass'], function() {
-  gulp.watch(['scss/**/*.scss'], ['sass']);
-});
-
-gulp.task('serve-dev', ['watch'], serve({
-  root: ['.'],
-  port: 8080
-}));
-
 // Clean
 gulp.task('clean', function(cb) {
   del([dist + '/*'], cb);
