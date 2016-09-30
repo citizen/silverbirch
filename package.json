@@ -6,7 +6,9 @@
     "url": "https://bitbucket.org/jkillas/jkilla"
   },
   "scripts": {
-    "start": "gulp watch"
+    "start": "gulp watch",
+    "start": "node app",
+    "postinstall": "gulp default"
   },
   "dependencies": {
     "bootstrap-sass": "^3.3.3",
@@ -17,14 +19,14 @@
     "moment": "^2.9.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
-    "request": "^2.60.0"
+    "request": "^2.60.0",
+    "gulp": "^3.9.0"
   },
   "devDependencies": {
     "browser-sync": "^2.2.2",
     "browserify": "^13.1.0",
     "browserify-shim": "^3.8.2",
     "del": "^1.1.1",
-    "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.1.0",
     "gulp-cache": "~0.2.4",
     "gulp-cachebust": "0.0.5",
