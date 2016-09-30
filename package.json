@@ -1,13 +1,13 @@
 {
   "name": "jkilla",
-  "version": "0.0.1",
+  "version": "6.6.0",
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/jkillas/jkilla"
   },
   "scripts": {
-    "start": "node app",
-    "postinstall": "gulp default"
+    "start": "node server.js",
+    "postinstall": "bower install && grunt build && gulp watch"
   },
   "dependencies": {
     "bootstrap-sass": "^3.3.3",
