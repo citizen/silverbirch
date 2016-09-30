@@ -111,14 +111,16 @@ var Login = React.createClass({
         <div className="row">
           <div className="panel col-md-6 col-md-offset-3">
             <div className="panel-heading">
-              <h1 className="panel-title">Log in with...</h1>
+              <h1 className="panel-title">Login to Silverbirch</h1>
             </div>
 
             <div className="well">
-              <span className="btn btn-primary btn-lg btn-block">
-                <img src="/images/git_hub.png" className="teamList_avatar"/> Github
-              </span>
+
+                <img src="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png" className="teamList_avatar"/> Github
+
             </div>
+
+            <div className="panel-title">made in london</div>
           </div>
         </div>
       </div>

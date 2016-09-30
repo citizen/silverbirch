@@ -1,9 +1,9 @@
 @import url('http://fonts.googleapis.com/css?family=Lato:300');
 
 .menu-btn {
-  color: $grey-4;
+  color: orange;
   cursor: pointer;
-  background-image: white;
+  background-image: orange;
 
   &.left {
     float: left;
@@ -20,7 +20,8 @@
 
 .btn-primary-archive {
   position: absolute;
-  top: -5px;
+  top: 149px;
+  left: 88px;
   background-color: $grey-4;
   display: block;
   color: $white;
@@ -363,6 +364,8 @@ a.read-more:hover {
   display: block;
   padding: 0 5px;
   text-decoration: none;
+  background-color: #E13C4C;
+  COLOR: antiquewhite;
   line-height: 35px;
   margin-right: 6px;
   -webkit-transition: all 0.2s linear;
