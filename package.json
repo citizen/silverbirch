@@ -2,8 +2,7 @@
   "name": "jkilla",
   "version": "0.0.1",
   "engines": {
-    "node": "6.6.0",
-    "npm": "3.10.3"
+    "node": ">=0.10.0"
   },
   "repository": {
     "type": "git",
@@ -12,9 +11,7 @@
   "scripts": {
     "start": "node server.js"
   },
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.2.2",
     "browserify": "^13.1.0",
@@ -24,6 +21,7 @@
     "gulp-autoprefixer": "^2.1.0",
     "gulp-cache": "~0.2.4",
     "gulp-cachebust": "0.0.5",
+    "gulp-clean": "^0.3.2",
     "gulp-debug": "^2.0.0",
     "gulp-filter": "^2.0.0",
     "gulp-imagemin": "^2.1.0",
@@ -42,9 +40,6 @@
     "reactify": ">0.15.0",
     "run-sequence": "^1.0.2",
     "vinyl-source-stream": "^1.0.0"
-  },
-  "engines": {
-    "node": ">=0.10.0"
   },
   "browserify": {
     "transform": [
