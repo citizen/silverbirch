@@ -1,6 +1,10 @@
 {
   "name": "jkilla",
   "version": "0.0.1",
+  "engines": {
+    "node": "6.6.0",
+    "npm": "3.10.3"
+  },
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/jkillas/jkilla"
@@ -9,16 +13,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "bootstrap-sass": "^3.3.3",
-    "del": "^1.2.1",
-    "firebase": "^2.0.6",
-    "jquery": "^2.1.4",
-    "jquery-sidr": "^0.1.1",
-    "lodash": "^3.3.1",
-    "moment": "^2.9.0",
-    "react": "^0.13.3",
-    "react-router": "^0.13.3",
-    "request": "^2.60.0"
+
   },
   "devDependencies": {
     "browser-sync": "^2.2.2",
