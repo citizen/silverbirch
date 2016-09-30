@@ -5,12 +5,10 @@
     "type": "git",
     "url": "https://bitbucket.org/jkillas/jkilla"
   },
-
   "scripts": {
     “start”: “node app”, 
     “postinstall”: “gulp default”
   },
-
   "dependencies": {
     "bootstrap-sass": "^3.3.3",
     "firebase": "^2.0.6",
