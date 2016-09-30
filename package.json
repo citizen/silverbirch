@@ -13,7 +13,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "forever": "^0.15.2"
+  },
   "devDependencies": {
     "browser-sync": "^2.2.2",
     "browserify": "^13.1.0",
