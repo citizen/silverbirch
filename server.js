@@ -1,5 +1,11 @@
-var connect = require('connect');
-var serveStatic = require('serve-static');
-connect().use(serveStatic(__dirname)).listen(8080, function(){
-    console.log('Server running on 8080...');
+var http = require("http"),
+    port = process.env.PORT || 1881;
+
+var server = http.createServer(function(request,response){
+    response.writeHeader(200, {"Content-Type": "text/plain"});
+    response.write("Hello HTTP!");
+    response.end();
 });
+
+server.listen(port);
+console.log("Server Running on "+port+".\nLaunch http://localhost:"+port);

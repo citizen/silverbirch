@@ -1,1 +1,1 @@
-web: node node_modules/gulp/bin/gulp build
+web: ./node_modules/.bin/forever -m 5 server.js
