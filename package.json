@@ -6,6 +6,7 @@
     "url": "https://bitbucket.org/jkillas/jkilla"
   },
   "scripts": {
+    "preinstall": "echo here it comes!",
     "postinstall": "gulp build",
     "start": "node server.js"
   },
